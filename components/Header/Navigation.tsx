@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { ShoppingBag, Search, User, Menu, X, Crown } from 'lucide-react';
 import { mockCartItems } from '@/lib/mock-data';
 
@@ -9,14 +10,16 @@ const navLinks = [
   { label: 'Crop Tops', href: '/shop/crop-tops' },
   { label: 'Sweatpants', href: '/shop/sweatpants' },
   { label: 'Hoodies', href: '/shop/hoodies' },
-  { label: 'New', href: '/shop?filter=new' },
+  { label: 'New', href: '/shop/new-arrivals' },
 ];
 
 export default function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
+  const pathname = usePathname();
   const cartCount = mockCartItems.reduce((acc, item) => acc + item.quantity, 0);
+  const isHomepage = pathname === '/';
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 10);
@@ -62,17 +65,25 @@ export default function Navigation() {
           </Link>
 
           {/* Desktop Nav Links */}
-          <nav className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <Link
-                key={link.label}
-                href={link.href}
-                className="nav-link"
-                style={{ color: isScrolled ? '#2A2A2A' : 'rgba(255,255,255,0.85)' }}
-              >
-                {link.label}
-              </Link>
-            ))}
+          <nav className="hidden md:flex items-center gap-8" aria-label="Main navigation">
+            {navLinks.map((link) => {
+              const isActive = pathname === link.href || pathname.startsWith(link.href + '/');
+              return (
+                <Link
+                  key={link.label}
+                  href={link.href}
+                  className="nav-link"
+                  aria-current={isActive ? 'page' : undefined}
+                  style={{
+                    color: isScrolled
+                      ? isActive ? '#D4A574' : '#2A2A2A'
+                      : isActive ? '#D4A574' : 'rgba(255,255,255,0.85)',
+                  }}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
           </nav>
 
           {/* Right Icons */}

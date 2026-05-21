@@ -5,7 +5,12 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ShoppingBag, Minus, Plus, ArrowLeft } from 'lucide-react';
-import { mockCartItems } from '@/lib/mock-data';
+import { mockCartItems, mockProducts } from '@/lib/mock-data';
+
+function getColorHex(productId: string, colorName: string): string {
+  const product = mockProducts.find((p) => p.id === productId);
+  return product?.colors.find((c) => c.name === colorName)?.hex ?? '#2A2A2A';
+}
 import { CartItem } from '@/types';
 import CartSummary from '@/components/Cart/CartSummary';
 import { formatPrice } from '@/lib/utils';
@@ -35,26 +40,18 @@ export default function CartPage() {
   return (
     <div className="bg-brand-cream min-h-screen" style={{ paddingTop: '72px' }}>
       {/* Header */}
-      <div
-        className="border-b"
-        style={{ borderColor: 'rgba(212,165,116,0.15)', background: 'rgba(255,255,255,0.4)', backdropFilter: 'blur(10px)' }}
-      >
+      <div className="page-header">
         <div className="container py-8">
           <Link
             href="/shop"
-            className="flex items-center gap-2 text-brand-charcoal/50 hover:text-brand-gold transition-colors duration-200 mb-3 text-sm"
+            className="flex items-center gap-2 text-brand-charcoal/50 hover:text-brand-gold transition-colors duration-200 mb-4 text-sm"
           >
             <ArrowLeft size={14} />
             Continue Shopping
           </Link>
-          <h1
-            className="text-brand-charcoal"
-            style={{ fontFamily: 'Playfair Display, serif', fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 600 }}
-          >
-            Shopping Cart
-          </h1>
+          <h1 className="page-title">Shopping Cart</h1>
           {items.length > 0 && (
-            <p className="text-brand-charcoal/50 text-sm mt-1">
+            <p className="text-brand-charcoal/50 text-sm mt-1.5">
               {itemCount} {itemCount === 1 ? 'item' : 'items'} in your cart
             </p>
           )}
@@ -147,8 +144,9 @@ export default function CartPage() {
 
                         <div className="flex items-center gap-3 mt-1 mb-3">
                           <div
-                            className="w-3.5 h-3.5 rounded-full border border-black/20"
-                            style={{ background: '#2A2A2A' }}
+                            className="w-3.5 h-3.5 rounded-full border border-black/15 flex-shrink-0"
+                            style={{ background: getColorHex(item.productId, item.color) }}
+                            title={item.color}
                           />
                           <span className="text-brand-charcoal/60 text-xs capitalize">{item.color}</span>
                           <span className="text-brand-charcoal/30 text-xs">•</span>

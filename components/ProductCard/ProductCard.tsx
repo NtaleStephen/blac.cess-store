@@ -25,14 +25,7 @@ export default function ProductCard({ product, animate = true }: ProductCardProp
       ref={ref}
       className="group cursor-pointer h-full"
     >
-      <div
-        className="rounded-2xl overflow-hidden h-full flex flex-col transition-all duration-300"
-        style={{
-          background: 'rgba(255,255,255,0.06)',
-          border: '1px solid rgba(212,165,116,0.15)',
-          backdropFilter: 'blur(10px)',
-        }}
-      >
+      <div className="card rounded-2xl overflow-hidden h-full flex flex-col">
         {/* Image */}
         <div className="relative overflow-hidden flex-shrink-0" style={{ aspectRatio: '4/5' }}>
           <Image

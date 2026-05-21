@@ -71,30 +71,20 @@ export default function CategoryPage({ params }: { params: { category: string } 
   return (
     <div className="bg-brand-cream min-h-screen" style={{ paddingTop: '72px' }}>
       {/* Header */}
-      <div
-        className="border-b"
-        style={{ borderColor: 'rgba(212,165,116,0.15)', background: 'rgba(255,255,255,0.4)', backdropFilter: 'blur(10px)' }}
-      >
+      <div className="page-header">
         <div className="container py-10">
           {/* Breadcrumb */}
-          <div className="flex items-center gap-2 text-xs text-brand-charcoal/50 mb-4" style={{ fontSize: '11px' }}>
+          <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-brand-charcoal/45 mb-5" style={{ fontSize: '11px' }}>
             <Link href="/" className="hover:text-brand-gold transition-colors">Home</Link>
             <ChevronRight size={10} />
             <Link href="/shop" className="hover:text-brand-gold transition-colors">Shop</Link>
             <ChevronRight size={10} />
-            <span className="text-brand-gold capitalize">{meta.title}</span>
-          </div>
+            <span className="text-brand-gold capitalize" aria-current="page">{meta.title}</span>
+          </nav>
 
-          <p className="text-brand-gold text-xs font-semibold uppercase tracking-widest mb-2" style={{ letterSpacing: '3px' }}>
-            Collection
-          </p>
-          <h1
-            className="text-brand-charcoal mb-3"
-            style={{ fontFamily: 'Playfair Display, serif', fontSize: 'clamp(28px, 5vw, 48px)', fontWeight: 600 }}
-          >
-            {meta.title}
-          </h1>
-          <p className="text-brand-charcoal/60 text-sm max-w-xl">{meta.description}</p>
+          <span className="section-label">Collection</span>
+          <h1 className="page-title mb-3">{meta.title}</h1>
+          <p className="text-brand-charcoal/55 text-sm max-w-xl leading-relaxed">{meta.description}</p>
         </div>
       </div>
 

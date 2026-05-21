@@ -61,20 +61,10 @@ export default function ShopPage() {
   return (
     <div className="bg-brand-cream min-h-screen" style={{ paddingTop: '72px' }}>
       {/* Page header */}
-      <div
-        className="border-b"
-        style={{ borderColor: 'rgba(212,165,116,0.15)', background: 'rgba(255,255,255,0.4)', backdropFilter: 'blur(10px)' }}
-      >
+      <div className="page-header">
         <div className="container py-10">
-          <p className="text-brand-gold text-xs font-semibold uppercase tracking-widest mb-2" style={{ letterSpacing: '3px' }}>
-            All Products
-          </p>
-          <h1
-            className="text-brand-charcoal"
-            style={{ fontFamily: 'Playfair Display, serif', fontSize: 'clamp(32px, 5vw, 52px)', fontWeight: 600 }}
-          >
-            Shop
-          </h1>
+          <span className="section-label">All Products</span>
+          <h1 className="page-title">Shop</h1>
         </div>
       </div>
 

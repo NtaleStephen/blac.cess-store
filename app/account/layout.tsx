@@ -3,14 +3,13 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { User, Package, Heart, Settings, MapPin, LogOut, Menu, X, Crown } from 'lucide-react';
+import { User, Package, Heart, Settings, LogOut, Menu, X } from 'lucide-react';
 import { mockUser } from '@/lib/mock-data';
 
 const NAV_ITEMS = [
   { label: 'Profile', href: '/account', icon: User },
-  { label: 'Orders', href: '/account/orders', icon: Package },
+  { label: 'My Orders', href: '/account/orders', icon: Package },
   { label: 'Wishlist', href: '/account/wishlist', icon: Heart },
-  { label: 'Addresses', href: '/account/settings', icon: MapPin },
   { label: 'Settings', href: '/account/settings', icon: Settings },
 ];
 

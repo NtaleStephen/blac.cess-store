@@ -84,6 +84,52 @@ img {
   }
 }
 
+/* ===== Typography utilities — eliminate inline fontFamily repetition ===== */
+.font-serif {
+  font-family: 'Playfair Display', Georgia, serif;
+}
+
+/* Shared page header: consistent frosted bar across shop/cart/account pages */
+.page-header {
+  border-bottom: 1px solid rgba(212, 165, 116, 0.12);
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Label above a heading — "All Products", "Curated Selection", etc. */
+.section-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #D4A574;
+  display: block;
+  margin-bottom: 8px;
+}
+
+/* Shared page-title sizing — h1 on interior pages */
+.page-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 600;
+  color: #2A2A2A;
+  line-height: 1.15;
+}
+
+/* Card base — used for glass cards on cream background */
+.card {
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid rgba(212, 165, 116, 0.14);
+  border-radius: 16px;
+  transition: border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card:hover {
+  border-color: rgba(212, 165, 116, 0.32);
+  box-shadow: 0 8px 32px rgba(212, 165, 116, 0.1);
+}
+
 /* Nav link underline hover effect */
 .nav-link {
   position: relative;
