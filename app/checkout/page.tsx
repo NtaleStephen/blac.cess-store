@@ -4,10 +4,11 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Check, ChevronLeft, ChevronRight, CreditCard, Smartphone, Building2 } from 'lucide-react';
-import { mockCartItems } from '@/lib/mock-data';
 import { formatPrice } from '@/lib/utils';
 import Image from 'next/image';
 import { fadeInUp } from '@/lib/animations';
+import { useCart } from '@/context/CartContext';
+import type { CartItem } from '@/types';
 
 const STEPS = ['Shipping', 'Billing', 'Payment', 'Review'];
 
@@ -177,12 +178,14 @@ function PaymentStep() {
   );
 }
 
-function ReviewStep({ onEdit }: { onEdit: (step: number) => void }) {
-  const subtotal = mockCartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
-  const shipping = 0;
-  const tax = subtotal * 0.08;
-  const total = subtotal + tax;
-
+function ReviewStep({ onEdit, items, subtotal, shipping, tax, total }: {
+  onEdit: (step: number) => void;
+  items: CartItem[];
+  subtotal: number;
+  shipping: number;
+  tax: number;
+  total: number;
+}) {
   return (
     <div>
       <h3
@@ -193,7 +196,7 @@ function ReviewStep({ onEdit }: { onEdit: (step: number) => void }) {
       </h3>
 
       <div className="space-y-4 mb-6">
-        {mockCartItems.map((item) => (
+        {items.map((item) => (
           <div key={item.id} className="flex items-center gap-3">
             <div className="relative w-14 h-16 rounded-lg overflow-hidden flex-shrink-0">
               <Image src={item.image} alt={item.name} fill sizes="56px" className="object-cover" />
@@ -240,17 +243,13 @@ function ReviewStep({ onEdit }: { onEdit: (step: number) => void }) {
 export default function CheckoutPage() {
   const [step, setStep] = useState(0);
   const [orderPlaced, setOrderPlaced] = useState(false);
-
-  const subtotal = mockCartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
-  const shipping = 0;
-  const tax = subtotal * 0.08;
-  const total = subtotal + tax;
+  const { items, subtotal, shipping, tax, total, clearCart } = useCart();
 
   const stepContent = [
     <AddressForm key="shipping" title="Shipping Address" />,
     <AddressForm key="billing" title="Billing Address" showSameAs />,
     <PaymentStep key="payment" />,
-    <ReviewStep key="review" onEdit={(s) => setStep(s)} />,
+    <ReviewStep key="review" onEdit={(s) => setStep(s)} items={items} subtotal={subtotal} shipping={shipping} tax={tax} total={total} />,
   ];
 
   if (orderPlaced) {
@@ -343,7 +342,7 @@ export default function CheckoutPage() {
                   </button>
                 ) : (
                   <button
-                    onClick={() => setOrderPlaced(true)}
+                    onClick={() => { clearCart(); setOrderPlaced(true); }}
                     className="glass-btn glass-btn-primary flex items-center gap-2"
                     style={{ fontSize: '13px', padding: '12px 24px' }}
                   >
@@ -366,7 +365,7 @@ export default function CheckoutPage() {
               </h3>
 
               <div className="space-y-3 mb-5">
-                {mockCartItems.map((item) => (
+                {items.map((item) => (
                   <div key={item.id} className="flex items-center gap-3">
                     <div className="relative w-10 h-12 rounded-lg overflow-hidden flex-shrink-0">
                       <Image src={item.image} alt={item.name} fill sizes="40px" className="object-cover" />
@@ -394,7 +393,7 @@ export default function CheckoutPage() {
                 </div>
                 <div className="flex justify-between text-xs text-brand-charcoal/60">
                   <span>Shipping</span>
-                  <span style={{ color: '#388E3C' }}>FREE</span>
+                  <span style={{ color: shipping === 0 ? '#388E3C' : undefined }}>{shipping === 0 ? 'FREE' : formatPrice(shipping)}</span>
                 </div>
                 <div className="flex justify-between text-xs text-brand-charcoal/60">
                   <span>Tax</span><span>{formatPrice(tax)}</span>

@@ -4,11 +4,12 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { ShoppingBag, Star, Heart } from 'lucide-react';
+import { ShoppingBag, Star, Heart, Check } from 'lucide-react';
 import { Product } from '@/types';
 import { formatPrice } from '@/lib/utils';
 import { fadeInUp } from '@/lib/animations';
 import { useInView } from '@/hooks/useInView';
+import { useCart } from '@/context/CartContext';
 
 interface ProductCardProps {
   product: Product;
@@ -19,6 +20,26 @@ export default function ProductCard({ product, animate = true }: ProductCardProp
   const { ref, inView } = useInView();
   const [selectedColor, setSelectedColor] = useState(product.colors[0]?.name ?? '');
   const [wishlisted, setWishlisted] = useState(false);
+  const [added, setAdded] = useState(false);
+  const { addItem } = useCart();
+
+  const handleAddToCart = (e: React.MouseEvent) => {
+    e.preventDefault();
+    const firstAvailableSize = product.sizes.find((s) => s.available)?.size ?? '';
+    addItem({
+      id: `${product.id}-${selectedColor}-${firstAvailableSize}-${Date.now()}`,
+      productId: product.id,
+      name: product.name,
+      image: product.image,
+      price: product.price,
+      quantity: 1,
+      color: selectedColor,
+      size: firstAvailableSize,
+      category: product.category,
+    });
+    setAdded(true);
+    setTimeout(() => setAdded(false), 1500);
+  };
 
   const card = (
     <div
@@ -166,14 +187,14 @@ export default function ProductCard({ product, animate = true }: ProductCardProp
           </div>
 
           {/* Add to cart */}
-          <Link
-            href={`/shop/product/${product.id}`}
+          <button
+            onClick={handleAddToCart}
             className="glass-btn glass-btn-primary w-full flex items-center justify-center gap-2"
             style={{ fontSize: '11px', letterSpacing: '1.5px', padding: '10px 16px' }}
           >
-            <ShoppingBag size={13} />
-            Add to Cart
-          </Link>
+            {added ? <Check size={13} /> : <ShoppingBag size={13} />}
+            {added ? 'Added!' : 'Add to Cart'}
+          </button>
         </div>
       </div>
     </div>

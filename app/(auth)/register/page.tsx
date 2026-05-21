@@ -177,7 +177,7 @@ export default function RegisterPage() {
                   <div className="mt-2">
                     <div className="h-1 rounded-full overflow-hidden" style={{ background: '#E0E0E0' }}>
                       <div
-                        className="h-full rounded-full transition-all duration-400"
+                        className="h-full rounded-full transition-all duration-300"
                         style={{ width: `${strength.level}%`, background: strength.color }}
                       />
                     </div>

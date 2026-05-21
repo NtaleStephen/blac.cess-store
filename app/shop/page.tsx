@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { SlidersHorizontal } from 'lucide-react';
 import { mockProducts } from '@/lib/mock-data';
 import { FilterState } from '@/types';
@@ -17,8 +18,17 @@ const DEFAULT_FILTERS: FilterState = {
   priceMax: 500,
 };
 
-function applyFilters(products: typeof mockProducts, filters: FilterState) {
+function applyFilters(products: typeof mockProducts, filters: FilterState, query: string) {
   let result = [...products];
+  if (query) {
+    const q = query.toLowerCase();
+    result = result.filter(
+      (p) =>
+        p.name.toLowerCase().includes(q) ||
+        p.description.toLowerCase().includes(q) ||
+        p.tags.some((t) => t.toLowerCase().includes(q))
+    );
+  }
   if (filters.categories.length > 0) result = result.filter((p) => filters.categories.includes(p.category));
   if (filters.colors.length > 0) result = result.filter((p) => p.colors.some((c) => filters.colors.includes(c.name)));
   if (filters.sizes.length > 0) result = result.filter((p) => p.sizes.some((s) => filters.sizes.includes(s.size) && s.available));
@@ -26,20 +36,27 @@ function applyFilters(products: typeof mockProducts, filters: FilterState) {
   return result;
 }
 
-export default function ShopPage() {
+function ShopPage() {
+  const searchParams = useSearchParams();
+  const query = searchParams.get('q') ?? '';
   const [filters, setFilters] = useState<FilterState>(DEFAULT_FILTERS);
   const [sort, setSort] = useState('newest');
   const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
 
-  const products = useMemo(() => applySort(applyFilters(mockProducts, filters), sort), [filters, sort]);
+  const products = useMemo(() => applySort(applyFilters(mockProducts, filters, query), sort), [filters, sort, query]);
 
   return (
     <div className="bg-brand-cream min-h-screen" style={{ paddingTop: '72px' }}>
       {/* Page header */}
       <div className="page-header">
         <div className="container py-10">
-          <span className="section-label">All Products</span>
-          <h1 className="page-title">Shop</h1>
+          <span className="section-label">{query ? `Search Results` : 'All Products'}</span>
+          <h1 className="page-title">{query ? `"${query}"` : 'Shop'}</h1>
+          {query && (
+            <p className="text-brand-charcoal/50 text-sm mt-1">
+              {products.length} result{products.length !== 1 ? 's' : ''} found
+            </p>
+          )}
         </div>
       </div>
 
@@ -81,5 +98,13 @@ export default function ShopPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function ShopPageWrapper() {
+  return (
+    <Suspense>
+      <ShopPage />
+    </Suspense>
   );
 }

@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import Navigation from '@/components/Header/Navigation';
 import Footer from '@/components/Footer/Footer';
+import { CartProvider } from '@/context/CartContext';
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -45,10 +46,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body className="bg-brand-cream text-brand-charcoal">
-        <a href="#main-content" className="skip-link">Skip to main content</a>
-        <Navigation />
-        <main id="main-content">{children}</main>
-        <Footer />
+        <CartProvider>
+          <a href="#main-content" className="skip-link">Skip to main content</a>
+          <Navigation />
+          <main id="main-content">{children}</main>
+          <Footer />
+        </CartProvider>
       </body>
     </html>
   );

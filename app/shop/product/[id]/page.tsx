@@ -1,6 +1,7 @@
 'use client';
 
 import { use, useState } from 'react';
+import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ChevronRight, ShoppingBag, Heart, Share2, Star, Truck, RefreshCw, Shield } from 'lucide-react';
@@ -9,6 +10,7 @@ import { formatPrice, formatDate } from '@/lib/utils';
 import ImageGallery from '@/components/Gallery/ImageGallery';
 import ProductGrid from '@/components/ProductGrid/ProductGrid';
 import { fadeInUp } from '@/lib/animations';
+import { useCart } from '@/context/CartContext';
 
 const TABS = ['Description', 'Details', 'Shipping'];
 
@@ -21,15 +23,29 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
   const [quantity, setQuantity] = useState(1);
   const [activeTab, setActiveTab] = useState('Description');
   const [wishlisted, setWishlisted] = useState(false);
+  const [sizeError, setSizeError] = useState(false);
+  const { addItem } = useCart();
 
-  if (!product) {
-    return (
-      <div className="container py-32 text-center" style={{ paddingTop: 'calc(72px + 80px)' }}>
-        <h1 style={{ fontFamily: 'Playfair Display, serif', fontSize: '32px' }}>Product not found</h1>
-        <Link href="/shop" className="glass-btn glass-btn-primary inline-flex mt-6">Back to Shop</Link>
-      </div>
-    );
-  }
+  if (!product) notFound();
+
+  const handleAddToCart = () => {
+    if (!selectedSize) {
+      setSizeError(true);
+      return;
+    }
+    setSizeError(false);
+    addItem({
+      id: `${product.id}-${selectedColor}-${selectedSize}-${Date.now()}`,
+      productId: product.id,
+      name: product.name,
+      image: product.image,
+      price: product.price,
+      quantity,
+      color: selectedColor,
+      size: selectedSize,
+      category: product.category,
+    });
+  };
 
   const related = getRelatedProducts(product);
   const reviews = mockReviews.filter((r) => r.productId === product.id);
@@ -196,6 +212,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
               <div className="flex items-center justify-between mb-3">
                 <p className="text-brand-charcoal font-semibold text-sm uppercase tracking-wider" style={{ letterSpacing: '1.5px', fontSize: '11px' }}>
                   Size: <span className="text-brand-gold normal-case" style={{ letterSpacing: '0' }}>{selectedSize || 'Select a size'}</span>
+                  {sizeError && <span className="ml-2 text-red-500 font-normal normal-case" style={{ fontSize: '11px', letterSpacing: 0 }}>— required</span>}
                 </p>
                 <button className="text-brand-gold text-xs hover:underline" style={{ fontSize: '11px' }}>
                   Size Guide
@@ -205,7 +222,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
                 {product.sizes.map((s) => (
                   <button
                     key={s.size}
-                    onClick={() => s.available && setSelectedSize(s.size)}
+                    onClick={() => { if (s.available) { setSelectedSize(s.size); setSizeError(false); } }}
                     disabled={!s.available}
                     className="px-4 py-2 rounded-lg font-semibold transition-all duration-200 text-sm"
                     style={{
@@ -263,6 +280,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
             {/* CTA buttons */}
             <div className="flex gap-3 mb-6">
               <button
+                onClick={handleAddToCart}
                 className="glass-btn glass-btn-primary flex-1 flex items-center justify-center gap-2"
                 style={{ fontSize: '12px', letterSpacing: '1.5px', padding: '14px' }}
               >

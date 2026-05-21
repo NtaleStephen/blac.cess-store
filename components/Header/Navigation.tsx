@@ -4,7 +4,8 @@ import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { ShoppingBag, Search, User, Menu, X, Crown, LogOut, Package, Heart, Settings } from 'lucide-react';
-import { mockCartItems, mockUser } from '@/lib/mock-data';
+import { mockUser } from '@/lib/mock-data';
+import { useCart } from '@/context/CartContext';
 
 const navLinks = [
   { label: 'Crop Tops', href: '/shop/crop-tops' },
@@ -28,7 +29,7 @@ export default function Navigation() {
   const accountRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
   const router = useRouter();
-  const cartCount = mockCartItems.reduce((acc, item) => acc + item.quantity, 0);
+  const { itemCount: cartCount } = useCart();
   const isHomepage = pathname === '/';
 
   // On non-homepage pages, always use the "scrolled" dark style

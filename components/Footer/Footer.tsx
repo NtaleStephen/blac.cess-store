@@ -5,7 +5,7 @@ const SHOP_LINKS = [
   { label: 'Crop Tops', href: '/shop/crop-tops' },
   { label: 'Sweatpants', href: '/shop/sweatpants' },
   { label: 'Hoodies', href: '/shop/hoodies' },
-  { label: 'New Arrivals', href: '/shop' },
+  { label: 'New Arrivals', href: '/shop/new-arrivals' },
   { label: 'All Products', href: '/shop' },
 ];
 
@@ -143,7 +143,6 @@ export default function Footer() {
               <button
                 type="button"
                 className="glass-btn glass-btn-primary whitespace-nowrap"
-                style={{ color: '#D4A574' }}
               >
                 Subscribe
               </button>

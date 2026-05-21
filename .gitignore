@@ -39,3 +39,13 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# dev planning docs (not part of the app)
+BLAC_CESS_FRONTEND_DEVELOPMENT_GUIDE.md
+CLAUDE_CODE_COMMAND.txt
+PROJECT_SUMMARY.txt
+QUICK_START_GUIDE.md
+blac_cess_store_documentation.md
+context.md
+frontend-audit.md
+product-smaples/

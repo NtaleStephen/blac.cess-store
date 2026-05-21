@@ -1,41 +1,23 @@
 'use client';
 
-import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ShoppingBag, Minus, Plus, ArrowLeft } from 'lucide-react';
-import { mockCartItems, mockProducts } from '@/lib/mock-data';
+import { mockProducts } from '@/lib/mock-data';
+import { CartItem } from '@/types';
+import CartSummary from '@/components/Cart/CartSummary';
+import { formatPrice } from '@/lib/utils';
+import { fadeInUp, staggerContainer } from '@/lib/animations';
+import { useCart } from '@/context/CartContext';
 
 function getColorHex(productId: string, colorName: string): string {
   const product = mockProducts.find((p) => p.id === productId);
   return product?.colors.find((c) => c.name === colorName)?.hex ?? '#2A2A2A';
 }
-import { CartItem } from '@/types';
-import CartSummary from '@/components/Cart/CartSummary';
-import { formatPrice } from '@/lib/utils';
-import { fadeInUp, staggerContainer } from '@/lib/animations';
 
 export default function CartPage() {
-  const [items, setItems] = useState<CartItem[]>(mockCartItems);
-
-  const updateQuantity = (id: string, delta: number) => {
-    setItems((prev) =>
-      prev.map((item) =>
-        item.id === id ? { ...item, quantity: Math.max(1, item.quantity + delta) } : item
-      )
-    );
-  };
-
-  const removeItem = (id: string) => {
-    setItems((prev) => prev.filter((item) => item.id !== id));
-  };
-
-  const subtotal = items.reduce((acc, item) => acc + item.price * item.quantity, 0);
-  const shipping = subtotal >= 200 ? 0 : 12;
-  const tax = subtotal * 0.08;
-  const total = subtotal + shipping + tax;
-  const itemCount = items.reduce((acc, item) => acc + item.quantity, 0);
+  const { items, itemCount, subtotal, shipping, tax, total, removeItem, updateQuantity } = useCart();
 
   return (
     <div className="bg-brand-cream min-h-screen" style={{ paddingTop: '72px' }}>
@@ -60,7 +42,6 @@ export default function CartPage() {
 
       <div className="container py-10">
         {items.length === 0 ? (
-          /* Empty state */
           <div className="text-center py-24">
             <div
               className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6"
@@ -93,7 +74,7 @@ export default function CartPage() {
                 className="space-y-4"
               >
                 <AnimatePresence>
-                  {items.map((item) => (
+                  {items.map((item: CartItem) => (
                     <motion.div
                       key={item.id}
                       variants={fadeInUp}

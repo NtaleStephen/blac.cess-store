@@ -17,7 +17,7 @@ const STATUS_STYLES: Record<OrderStatus, { label: string; bg: string; color: str
   cancelled:  { label: 'Cancelled',  bg: 'rgba(244,67,54,0.12)',   color: '#C62828', border: 'rgba(244,67,54,0.3)' },
 };
 
-const FILTERS = ['All', 'Pending', 'Shipped', 'Delivered'];
+const FILTERS = ['All', 'Pending', 'Processing', 'Shipped', 'Delivered', 'Cancelled'];
 
 function StatusBadge({ status }: { status: OrderStatus }) {
   const s = STATUS_STYLES[status];
