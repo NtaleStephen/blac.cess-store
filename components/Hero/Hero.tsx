@@ -3,86 +3,70 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { ArrowRight, Crown } from 'lucide-react';
-import { useParallax } from '@/hooks/useParallax';
+import { ArrowRight } from 'lucide-react';
 
 export default function Hero() {
-  const parallaxOffset = useParallax(0.4);
   const [mounted, setMounted] = useState(false);
-
   useEffect(() => { setMounted(true); }, []);
 
   return (
     <section
-      className="relative overflow-hidden flex items-center justify-center"
-      style={{ minHeight: '100vh', background: 'linear-gradient(160deg, #1A1A1A 0%, #000000 55%, #2A2A2A 100%)' }}
+      className="relative flex items-center justify-center overflow-hidden"
+      style={{ minHeight: '100vh', background: '#000000' }}
     >
-      {/* Parallax glow layer */}
+      {/* Subtle warm gradient overlay */}
       <div
         className="absolute inset-0 pointer-events-none"
-        style={{ transform: mounted ? `translateY(${parallaxOffset}px)` : 'none', willChange: 'transform' }}
-      >
-        <div
-          className="absolute inset-0"
-          style={{ background: 'radial-gradient(ellipse at 50% 40%, rgba(212,165,116,0.07) 0%, transparent 65%)' }}
-        />
-      </div>
+        style={{ background: 'radial-gradient(ellipse at 50% 60%, rgba(212,165,116,0.12) 0%, transparent 60%)' }}
+      />
 
-      {/* Cultural accent — top-left */}
+      {/* Background text — decorative */}
       <div
-        className="absolute top-1/4 left-10 opacity-[0.07] hidden lg:block pointer-events-none"
-        style={{ transform: mounted ? `translateY(${parallaxOffset * 0.55}px)` : 'none', willChange: 'transform' }}
+        className="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden"
+        style={{ opacity: mounted ? 0.04 : 0, transition: 'opacity 1s ease' }}
       >
-        <Crown size={130} style={{ color: '#D4A574' }} strokeWidth={0.7} />
+        <span
+          className="font-serif font-bold text-white"
+          style={{ fontSize: 'clamp(180px, 30vw, 400px)', letterSpacing: '-8px', lineHeight: 1 }}
+        >
+          BC
+        </span>
       </div>
 
-      {/* Cultural accent — bottom-right */}
-      <div
-        className="absolute bottom-1/4 right-10 opacity-[0.05] hidden lg:block pointer-events-none"
-        style={{ transform: mounted ? `translateY(${parallaxOffset * 0.28}px)` : 'none', willChange: 'transform', rotate: '180deg' }}
-      >
-        <Crown size={90} style={{ color: '#D4A574' }} strokeWidth={0.7} />
-      </div>
-
-      {/* Thin gold edge lines */}
-      <div className="absolute left-0 top-1/2 w-28 h-px hidden lg:block pointer-events-none"
-        style={{ background: 'linear-gradient(to right, transparent, rgba(212,165,116,0.28))' }} />
-      <div className="absolute right-0 top-1/2 w-28 h-px hidden lg:block pointer-events-none"
-        style={{ background: 'linear-gradient(to left, transparent, rgba(212,165,116,0.28))' }} />
-
-      {/* Main content */}
-      <div className="relative z-10 text-center px-6 w-full" style={{ maxWidth: 860, margin: '0 auto' }}>
+      {/* Content */}
+      <div className="relative z-10 text-center px-6 w-full" style={{ maxWidth: 800, margin: '0 auto' }}>
 
         {/* Eyebrow */}
         <motion.div
-          initial={{ opacity: 0, y: 8 }}
+          initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1, ease: 'easeOut' }}
-          className="mb-7"
+          transition={{ duration: 0.5, delay: 0.15 }}
+          className="mb-8"
         >
           <span
-            className="inline-block text-xs font-semibold tracking-[3px] uppercase rounded-full px-5 py-2"
+            className="inline-block text-xs font-semibold uppercase tracking-[4px]"
             style={{
               color: '#D4A574',
-              border: '1px solid rgba(212,165,116,0.3)',
               fontFamily: 'Inter, sans-serif',
+              borderBottom: '1px solid rgba(212,165,116,0.4)',
+              paddingBottom: 8,
             }}
           >
             Cultural Luxury
           </span>
         </motion.div>
 
-        {/* Brand name */}
+        {/* Main headline */}
         <motion.h1
-          initial={{ opacity: 0, y: 28 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.2, ease: 'easeOut' }}
-          className="text-white mb-6 font-serif"
+          transition={{ duration: 0.8, delay: 0.25 }}
+          className="font-serif text-white mb-6"
           style={{
-            fontSize: 'clamp(58px, 11vw, 108px)',
+            fontSize: 'clamp(64px, 12vw, 120px)',
             fontWeight: 700,
-            letterSpacing: '-1px',
-            lineHeight: 1.02,
+            letterSpacing: '-2px',
+            lineHeight: 0.95,
           }}
         >
           BLAC.CESS
@@ -90,64 +74,56 @@ export default function Hero() {
 
         {/* Tagline */}
         <motion.p
-          initial={{ opacity: 0, y: 18 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.42, ease: 'easeOut' }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.7, delay: 0.5 }}
           className="mb-12 mx-auto"
           style={{
-            color: 'rgba(255,255,255,0.55)',
-            fontSize: 13,
-            letterSpacing: '3.5px',
+            color: 'rgba(255,255,255,0.5)',
+            fontSize: 12,
+            letterSpacing: '4px',
             textTransform: 'uppercase',
             fontFamily: 'Inter, sans-serif',
-            maxWidth: 380,
+            maxWidth: 340,
           }}
         >
           Cultural Luxury in Every Thread
         </motion.p>
 
-        {/* CTAs */}
+        {/* CTA buttons */}
         <motion.div
-          initial={{ opacity: 0, y: 18 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.62, ease: 'easeOut' }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4"
+          transition={{ duration: 0.6, delay: 0.7 }}
+          className="flex flex-col sm:flex-row items-center justify-center gap-3"
         >
-          <Link
-            href="/shop"
-            className="glass-btn glass-btn-primary"
-            style={{ color: '#D4A574', borderColor: 'rgba(212,165,116,0.5)', background: 'rgba(212,165,116,0.16)', paddingLeft: 32, paddingRight: 32 }}
-          >
-            EXPLORE NOW
+          <Link href="/shop" className="btn btn-gold" style={{ paddingLeft: 36, paddingRight: 36 }}>
+            Shop Now
             <ArrowRight size={15} />
           </Link>
-          <Link
-            href="/shop/new-arrivals"
-            className="glass-btn"
-            style={{ color: 'rgba(255,255,255,0.72)', borderColor: 'rgba(255,255,255,0.14)', background: 'rgba(255,255,255,0.06)' }}
-          >
+          <Link href="/shop/new-arrivals" className="btn btn-white">
             New Arrivals
           </Link>
         </motion.div>
       </div>
 
-      {/* Scroll hint */}
+      {/* Scroll indicator */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.3, duration: 0.7 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 pointer-events-none"
+        transition={{ delay: 1.5, duration: 0.6 }}
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 pointer-events-none"
       >
+        <div
+          className="w-[1px] h-12"
+          style={{ background: 'linear-gradient(to bottom, #D4A574, transparent)' }}
+        />
         <span
-          className="text-xs tracking-[2px] uppercase"
-          style={{ color: 'rgba(255,255,255,0.28)', fontFamily: 'Inter, sans-serif' }}
+          className="text-[10px] uppercase tracking-[3px]"
+          style={{ color: 'rgba(255,255,255,0.3)', fontFamily: 'Inter, sans-serif' }}
         >
           Scroll
         </span>
-        <div
-          className="w-px h-10"
-          style={{ background: 'linear-gradient(to bottom, rgba(212,165,116,0.4), transparent)' }}
-        />
       </motion.div>
     </section>
   );

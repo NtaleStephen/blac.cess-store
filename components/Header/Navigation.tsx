@@ -22,20 +22,18 @@ const ACCOUNT_LINKS = [
 ];
 
 export default function Navigation() {
-  const [scrolled, setScrolled]     = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const [searchOpen, setSearchOpen] = useState(false);
-  const [accountOpen, setAccountOpen] = useState(false);
+  const [scrolled, setScrolled]         = useState(false);
+  const [mobileOpen, setMobileOpen]     = useState(false);
+  const [searchOpen, setSearchOpen]     = useState(false);
+  const [accountOpen, setAccountOpen]   = useState(false);
   const accountRef = useRef<HTMLDivElement>(null);
-  const pathname = usePathname();
-  const router   = useRouter();
+  const pathname   = usePathname();
+  const router     = useRouter();
   const { itemCount } = useCart();
-
   const isHomepage = pathname === '/';
-  const useDark    = scrolled || !isHomepage;
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 10);
+    const onScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
@@ -46,45 +44,47 @@ export default function Navigation() {
   }, [mobileOpen]);
 
   useEffect(() => {
-    const handleOutside = (e: MouseEvent) => {
+    const handler = (e: MouseEvent) => {
       if (accountRef.current && !accountRef.current.contains(e.target as Node)) {
         setAccountOpen(false);
       }
     };
-    document.addEventListener('mousedown', handleOutside);
-    return () => document.removeEventListener('mousedown', handleOutside);
+    document.addEventListener('mousedown', handler);
+    return () => document.removeEventListener('mousedown', handler);
   }, []);
 
-  const iconBg    = useDark ? 'rgba(255,255,255,0.55)' : 'rgba(255,255,255,0.12)';
-  const iconBdr   = useDark ? 'rgba(212,165,116,0.22)' : 'rgba(255,255,255,0.2)';
-  const iconColor = useDark ? '#2A2A2A' : 'rgba(255,255,255,0.88)';
+  // On hero (homepage, not scrolled) — use transparent dark overlay so white text shows
+  const heroMode = isHomepage && !scrolled;
+
+  const navBg    = heroMode ? 'rgba(0,0,0,0)' : '#FFFFFF';
+  const navBdr   = heroMode ? 'transparent' : 'rgba(42,42,42,0.08)';
+  const shadow   = !heroMode && scrolled ? '0 1px 20px rgba(0,0,0,0.07)' : 'none';
+  const textCol  = heroMode ? '#FFFFFF' : '#2A2A2A';
+  const iconBg   = heroMode ? 'rgba(255,255,255,0.1)' : 'transparent';
+  const iconBdr  = heroMode ? 'rgba(255,255,255,0.2)' : 'rgba(42,42,42,0.12)';
 
   return (
     <>
-      {/* ── Header ── */}
+      {/* ── Main navbar ── */}
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${useDark ? 'glass-nav shadow-sm' : 'bg-transparent'}`}
-        style={{ height: 72 }}
+        className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+        style={{ height: 68, background: navBg, borderBottom: `1px solid ${navBdr}`, boxShadow: shadow }}
       >
-        <div className="container h-full flex items-center justify-between gap-4">
+        <div className="container h-full flex items-center gap-6">
 
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 group flex-shrink-0">
-            <Crown
-              size={21}
-              style={{ color: '#D4A574', transition: 'transform 0.3s' }}
-              className="group-hover:scale-110"
-            />
+          <Link href="/" className="flex items-center gap-2 flex-shrink-0 group">
+            <Crown size={20} style={{ color: '#D4A574', transition: 'transform 0.2s' }} className="group-hover:scale-110" />
             <span
-              className="font-serif font-bold tracking-widest uppercase text-[18px] transition-colors duration-300"
-              style={{ letterSpacing: '3px', color: useDark ? '#2A2A2A' : '#FFFFFF' }}
+              className="font-serif font-bold text-[17px] uppercase tracking-[3px] transition-colors duration-200"
+              style={{ color: textCol }}
             >
               BLAC.CESS
             </span>
           </Link>
 
-          {/* Desktop nav */}
-          <nav className="hidden lg:flex items-center gap-8" aria-label="Main navigation">
+          {/* Desktop nav — centered */}
+          <nav className="hidden lg:flex items-center gap-8 flex-1 justify-center" aria-label="Main navigation">
             {NAV_LINKS.map(({ label, href }) => {
               const active = pathname === href || pathname.startsWith(href + '/');
               return (
@@ -93,7 +93,7 @@ export default function Navigation() {
                   href={href}
                   className={`nav-link ${active ? 'active' : ''}`}
                   aria-current={active ? 'page' : undefined}
-                  style={{ color: active ? '#D4A574' : (useDark ? '#2A2A2A' : 'rgba(255,255,255,0.88)') }}
+                  style={{ color: active ? '#D4A574' : textCol }}
                 >
                   {label}
                 </Link>
@@ -101,45 +101,44 @@ export default function Navigation() {
             })}
           </nav>
 
-          {/* Actions */}
-          <div className="flex items-center gap-2">
+          {/* Right actions */}
+          <div className="flex items-center gap-1.5 ml-auto">
+
             {/* Search */}
             <button
-              className="glass-btn-icon"
-              style={{ background: iconBg, borderColor: iconBdr }}
               onClick={() => setSearchOpen(!searchOpen)}
               aria-label="Search"
+              className="nav-icon-btn"
+              style={{ background: iconBg, borderColor: iconBdr, color: textCol }}
             >
-              <Search size={18} style={{ color: iconColor }} />
+              <Search size={17} />
             </button>
 
             {/* Account dropdown */}
             <div ref={accountRef} className="relative">
               <button
-                className="glass-btn-icon"
-                style={{ background: iconBg, borderColor: iconBdr }}
                 onClick={() => setAccountOpen(!accountOpen)}
                 aria-label="Account"
                 aria-expanded={accountOpen}
-                aria-haspopup="true"
+                className="nav-icon-btn"
+                style={{ background: iconBg, borderColor: iconBdr, color: textCol }}
               >
-                <User size={18} style={{ color: iconColor }} />
+                <User size={17} />
               </button>
 
               {accountOpen && (
                 <div
                   className="absolute right-0 top-full mt-2 rounded-xl overflow-hidden z-50"
                   style={{
-                    width: 220,
-                    background: 'rgba(245,241,235,0.98)',
-                    border: '1px solid rgba(212,165,116,0.2)',
-                    backdropFilter: 'blur(20px)',
-                    boxShadow: '0 8px 32px rgba(0,0,0,0.12)',
+                    width: 216,
+                    background: '#FFFFFF',
+                    border: '1px solid rgba(42,42,42,0.1)',
+                    boxShadow: '0 8px 40px rgba(0,0,0,0.14)',
                   }}
                 >
-                  <div className="px-4 py-3" style={{ borderBottom: '1px solid rgba(212,165,116,0.12)' }}>
+                  <div className="px-4 py-3" style={{ borderBottom: '1px solid rgba(42,42,42,0.07)' }}>
                     <p className="font-serif font-semibold text-sm" style={{ color: '#2A2A2A' }}>{mockUser.name}</p>
-                    <p className="text-xs truncate mt-0.5" style={{ color: 'rgba(42,42,42,0.5)' }}>{mockUser.email}</p>
+                    <p className="text-xs mt-0.5 truncate" style={{ color: 'rgba(42,42,42,0.5)' }}>{mockUser.email}</p>
                   </div>
                   <div className="py-1">
                     {ACCOUNT_LINKS.map(({ label, href, icon: Icon }) => (
@@ -147,26 +146,21 @@ export default function Navigation() {
                         key={label}
                         href={href}
                         onClick={() => setAccountOpen(false)}
-                        className="flex items-center gap-3 px-4 py-2.5 text-sm transition-colors duration-150"
-                        style={{ color: '#2A2A2A' }}
-                        onMouseEnter={e => (e.currentTarget.style.background = 'rgba(212,165,116,0.1)')}
-                        onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}
+                        className="flex items-center gap-3 px-4 py-2.5 text-sm text-[#2A2A2A] hover:bg-[#F5F1EB] transition-colors duration-150"
                       >
-                        <Icon size={15} style={{ color: 'rgba(42,42,42,0.5)' }} />
+                        <Icon size={14} style={{ color: 'rgba(42,42,42,0.45)' }} />
                         {label}
                       </Link>
                     ))}
                   </div>
-                  <div className="py-1" style={{ borderTop: '1px solid rgba(212,165,116,0.12)' }}>
+                  <div className="py-1" style={{ borderTop: '1px solid rgba(42,42,42,0.07)' }}>
                     <Link
                       href="/login"
                       onClick={() => setAccountOpen(false)}
-                      className="flex items-center gap-3 px-4 py-2.5 text-sm transition-colors duration-150"
-                      style={{ color: 'rgba(220,50,50,0.8)' }}
-                      onMouseEnter={e => (e.currentTarget.style.background = 'rgba(220,50,50,0.05)')}
-                      onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}
+                      className="flex items-center gap-3 px-4 py-2.5 text-sm hover:bg-red-50 transition-colors duration-150"
+                      style={{ color: 'rgba(200,40,40,0.8)' }}
                     >
-                      <LogOut size={15} />
+                      <LogOut size={14} />
                       Sign Out
                     </Link>
                   </div>
@@ -177,15 +171,15 @@ export default function Navigation() {
             {/* Cart */}
             <Link
               href="/cart"
-              className="glass-btn-icon relative"
-              style={{ background: iconBg, borderColor: iconBdr }}
+              className="nav-icon-btn relative"
+              style={{ background: iconBg, borderColor: iconBdr, color: textCol }}
               aria-label={`Cart, ${itemCount} items`}
             >
-              <ShoppingBag size={18} style={{ color: iconColor }} />
+              <ShoppingBag size={17} />
               {itemCount > 0 && (
                 <span
-                  className="absolute -top-1 -right-1 w-[18px] h-[18px] rounded-full flex items-center justify-center text-white font-bold"
-                  style={{ background: '#D4A574', fontSize: 10 }}
+                  className="absolute -top-1 -right-1 w-[17px] h-[17px] rounded-full flex items-center justify-center text-white font-bold"
+                  style={{ background: '#D4A574', fontSize: 9 }}
                 >
                   {itemCount}
                 </span>
@@ -195,17 +189,13 @@ export default function Navigation() {
             {/* Hamburger */}
             <div className="lg:hidden">
               <button
-                className="glass-btn-icon"
-                style={{ background: iconBg, borderColor: iconBdr }}
                 onClick={() => setMobileOpen(!mobileOpen)}
                 aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
                 aria-expanded={mobileOpen}
-                aria-controls="mobile-nav"
+                className="nav-icon-btn"
+                style={{ background: iconBg, borderColor: iconBdr, color: textCol }}
               >
-                {mobileOpen
-                  ? <X    size={18} style={{ color: iconColor }} />
-                  : <Menu size={18} style={{ color: iconColor }} />
-                }
+                {mobileOpen ? <X size={18} /> : <Menu size={18} />}
               </button>
             </div>
           </div>
@@ -215,14 +205,13 @@ export default function Navigation() {
         {searchOpen && (
           <div
             className="px-4 py-3"
-            style={{ borderTop: '1px solid rgba(212,165,116,0.12)', background: 'rgba(245,241,235,0.97)' }}
+            style={{ background: '#FFFFFF', borderTop: '1px solid rgba(42,42,42,0.08)' }}
           >
-            <div className="container" style={{ maxWidth: 600 }}>
+            <div className="container" style={{ maxWidth: 560 }}>
               <input
                 type="search"
                 placeholder="Search products…"
-                className="glass-input"
-                aria-label="Search products"
+                className="input"
                 autoFocus
                 onKeyDown={(e) => {
                   const val = (e.currentTarget as HTMLInputElement).value.trim();
@@ -242,7 +231,7 @@ export default function Navigation() {
       {mobileOpen && (
         <div
           className="fixed inset-0 z-40 lg:hidden"
-          style={{ background: 'rgba(0,0,0,0.4)', backdropFilter: 'blur(4px)' }}
+          style={{ background: 'rgba(0,0,0,0.5)' }}
           onClick={() => setMobileOpen(false)}
         />
       )}
@@ -252,114 +241,96 @@ export default function Navigation() {
         id="mobile-nav"
         role="dialog"
         aria-modal="true"
-        aria-label="Navigation menu"
+        aria-label="Navigation"
         className={`fixed top-0 left-0 h-full z-50 lg:hidden transition-transform duration-300 ease-in-out overflow-y-auto ${mobileOpen ? 'translate-x-0' : '-translate-x-full'}`}
-        style={{
-          width: 'min(300px, 88vw)',
-          background: 'rgba(245,241,235,0.99)',
-          borderRight: '1px solid rgba(212,165,116,0.2)',
-          backdropFilter: 'blur(20px)',
-        }}
+        style={{ width: 'min(300px, 88vw)', background: '#FFFFFF', borderRight: '1px solid rgba(42,42,42,0.08)' }}
       >
-        {/* Drawer header */}
-        <div className="flex items-center justify-between p-5" style={{ borderBottom: '1px solid rgba(212,165,116,0.1)' }}>
+        {/* Header */}
+        <div
+          className="flex items-center justify-between px-5 py-4"
+          style={{ borderBottom: '1px solid rgba(42,42,42,0.08)' }}
+        >
           <div className="flex items-center gap-2">
-            <Crown size={20} style={{ color: '#D4A574' }} />
-            <span className="font-serif font-bold text-sm tracking-widest" style={{ letterSpacing: '3px', color: '#2A2A2A' }}>
+            <Crown size={18} style={{ color: '#D4A574' }} />
+            <span className="font-serif font-bold text-sm tracking-[3px] uppercase" style={{ color: '#2A2A2A' }}>
               BLAC.CESS
             </span>
           </div>
-          <button className="glass-btn-icon" onClick={() => setMobileOpen(false)} aria-label="Close menu">
-            <X size={18} style={{ color: '#2A2A2A' }} />
+          <button
+            onClick={() => setMobileOpen(false)}
+            className="btn-icon"
+            aria-label="Close"
+          >
+            <X size={16} style={{ color: '#2A2A2A' }} />
           </button>
         </div>
 
-        {/* User info */}
-        <div className="px-5 py-5" style={{ borderBottom: '1px solid rgba(212,165,116,0.1)' }}>
-          <div className="flex items-center gap-4">
-            <div
-              className="w-11 h-11 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0 text-[17px]"
-              style={{ background: 'linear-gradient(135deg, #D4A574, #E8B88A)' }}
-            >
-              {mockUser.name[0]}
-            </div>
-            <div className="min-w-0">
-              <p className="font-semibold text-sm truncate" style={{ color: '#2A2A2A' }}>{mockUser.name}</p>
-              <p className="text-xs mt-0.5 truncate" style={{ color: 'rgba(42,42,42,0.5)' }}>{mockUser.email}</p>
-            </div>
+        {/* User strip */}
+        <div className="flex items-center gap-3 px-5 py-4" style={{ borderBottom: '1px solid rgba(42,42,42,0.06)' }}>
+          <div
+            className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0"
+            style={{ background: 'linear-gradient(135deg, #D4A574, #E8B88A)', fontSize: 16 }}
+          >
+            {mockUser.name[0]}
+          </div>
+          <div className="min-w-0">
+            <p className="font-semibold text-sm truncate" style={{ color: '#2A2A2A' }}>{mockUser.name}</p>
+            <p className="text-xs truncate mt-0.5" style={{ color: 'rgba(42,42,42,0.5)' }}>{mockUser.email}</p>
           </div>
         </div>
 
-        {/* Shop nav */}
-        <nav className="px-4 pt-6 pb-4">
-          <p className="px-2 mb-3 text-[11px] font-semibold uppercase tracking-[1.5px]" style={{ color: 'rgba(42,42,42,0.4)' }}>Shop</p>
-          <div className="flex flex-col gap-1">
-            {NAV_LINKS.map(({ label, href }) => {
-              const active = pathname === href || pathname.startsWith(href + '/');
-              return (
-                <Link
-                  key={label}
-                  href={href}
-                  onClick={() => setMobileOpen(false)}
-                  className="flex items-center py-3.5 px-3 text-sm font-medium rounded-xl transition-colors duration-200"
-                  style={{
-                    color: active ? '#D4A574' : '#2A2A2A',
-                    background: active ? 'rgba(212,165,116,0.1)' : 'transparent',
-                  }}
-                >
-                  {label}
-                </Link>
-              );
-            })}
-          </div>
-        </nav>
-
-        {/* Account nav */}
-        <nav className="px-4 pt-5 pb-4" style={{ borderTop: '1px solid rgba(212,165,116,0.1)' }}>
-          <p className="px-2 mb-3 text-[11px] font-semibold uppercase tracking-[1.5px]" style={{ color: 'rgba(42,42,42,0.4)' }}>Account</p>
-          <div className="flex flex-col gap-1">
-            {ACCOUNT_LINKS.map(({ label, href, icon: Icon }) => (
+        {/* Shop links */}
+        <nav className="px-3 pt-5 pb-4">
+          <p className="px-3 mb-2 text-[10px] font-bold uppercase tracking-[2px]" style={{ color: 'rgba(42,42,42,0.38)' }}>Shop</p>
+          {NAV_LINKS.map(({ label, href }) => {
+            const active = pathname === href || pathname.startsWith(href + '/');
+            return (
               <Link
                 key={label}
                 href={href}
                 onClick={() => setMobileOpen(false)}
-                className="flex items-center gap-3 py-3.5 px-3 text-sm font-medium rounded-xl transition-colors duration-200"
-                style={{ color: '#2A2A2A' }}
-                onMouseEnter={e => (e.currentTarget.style.background = 'rgba(212,165,116,0.08)')}
-                onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}
+                className="flex items-center px-3 py-3.5 text-sm font-medium rounded-lg transition-colors duration-150"
+                style={{ color: active ? '#D4A574' : '#2A2A2A', background: active ? 'rgba(212,165,116,0.08)' : 'transparent' }}
               >
-                <Icon size={15} style={{ color: 'rgba(42,42,42,0.5)' }} />
                 {label}
               </Link>
-            ))}
+            );
+          })}
+        </nav>
+
+        {/* Account links */}
+        <nav className="px-3 py-4" style={{ borderTop: '1px solid rgba(42,42,42,0.06)' }}>
+          <p className="px-3 mb-2 text-[10px] font-bold uppercase tracking-[2px]" style={{ color: 'rgba(42,42,42,0.38)' }}>Account</p>
+          {ACCOUNT_LINKS.map(({ label, href, icon: Icon }) => (
             <Link
-              href="/cart"
+              key={label}
+              href={href}
               onClick={() => setMobileOpen(false)}
-              className="flex items-center gap-3 py-3.5 px-3 text-sm font-medium rounded-xl transition-colors duration-200"
-              style={{ color: '#2A2A2A' }}
-              onMouseEnter={e => (e.currentTarget.style.background = 'rgba(212,165,116,0.08)')}
-              onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}
+              className="flex items-center gap-3 px-3 py-3.5 text-sm font-medium rounded-lg text-[#2A2A2A] hover:bg-[#F5F1EB] transition-colors duration-150"
             >
-              <ShoppingBag size={15} style={{ color: 'rgba(42,42,42,0.5)' }} />
-              Cart
-              {itemCount > 0 && (
-                <span className="ml-auto text-xs font-bold" style={{ color: '#D4A574' }}>{itemCount}</span>
-              )}
+              <Icon size={14} style={{ color: 'rgba(42,42,42,0.45)' }} />
+              {label}
             </Link>
-          </div>
+          ))}
+          <Link
+            href="/cart"
+            onClick={() => setMobileOpen(false)}
+            className="flex items-center gap-3 px-3 py-3.5 text-sm font-medium rounded-lg text-[#2A2A2A] hover:bg-[#F5F1EB] transition-colors duration-150"
+          >
+            <ShoppingBag size={14} style={{ color: 'rgba(42,42,42,0.45)' }} />
+            Cart {itemCount > 0 && <span className="ml-auto text-xs font-bold" style={{ color: '#D4A574' }}>{itemCount}</span>}
+          </Link>
         </nav>
 
         {/* Sign out */}
-        <div className="px-4 py-5" style={{ borderTop: '1px solid rgba(212,165,116,0.1)' }}>
+        <div className="px-3 py-4" style={{ borderTop: '1px solid rgba(42,42,42,0.06)' }}>
           <Link
             href="/login"
             onClick={() => setMobileOpen(false)}
-            className="flex items-center gap-3 py-3 px-3 text-sm font-medium rounded-xl transition-colors duration-200"
-            style={{ color: 'rgba(220,50,50,0.75)' }}
-            onMouseEnter={e => (e.currentTarget.style.background = 'rgba(220,50,50,0.05)')}
-            onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}
+            className="flex items-center gap-3 px-3 py-3 text-sm font-medium rounded-lg hover:bg-red-50 transition-colors duration-150"
+            style={{ color: 'rgba(200,40,40,0.75)' }}
           >
-            <LogOut size={15} />
+            <LogOut size={14} />
             Sign Out
           </Link>
         </div>

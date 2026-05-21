@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { ShoppingBag, Star, Heart, Check } from 'lucide-react';
+import { ShoppingBag, Heart, Check, Star } from 'lucide-react';
 import { Product } from '@/types';
 import { formatPrice } from '@/lib/utils';
 import { fadeInUp } from '@/lib/animations';
@@ -43,10 +43,24 @@ export default function ProductCard({ product, animate = true }: ProductCardProp
 
   const card = (
     <div ref={ref} className="group cursor-pointer h-full">
-      <div className="card rounded-2xl overflow-hidden h-full flex flex-col">
-
+      <div
+        className="h-full flex flex-col rounded-xl overflow-hidden"
+        style={{
+          background: '#FFFFFF',
+          boxShadow: '0 1px 4px rgba(0,0,0,0.07), 0 4px 12px rgba(0,0,0,0.04)',
+          transition: 'box-shadow 0.3s ease, transform 0.3s ease',
+        }}
+        onMouseEnter={e => {
+          (e.currentTarget as HTMLDivElement).style.boxShadow = '0 4px 20px rgba(0,0,0,0.1), 0 16px 40px rgba(0,0,0,0.07)';
+          (e.currentTarget as HTMLDivElement).style.transform = 'translateY(-5px)';
+        }}
+        onMouseLeave={e => {
+          (e.currentTarget as HTMLDivElement).style.boxShadow = '0 1px 4px rgba(0,0,0,0.07), 0 4px 12px rgba(0,0,0,0.04)';
+          (e.currentTarget as HTMLDivElement).style.transform = 'translateY(0)';
+        }}
+      >
         {/* Image */}
-        <div className="relative overflow-hidden flex-shrink-0" style={{ aspectRatio: '4/5' }}>
+        <Link href={`/shop/product/${product.id}`} className="block relative flex-shrink-0" style={{ aspectRatio: '4/5', overflow: 'hidden' }}>
           <Image
             src={product.image}
             alt={product.name}
@@ -55,100 +69,90 @@ export default function ProductCard({ product, animate = true }: ProductCardProp
             className="object-cover transition-transform duration-500 group-hover:scale-105"
           />
 
-          {/* Hover overlay */}
+          {/* Overlay */}
           <div
-            className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-            style={{ background: 'rgba(0,0,0,0.18)' }}
+            className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+            style={{ background: 'rgba(0,0,0,0.12)' }}
           />
 
-          {/* Wishlist */}
-          <button
-            onClick={(e) => { e.preventDefault(); setWishlisted(!wishlisted); }}
-            className="absolute top-3 left-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg flex items-center justify-center"
-            style={{
-              width: 34, height: 34,
-              background: 'rgba(255,255,255,0.15)',
-              backdropFilter: 'blur(10px)',
-              border: '1px solid rgba(255,255,255,0.2)',
-            }}
-            aria-label="Add to wishlist"
-          >
-            <Heart
-              size={14}
-              style={{ color: wishlisted ? '#ef4444' : 'white', fill: wishlisted ? '#ef4444' : 'none' }}
-            />
-          </button>
-
           {/* Badges */}
-          <div className="absolute top-3 right-3 flex flex-col gap-1">
+          <div className="absolute top-3 left-3 flex flex-col gap-1.5">
             {product.isNew && (
               <span
-                className="text-white font-bold uppercase px-2.5 py-1 rounded-md text-center"
-                style={{ background: 'rgba(212,165,116,0.92)', backdropFilter: 'blur(8px)', fontSize: 9, letterSpacing: '1px' }}
+                className="text-white font-semibold uppercase px-2.5 py-1 rounded text-center"
+                style={{ background: '#D4A574', fontSize: 9, letterSpacing: '1px' }}
               >
                 New
               </span>
             )}
             {product.originalPrice && (
               <span
-                className="text-white font-bold uppercase px-2.5 py-1 rounded-md text-center"
-                style={{ background: 'rgba(220,38,38,0.85)', backdropFilter: 'blur(8px)', fontSize: 9, letterSpacing: '1px' }}
+                className="text-white font-semibold uppercase px-2.5 py-1 rounded text-center"
+                style={{ background: '#DC2626', fontSize: 9, letterSpacing: '1px' }}
               >
                 Sale
               </span>
             )}
-            {product.stock > 0 && product.stock <= 8 && (
+          </div>
+
+          {/* Low stock */}
+          {product.stock > 0 && product.stock <= 8 && (
+            <div className="absolute top-3 right-3">
               <span
-                className="font-semibold px-2.5 py-1 rounded-md text-center"
-                style={{ background: 'rgba(0,0,0,0.62)', backdropFilter: 'blur(6px)', color: 'rgba(255,255,255,0.88)', fontSize: 9 }}
+                className="font-semibold px-2.5 py-1 rounded text-center"
+                style={{ background: 'rgba(0,0,0,0.7)', color: 'rgba(255,255,255,0.9)', fontSize: 9 }}
               >
                 {product.stock} left
               </span>
-            )}
-          </div>
-        </div>
+            </div>
+          )}
+
+          {/* Wishlist */}
+          <button
+            onClick={(e) => { e.preventDefault(); setWishlisted(!wishlisted); }}
+            className="absolute bottom-3 right-3 w-9 h-9 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+            style={{ background: '#FFFFFF', boxShadow: '0 2px 8px rgba(0,0,0,0.12)' }}
+            aria-label="Add to wishlist"
+          >
+            <Heart
+              size={14}
+              style={{ color: wishlisted ? '#ef4444' : '#2A2A2A', fill: wishlisted ? '#ef4444' : 'none' }}
+            />
+          </button>
+        </Link>
 
         {/* Info */}
-        <div className="p-5 flex flex-col flex-1 gap-3">
-
-          {/* Name + description */}
-          <Link href={`/shop/product/${product.id}`} className="block">
+        <div className="p-4 flex flex-col flex-1 gap-2.5">
+          {/* Name */}
+          <Link href={`/shop/product/${product.id}`}>
             <h3
-              className="font-serif font-semibold leading-snug mb-1.5 transition-colors duration-200"
-              style={{ fontSize: 15, color: '#2A2A2A' }}
-              onMouseEnter={e => (e.currentTarget.style.color = '#D4A574')}
-              onMouseLeave={e => (e.currentTarget.style.color = '#2A2A2A')}
+              className="font-serif font-semibold leading-snug transition-colors duration-150 hover:text-[#D4A574]"
+              style={{ fontSize: 14, color: '#2A2A2A' }}
             >
               {product.name}
             </h3>
-            <p
-              className="leading-snug line-clamp-2"
-              style={{ fontSize: 12, color: 'rgba(42,42,42,0.5)', fontStyle: 'italic' }}
-            >
-              {product.description}
-            </p>
           </Link>
 
           {/* Rating */}
           <div className="flex items-center gap-1">
-            {[1, 2, 3, 4, 5].map((n) => (
+            {[1,2,3,4,5].map((n) => (
               <Star
                 key={n}
                 size={10}
                 style={{
-                  color: n <= Math.round(product.rating) ? '#D4A574' : 'rgba(42,42,42,0.18)',
-                  fill:  n <= Math.round(product.rating) ? '#D4A574' : 'none',
+                  color: n <= Math.round(product.rating) ? '#D4A574' : '#D5D0CA',
+                  fill:  n <= Math.round(product.rating) ? '#D4A574' : '#D5D0CA',
                 }}
               />
             ))}
-            <span className="ml-1" style={{ fontSize: 11, color: 'rgba(42,42,42,0.45)' }}>
+            <span className="ml-1 text-[11px]" style={{ color: 'rgba(42,42,42,0.45)' }}>
               ({product.reviewCount})
             </span>
           </div>
 
           {/* Color swatches */}
           {product.colors.length > 0 && (
-            <div className="flex items-center gap-2 flex-wrap">
+            <div className="flex items-center gap-1.5 flex-wrap">
               {product.colors.map((color) => {
                 const active = selectedColor === color.name;
                 return (
@@ -157,13 +161,12 @@ export default function ProductCard({ product, animate = true }: ProductCardProp
                     onClick={() => setSelectedColor(color.name)}
                     title={color.name}
                     style={{
-                      width: 18, height: 18,
+                      width: 16, height: 16,
                       borderRadius: '50%',
                       background: color.hex,
-                      border: active ? '2px solid #D4A574' : '1.5px solid rgba(42,42,42,0.2)',
-                      transform: active ? 'scale(1.2)' : 'scale(1)',
-                      boxShadow: active ? '0 0 0 2px rgba(212,165,116,0.18)' : 'none',
-                      transition: 'all 0.2s ease',
+                      border: active ? '2px solid #D4A574' : '1.5px solid rgba(42,42,42,0.18)',
+                      transform: active ? 'scale(1.25)' : 'scale(1)',
+                      transition: 'all 0.15s ease',
                       cursor: 'pointer',
                       flexShrink: 0,
                     }}
@@ -175,12 +178,12 @@ export default function ProductCard({ product, animate = true }: ProductCardProp
           )}
 
           {/* Price */}
-          <div className="flex items-center gap-2 mt-auto">
-            <span className="font-bold" style={{ fontSize: 16, color: '#D4A574' }}>
+          <div className="flex items-baseline gap-2 mt-auto pt-1">
+            <span className="font-bold" style={{ fontSize: 15, color: '#2A2A2A' }}>
               {formatPrice(product.price)}
             </span>
             {product.originalPrice && (
-              <span className="line-through" style={{ fontSize: 13, color: 'rgba(42,42,42,0.32)' }}>
+              <span className="line-through text-xs" style={{ color: 'rgba(42,42,42,0.35)' }}>
                 {formatPrice(product.originalPrice)}
               </span>
             )}
@@ -189,8 +192,16 @@ export default function ProductCard({ product, animate = true }: ProductCardProp
           {/* Add to cart */}
           <button
             onClick={handleAddToCart}
-            className="glass-btn glass-btn-primary w-full"
-            style={{ fontSize: 11, letterSpacing: '1.5px', padding: '10px 16px', minHeight: 42 }}
+            className="w-full flex items-center justify-center gap-2 rounded-lg transition-all duration-200 font-semibold uppercase"
+            style={{
+              height: 42,
+              background: added ? '#D4A574' : '#2A2A2A',
+              color: '#FFFFFF',
+              fontSize: 11,
+              letterSpacing: '1.5px',
+              border: 'none',
+              cursor: 'pointer',
+            }}
           >
             {added ? <Check size={13} /> : <ShoppingBag size={13} />}
             {added ? 'Added!' : 'Add to Cart'}

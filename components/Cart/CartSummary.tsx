@@ -13,55 +13,59 @@ interface CartSummaryProps {
 
 export default function CartSummary({ subtotal, shipping, tax, total, itemCount, showButton = true }: CartSummaryProps) {
   return (
-    <div className="card rounded-2xl p-7 sticky top-24">
+    <div
+      className="rounded-xl p-7 sticky top-24"
+      style={{ background: '#FFFFFF', boxShadow: '0 1px 4px rgba(0,0,0,0.07), 0 4px 12px rgba(0,0,0,0.05)' }}
+    >
       <h2 className="font-serif font-semibold mb-6" style={{ fontSize: 18, color: '#2A2A2A' }}>
         Order Summary
       </h2>
 
-      <div className="flex flex-col gap-3.5 mb-5">
-        <SummaryRow label={`Subtotal (${itemCount} ${itemCount === 1 ? 'item' : 'items'})`} value={formatPrice(subtotal)} />
-        <SummaryRow
+      <div className="space-y-3 mb-5">
+        <Row label={`Subtotal (${itemCount} ${itemCount === 1 ? 'item' : 'items'})`} value={formatPrice(subtotal)} />
+        <Row
           label="Shipping"
           value={shipping === 0 ? 'FREE' : formatPrice(shipping)}
-          valueColor={shipping === 0 ? '#2E7D32' : undefined}
+          accent={shipping === 0}
         />
         {shipping === 0 && (
-          <p style={{ fontSize: 12, color: '#2E7D32', marginTop: -8 }}>You qualify for free shipping!</p>
+          <p className="text-xs" style={{ color: '#2E7D32', marginTop: -4 }}>
+            You qualify for free shipping!
+          </p>
         )}
-        <SummaryRow label="Estimated Tax" value={formatPrice(tax)} />
+        <Row label="Estimated Tax" value={formatPrice(tax)} />
       </div>
 
       {/* Total */}
       <div
-        className="flex justify-between items-center pt-4 mb-6"
-        style={{ borderTop: '1px solid rgba(212,165,116,0.15)' }}
+        className="flex justify-between items-center py-4 mb-5"
+        style={{ borderTop: '1px solid rgba(42,42,42,0.08)', borderBottom: '1px solid rgba(42,42,42,0.08)' }}
       >
-        <span className="font-serif font-bold" style={{ fontSize: 16, color: '#2A2A2A' }}>Total</span>
-        <span className="font-serif font-bold" style={{ fontSize: 20, color: '#D4A574' }}>
+        <span className="font-semibold" style={{ fontSize: 15, color: '#2A2A2A' }}>Total</span>
+        <span className="font-serif font-bold" style={{ fontSize: 22, color: '#2A2A2A' }}>
           {formatPrice(total)}
         </span>
       </div>
 
-      {/* Promo code */}
+      {/* Promo */}
       <div className="flex gap-2 mb-5">
         <input
           type="text"
           placeholder="Promo code"
           className="glass-input flex-1"
-          style={{ fontSize: 13, padding: '10px 14px' }}
+          style={{ height: 44 }}
         />
-        <button className="glass-btn" style={{ fontSize: 12, padding: '10px 14px', gap: 6 }}>
-          <Tag size={13} />
+        <button
+          className="btn btn-sm btn-outline"
+          style={{ gap: 6 }}
+        >
+          <Tag size={12} />
           Apply
         </button>
       </div>
 
       {showButton && (
-        <Link
-          href="/checkout"
-          className="glass-btn glass-btn-primary w-full"
-          style={{ padding: '14px', letterSpacing: '1.5px' }}
-        >
+        <Link href="/checkout" className="btn btn-gold w-full" style={{ width: '100%' }}>
           Proceed to Checkout
           <ArrowRight size={14} />
         </Link>
@@ -74,11 +78,11 @@ export default function CartSummary({ subtotal, shipping, tax, total, itemCount,
   );
 }
 
-function SummaryRow({ label, value, valueColor }: { label: string; value: string; valueColor?: string }) {
+function Row({ label, value, accent }: { label: string; value: string; accent?: boolean }) {
   return (
     <div className="flex justify-between items-center text-sm">
-      <span style={{ color: 'rgba(42,42,42,0.58)' }}>{label}</span>
-      <span className="font-medium" style={{ color: valueColor ?? '#2A2A2A' }}>{value}</span>
+      <span style={{ color: 'rgba(42,42,42,0.55)' }}>{label}</span>
+      <span className="font-medium" style={{ color: accent ? '#2E7D32' : '#2A2A2A' }}>{value}</span>
     </div>
   );
 }
