@@ -165,3 +165,58 @@
   0% { background-position: -200% 0; }
   100% { background-position: 200% 0; }
 }
+
+/* ===== PHASE 9: Responsive & Mobile Polish ===== */
+
+/* Ensure all form inputs are full-width on mobile */
+@media (max-width: 767px) {
+  .glass-input {
+    font-size: 16px; /* Prevent iOS auto-zoom */
+  }
+
+  .glass-btn {
+    min-height: 48px;
+  }
+
+  .glass-btn-icon {
+    min-height: 48px;
+    min-width: 48px;
+  }
+}
+
+/* No horizontal overflow anywhere */
+html, body {
+  overflow-x: hidden;
+}
+
+/* Touch manipulation on all interactive elements */
+button, a, [role="button"] {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Accessible focus ring for keyboard navigation */
+:focus-visible {
+  outline: 2px solid rgba(212, 165, 116, 0.8);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Skip to main content link */
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 8px;
+  padding: 8px 16px;
+  background: #D4A574;
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 8px;
+  z-index: 9999;
+  transition: top 0.2s;
+}
+
+.skip-link:focus {
+  top: 8px;
+}

@@ -50,7 +50,12 @@ export default function Navigation() {
             />
             <span
               className="text-xl font-bold tracking-widest uppercase"
-              style={{ fontFamily: 'Playfair Display, serif', letterSpacing: '3px' }}
+              style={{
+                fontFamily: 'Playfair Display, serif',
+                letterSpacing: '3px',
+                color: isScrolled ? '#2A2A2A' : '#FFFFFF',
+                transition: 'color 0.3s',
+              }}
             >
               BLAC.CESS
             </span>
@@ -59,7 +64,12 @@ export default function Navigation() {
           {/* Desktop Nav Links */}
           <nav className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
-              <Link key={link.label} href={link.href} className="nav-link">
+              <Link
+                key={link.label}
+                href={link.href}
+                className="nav-link"
+                style={{ color: isScrolled ? '#2A2A2A' : 'rgba(255,255,255,0.85)' }}
+              >
                 {link.label}
               </Link>
             ))}
@@ -70,20 +80,40 @@ export default function Navigation() {
             {/* Search */}
             <button
               className="glass-btn-icon"
+              style={{
+                background: isScrolled ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.2)',
+                borderColor: isScrolled ? 'rgba(212,165,116,0.2)' : 'rgba(255,255,255,0.2)',
+              }}
               onClick={() => setSearchOpen(!searchOpen)}
               aria-label="Search"
             >
-              <Search size={18} className="text-brand-charcoal" />
+              <Search size={18} style={{ color: isScrolled ? '#2A2A2A' : 'rgba(255,255,255,0.85)' }} />
             </button>
 
             {/* Account */}
-            <Link href="/account" className="glass-btn-icon" aria-label="Account">
-              <User size={18} className="text-brand-charcoal" />
+            <Link
+              href="/account"
+              className="glass-btn-icon"
+              style={{
+                background: isScrolled ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.2)',
+                borderColor: isScrolled ? 'rgba(212,165,116,0.2)' : 'rgba(255,255,255,0.2)',
+              }}
+              aria-label="Account"
+            >
+              <User size={18} style={{ color: isScrolled ? '#2A2A2A' : 'rgba(255,255,255,0.85)' }} />
             </Link>
 
             {/* Cart */}
-            <Link href="/cart" className="glass-btn-icon relative" aria-label="Cart">
-              <ShoppingBag size={18} className="text-brand-charcoal" />
+            <Link
+              href="/cart"
+              className="glass-btn-icon relative"
+              style={{
+                background: isScrolled ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.2)',
+                borderColor: isScrolled ? 'rgba(212,165,116,0.2)' : 'rgba(255,255,255,0.2)',
+              }}
+              aria-label="Cart"
+            >
+              <ShoppingBag size={18} style={{ color: isScrolled ? '#2A2A2A' : 'rgba(255,255,255,0.85)' }} />
               {cartCount > 0 && (
                 <span
                   className="absolute -top-1 -right-1 w-4 h-4 rounded-full flex items-center justify-center text-white text-xs font-bold"
@@ -97,13 +127,17 @@ export default function Navigation() {
             {/* Hamburger (mobile) */}
             <button
               className="glass-btn-icon md:hidden"
+              style={{
+                background: isScrolled ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.2)',
+                borderColor: isScrolled ? 'rgba(212,165,116,0.2)' : 'rgba(255,255,255,0.2)',
+              }}
               onClick={() => setMobileOpen(!mobileOpen)}
               aria-label="Menu"
             >
               {mobileOpen ? (
-                <X size={18} className="text-brand-charcoal" />
+                <X size={18} style={{ color: isScrolled ? '#2A2A2A' : 'rgba(255,255,255,0.85)' }} />
               ) : (
-                <Menu size={18} className="text-brand-charcoal" />
+                <Menu size={18} style={{ color: isScrolled ? '#2A2A2A' : 'rgba(255,255,255,0.85)' }} />
               )}
             </button>
           </div>

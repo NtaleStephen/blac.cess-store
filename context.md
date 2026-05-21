@@ -179,21 +179,36 @@ transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 ---
 
 ### Phase 7 — Authentication Pages
-**Status:** ⬜ Not started
+**Status:** ✅ Complete — 2026-05-21
+**Delivered:**
+- `app/(auth)/login/page.tsx` — Split layout: dark brand panel + glass form card. Show/hide password, remember me, links to register/forgot-password.
+- `app/(auth)/register/page.tsx` — Password strength indicator (Weak/Fair/Good/Strong), confirm password match, terms acceptance, benefits list.
+- `app/(auth)/forgot-password/page.tsx` — 3-step animated flow: email input → check email (with resend) → new password. AnimatePresence slide transitions.
 
 ---
 
 ### Phase 8 — User Account Pages
-**Status:** ⬜ Not started
+**Status:** ✅ Complete — 2026-05-21
+**Delivered:**
+- `app/account/layout.tsx` — Desktop sticky sidebar + mobile FAB drawer. Active link highlighting, user avatar with initials, sign out.
+- `app/account/page.tsx` — Profile form with avatar + camera overlay, newsletter toggle, save feedback.
+- `app/account/orders/page.tsx` — Filter tabs (All/Pending/Shipped/Delivered), order cards with status badges, stagger animation.
+- `app/account/wishlist/page.tsx` — Grid with AnimatePresence exit animations, remove buttons, heart toggle.
+- `app/account/settings/page.tsx` — Change password (show/hide), 2FA toggle, 3 notification toggles, saved addresses.
 
 ---
 
-### Phase 9 — Authentication (Login / Register)
-**Status:** ⬜ Not started
+### Phase 9 — Responsive Polish & Accessibility
+**Status:** ✅ Complete — 2026-05-21
+**Delivered:**
+- `styles/glass.css` — iOS 16px font-size fix, 48px touch targets, overflow-x hidden, touch-action manipulation, gold focus-visible ring, `.skip-link`.
+- `app/layout.tsx` — Skip link `<a href="#main-content">`, `id="main-content"` on `<main>`.
+- `app/shop/page.tsx` + `app/shop/[category]/page.tsx` — `hidden lg:block` on filter sidebar wrapper.
+- `components/Header/Navigation.tsx` — Scroll-aware colors: white text over dark hero → charcoal-on-cream when scrolled.
 
 ---
 
-### Phase 10 — User Account Pages
+### Phase 10 — Polish & Optimization
 **Status:** ⬜ Not started
 
 ---

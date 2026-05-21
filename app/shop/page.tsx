@@ -99,8 +99,8 @@ export default function ShopPage() {
 
         {/* Layout */}
         <div className="flex gap-8">
-          {/* Filter sidebar */}
-          <div className="w-60 flex-shrink-0">
+          {/* Filter sidebar - desktop only */}
+          <div className="hidden lg:block w-60 flex-shrink-0">
             <FilterPanel
               filters={filters}
               onChange={setFilters}

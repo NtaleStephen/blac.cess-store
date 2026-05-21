@@ -118,7 +118,8 @@ export default function CategoryPage({ params }: { params: { category: string } 
         </div>
 
         <div className="flex gap-8">
-          <div className="w-60 flex-shrink-0">
+          {/* Filter sidebar - desktop only */}
+          <div className="hidden lg:block w-60 flex-shrink-0">
             <FilterPanel
               filters={filters}
               onChange={setFilters}
