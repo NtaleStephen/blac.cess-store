@@ -3,18 +3,11 @@
 import { useState, useMemo } from 'react';
 import { SlidersHorizontal } from 'lucide-react';
 import { mockProducts } from '@/lib/mock-data';
-import { Product } from '@/types';
+import { FilterState } from '@/types';
+import { applySort } from '@/lib/utils';
 import ProductGrid from '@/components/ProductGrid/ProductGrid';
 import FilterPanel from '@/components/Filters/FilterPanel';
 import SortDropdown from '@/components/Filters/SortDropdown';
-
-interface FilterState {
-  categories: string[];
-  sizes: string[];
-  colors: string[];
-  priceMin: number;
-  priceMax: number;
-}
 
 const DEFAULT_FILTERS: FilterState = {
   categories: [],
@@ -24,30 +17,12 @@ const DEFAULT_FILTERS: FilterState = {
   priceMax: 500,
 };
 
-function applyFiltersAndSort(products: Product[], filters: FilterState, sort: string): Product[] {
+function applyFilters(products: typeof mockProducts, filters: FilterState) {
   let result = [...products];
-
-  if (filters.categories.length > 0) {
-    result = result.filter((p) => filters.categories.includes(p.category));
-  }
-  if (filters.colors.length > 0) {
-    result = result.filter((p) => p.colors.some((c) => filters.colors.includes(c.name)));
-  }
-  if (filters.sizes.length > 0) {
-    result = result.filter((p) =>
-      p.sizes.some((s) => filters.sizes.includes(s.size) && s.available)
-    );
-  }
+  if (filters.categories.length > 0) result = result.filter((p) => filters.categories.includes(p.category));
+  if (filters.colors.length > 0) result = result.filter((p) => p.colors.some((c) => filters.colors.includes(c.name)));
+  if (filters.sizes.length > 0) result = result.filter((p) => p.sizes.some((s) => filters.sizes.includes(s.size) && s.available));
   result = result.filter((p) => p.price >= filters.priceMin && p.price <= filters.priceMax);
-
-  switch (sort) {
-    case 'price-asc': result.sort((a, b) => a.price - b.price); break;
-    case 'price-desc': result.sort((a, b) => b.price - a.price); break;
-    case 'rating': result.sort((a, b) => b.rating - a.rating); break;
-    case 'popular': result.sort((a, b) => b.reviewCount - a.reviewCount); break;
-    default: result.sort((a, b) => (b.isNew ? 1 : 0) - (a.isNew ? 1 : 0)); break;
-  }
-
   return result;
 }
 
@@ -56,7 +31,7 @@ export default function ShopPage() {
   const [sort, setSort] = useState('newest');
   const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
 
-  const products = useMemo(() => applyFiltersAndSort(mockProducts, filters, sort), [filters, sort]);
+  const products = useMemo(() => applySort(applyFilters(mockProducts, filters), sort), [filters, sort]);
 
   return (
     <div className="bg-brand-cream min-h-screen" style={{ paddingTop: '72px' }}>

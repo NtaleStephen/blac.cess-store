@@ -131,7 +131,7 @@ export default function Hero() {
             <ArrowRight size={16} />
           </Link>
           <Link
-            href="/shop?filter=new"
+            href="/shop/new-arrivals"
             className="glass-btn"
             style={{
               color: 'rgba(255,255,255,0.7)',

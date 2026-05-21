@@ -5,7 +5,8 @@ import { SlidersHorizontal } from 'lucide-react';
 import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
 import { mockProducts } from '@/lib/mock-data';
-import { Product } from '@/types';
+import { FilterState } from '@/types';
+import { applySort } from '@/lib/utils';
 import ProductGrid from '@/components/ProductGrid/ProductGrid';
 import FilterPanel from '@/components/Filters/FilterPanel';
 import SortDropdown from '@/components/Filters/SortDropdown';
@@ -25,27 +26,7 @@ const CATEGORY_META: Record<string, { title: string; description: string }> = {
   },
 };
 
-interface FilterState {
-  categories: string[];
-  sizes: string[];
-  colors: string[];
-  priceMin: number;
-  priceMax: number;
-}
-
 const DEFAULT_FILTERS: FilterState = { categories: [], sizes: [], colors: [], priceMin: 0, priceMax: 500 };
-
-function applySort(products: Product[], sort: string): Product[] {
-  const result = [...products];
-  switch (sort) {
-    case 'price-asc': result.sort((a, b) => a.price - b.price); break;
-    case 'price-desc': result.sort((a, b) => b.price - a.price); break;
-    case 'rating': result.sort((a, b) => b.rating - a.rating); break;
-    case 'popular': result.sort((a, b) => b.reviewCount - a.reviewCount); break;
-    default: result.sort((a, b) => (b.isNew ? 1 : 0) - (a.isNew ? 1 : 0)); break;
-  }
-  return result;
-}
 
 export default function CategoryPage({ params }: { params: { category: string } }) {
   const [filters, setFilters] = useState<FilterState>(DEFAULT_FILTERS);

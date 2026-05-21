@@ -1,5 +1,13 @@
 export type Category = 'crop-tops' | 'sweatpants' | 'hoodies';
 
+export interface FilterState {
+  categories: string[];
+  sizes: string[];
+  colors: string[];
+  priceMin: number;
+  priceMax: number;
+}
+
 export interface ProductColor {
   name: string;
   hex: string;

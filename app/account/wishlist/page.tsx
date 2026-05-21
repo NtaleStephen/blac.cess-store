@@ -57,8 +57,7 @@ export default function WishlistPage() {
                 key={product.id}
                 variants={fadeInUp}
                 exit={{ opacity: 0, scale: 0.92, transition: { duration: 0.2 } }}
-                className="rounded-2xl overflow-hidden group"
-                style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(212,165,116,0.15)', backdropFilter: 'blur(10px)' }}
+                className="card rounded-2xl overflow-hidden group"
               >
                 {/* Image */}
                 <div className="relative overflow-hidden" style={{ aspectRatio: '4/5' }}>
@@ -67,7 +66,7 @@ export default function WishlistPage() {
                     alt={product.name}
                     fill
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    className="object-cover transition-transform duration-400 group-hover:scale-105"
+                    className="object-cover transition-transform duration-300 group-hover:scale-105"
                   />
                   {/* Remove button */}
                   <button

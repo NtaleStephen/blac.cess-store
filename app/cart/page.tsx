@@ -98,12 +98,7 @@ export default function CartPage() {
                       key={item.id}
                       variants={fadeInUp}
                       exit={{ opacity: 0, x: -20, transition: { duration: 0.25 } }}
-                      className="rounded-2xl p-4 flex gap-4"
-                      style={{
-                        background: 'rgba(255,255,255,0.06)',
-                        border: '1px solid rgba(212,165,116,0.15)',
-                        backdropFilter: 'blur(10px)',
-                      }}
+                      className="card rounded-2xl p-4 flex gap-4"
                     >
                       {/* Image */}
                       <Link href={`/shop/product/${item.productId}`} className="flex-shrink-0">

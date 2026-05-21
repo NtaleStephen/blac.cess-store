@@ -18,33 +18,17 @@ export default function FeaturedSection() {
           variants={fadeInUp}
           className="relative overflow-hidden rounded-2xl p-8 md:p-12"
           style={{
-            background: 'rgba(212, 165, 116, 0.06)',
-            border: '1px solid rgba(212, 165, 116, 0.2)',
-            borderLeft: '4px solid rgba(212, 165, 116, 0.5)',
-            backdropFilter: 'blur(10px)',
+            background: 'rgba(255,255,255,0.55)',
+            border: '1px solid rgba(212,165,116,0.2)',
           }}
         >
-          {/* Decorative crown - background */}
+          {/* Decorative crown */}
           <div className="absolute right-8 top-1/2 -translate-y-1/2 opacity-5 pointer-events-none hidden md:block">
             <Crown size={200} className="text-brand-gold" strokeWidth={0.5} />
           </div>
 
-          {/* Glow effect */}
-          <div
-            className="absolute top-0 right-0 w-64 h-64 rounded-full pointer-events-none opacity-30"
-            style={{
-              background: 'radial-gradient(circle, rgba(212,165,116,0.15) 0%, transparent 70%)',
-              filter: 'blur(40px)',
-            }}
-          />
-
           <div className="relative z-10 max-w-xl">
-            <span
-              className="text-brand-gold text-xs font-semibold tracking-widest uppercase mb-3 block"
-              style={{ letterSpacing: '3px' }}
-            >
-              Heritage & Modern Design
-            </span>
+            <span className="section-label">Heritage & Modern Design</span>
 
             <h2
               className="text-brand-charcoal mb-4"
@@ -64,12 +48,12 @@ export default function FeaturedSection() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <Link href="/shop?filter=new" className="glass-btn glass-btn-primary inline-flex items-center gap-2">
+              <Link href="/shop/new-arrivals" className="glass-btn glass-btn-primary inline-flex items-center gap-2">
                 Shop New Arrivals
                 <ArrowRight size={15} />
               </Link>
-              <Link href="/shop?filter=featured" className="glass-btn inline-flex items-center gap-2">
-                View Featured
+              <Link href="/shop" className="glass-btn inline-flex items-center gap-2">
+                View All
               </Link>
             </div>
           </div>

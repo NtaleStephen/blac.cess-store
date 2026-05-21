@@ -12,6 +12,7 @@ import { ArrowRight, Crown } from 'lucide-react';
 
 export default function HomePage() {
   const { ref: gridRef, inView: gridInView } = useInView();
+  const { ref: newRef, inView: newInView } = useInView();
   const featuredProducts = mockProducts.filter((p) => p.featured);
   const newProducts = mockProducts.filter((p) => p.isNew).slice(0, 4);
 
@@ -29,18 +30,8 @@ export default function HomePage() {
       <section className="py-16 px-4">
         <div className="container">
           <div className="text-center mb-12">
-            <span
-              className="text-brand-gold text-xs font-semibold tracking-widest uppercase mb-3 block"
-              style={{ letterSpacing: '3px' }}
-            >
-              Curated Selection
-            </span>
-            <h2
-              className="text-brand-charcoal"
-              style={{ fontFamily: 'Playfair Display, serif', fontSize: 'clamp(28px, 4vw, 40px)', fontWeight: 600 }}
-            >
-              Featured Pieces
-            </h2>
+            <span className="section-label" style={{ display: 'block', textAlign: 'center' }}>Curated Selection</span>
+            <h2 className="page-title">Featured Pieces</h2>
           </div>
 
           <motion.div
@@ -71,24 +62,27 @@ export default function HomePage() {
       <section className="py-16 px-4">
         <div className="container">
           <div className="text-center mb-12">
-            <span
-              className="text-brand-gold text-xs font-semibold tracking-widest uppercase mb-3 block"
-              style={{ letterSpacing: '3px' }}
-            >
-              Just Dropped
-            </span>
-            <h2
-              className="text-brand-charcoal"
-              style={{ fontFamily: 'Playfair Display, serif', fontSize: 'clamp(28px, 4vw, 40px)', fontWeight: 600 }}
-            >
-              New Arrivals
-            </h2>
+            <span className="section-label" style={{ display: 'block', textAlign: 'center' }}>Just Dropped</span>
+            <h2 className="page-title">New Arrivals</h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <motion.div
+            ref={newRef}
+            initial="hidden"
+            animate={newInView ? 'visible' : 'hidden'}
+            variants={staggerContainer}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+          >
             {newProducts.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
+          </motion.div>
+
+          <div className="text-center mt-12">
+            <Link href="/shop/new-arrivals" className="glass-btn inline-flex items-center gap-2 px-8">
+              View All New Arrivals
+              <ArrowRight size={15} />
+            </Link>
           </div>
         </div>
       </section>

@@ -30,8 +30,7 @@ export default function AccountPage() {
       <div className="space-y-6">
         {/* Avatar section */}
         <div
-          className="rounded-2xl p-6 flex items-center gap-5"
-          style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(212,165,116,0.15)', backdropFilter: 'blur(10px)' }}
+          className="card rounded-2xl p-6 flex items-center gap-5"
         >
           <div className="relative flex-shrink-0">
             <div
@@ -61,8 +60,7 @@ export default function AccountPage() {
 
         {/* Personal info form */}
         <div
-          className="rounded-2xl p-6"
-          style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(212,165,116,0.15)', backdropFilter: 'blur(10px)' }}
+          className="card rounded-2xl p-6"
         >
           <h2 className="text-brand-charcoal font-semibold mb-5" style={{ fontFamily: 'Playfair Display, serif', fontSize: '18px' }}>
             Personal Information
@@ -92,8 +90,7 @@ export default function AccountPage() {
 
         {/* Preferences */}
         <div
-          className="rounded-2xl p-6"
-          style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(212,165,116,0.15)', backdropFilter: 'blur(10px)' }}
+          className="card rounded-2xl p-6"
         >
           <h2 className="text-brand-charcoal font-semibold mb-5" style={{ fontFamily: 'Playfair Display, serif', fontSize: '18px' }}>
             Preferences
