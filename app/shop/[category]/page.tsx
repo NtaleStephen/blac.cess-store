@@ -1,9 +1,8 @@
 'use client';
 
 import { use, useState, useMemo } from 'react';
-import { SlidersHorizontal } from 'lucide-react';
+import { SlidersHorizontal, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
-import { ChevronRight } from 'lucide-react';
 import { mockProducts } from '@/lib/mock-data';
 import { FilterState } from '@/types';
 import { applySort } from '@/lib/utils';
@@ -30,43 +29,37 @@ const DEFAULT_FILTERS: FilterState = { categories: [], sizes: [], colors: [], pr
 
 export default function CategoryPage({ params }: { params: Promise<{ category: string }> }) {
   const { category } = use(params);
-  const [filters, setFilters] = useState<FilterState>(DEFAULT_FILTERS);
-  const [sort, setSort] = useState('newest');
+  const [filters, setFilters]                   = useState<FilterState>(DEFAULT_FILTERS);
+  const [sort, setSort]                         = useState('newest');
   const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
 
   const meta = CATEGORY_META[category] ?? { title: category.replace(/-/g, ' '), description: '' };
 
   const products = useMemo(() => {
     let result = mockProducts.filter((p) => p.category === category);
-
-    if (filters.colors.length > 0) {
-      result = result.filter((p) => p.colors.some((c) => filters.colors.includes(c.name)));
-    }
-    if (filters.sizes.length > 0) {
-      result = result.filter((p) => p.sizes.some((s) => filters.sizes.includes(s.size) && s.available));
-    }
+    if (filters.colors.length > 0) result = result.filter((p) => p.colors.some((c) => filters.colors.includes(c.name)));
+    if (filters.sizes.length > 0)  result = result.filter((p) => p.sizes.some((s) => filters.sizes.includes(s.size) && s.available));
     result = result.filter((p) => p.price >= filters.priceMin && p.price <= filters.priceMax);
-
     return applySort(result, sort);
   }, [category, filters, sort]);
 
   return (
-    <div className="bg-brand-cream min-h-screen" style={{ paddingTop: '72px' }}>
+    <div className="min-h-screen" style={{ background: '#F5F1EB', paddingTop: 72 }}>
       {/* Header */}
       <div className="page-header">
         <div className="container py-10">
-          {/* Breadcrumb */}
-          <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-brand-charcoal/45 mb-5" style={{ fontSize: '11px' }}>
+          <nav aria-label="Breadcrumb" className="flex items-center gap-2 mb-5" style={{ fontSize: '11px', color: 'rgba(42,42,42,0.45)' }}>
             <Link href="/" className="hover:text-brand-gold transition-colors">Home</Link>
             <ChevronRight size={10} />
             <Link href="/shop" className="hover:text-brand-gold transition-colors">Shop</Link>
             <ChevronRight size={10} />
-            <span className="text-brand-gold capitalize" aria-current="page">{meta.title}</span>
+            <span style={{ color: '#D4A574' }} aria-current="page">{meta.title}</span>
           </nav>
-
           <span className="section-label">Collection</span>
           <h1 className="page-title mb-3">{meta.title}</h1>
-          <p className="text-brand-charcoal/55 text-sm max-w-xl leading-relaxed">{meta.description}</p>
+          {meta.description && (
+            <p className="text-sm max-w-xl leading-relaxed" style={{ color: 'rgba(42,42,42,0.55)' }}>{meta.description}</p>
+          )}
         </div>
       </div>
 
@@ -75,22 +68,21 @@ export default function CategoryPage({ params }: { params: Promise<{ category: s
         <div className="flex items-center justify-between mb-6 flex-wrap gap-3">
           <div className="flex items-center gap-3">
             <button
-              className="glass-btn flex items-center gap-2 lg:hidden"
-              style={{ fontSize: '13px', padding: '10px 16px' }}
+              className="btn btn-sm btn-outline lg:hidden"
+              style={{ gap: 7 }}
               onClick={() => setMobileFilterOpen(true)}
             >
               <SlidersHorizontal size={14} />
               Filters
             </button>
-            <p className="text-brand-charcoal/50 text-sm">
-              <span className="font-semibold text-brand-charcoal">{products.length}</span> products
+            <p className="text-sm" style={{ color: 'rgba(42,42,42,0.5)' }}>
+              <span className="font-semibold" style={{ color: '#2A2A2A' }}>{products.length}</span> products
             </p>
           </div>
           <SortDropdown value={sort} onChange={setSort} />
         </div>
 
         <div className="flex gap-8">
-          {/* Filter sidebar - desktop only */}
           <div className="hidden lg:block w-60 flex-shrink-0">
             <FilterPanel
               filters={filters}

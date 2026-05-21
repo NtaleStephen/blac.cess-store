@@ -23,9 +23,9 @@ export default function SortDropdown({ value, onChange }: SortDropdownProps) {
   return (
     <div className="relative">
       <button
-        className="glass-btn flex items-center gap-2 whitespace-nowrap"
-        style={{ fontSize: '13px', padding: '10px 16px' }}
+        className="btn btn-sm btn-outline flex items-center gap-2 whitespace-nowrap"
         onClick={() => setOpen(!open)}
+        aria-expanded={open}
       >
         <span>{selected.label}</span>
         <ChevronDown size={14} className={`transition-transform duration-200 ${open ? 'rotate-180' : ''}`} />
@@ -37,22 +37,24 @@ export default function SortDropdown({ value, onChange }: SortDropdownProps) {
           <div
             className="absolute right-0 top-full mt-2 w-52 z-20 rounded-xl overflow-hidden"
             style={{
-              background: 'rgba(245,241,235,0.97)',
-              backdropFilter: 'blur(20px)',
-              border: '1px solid rgba(212,165,116,0.2)',
-              boxShadow: '0 12px 40px rgba(0,0,0,0.12)',
+              background: '#FFFFFF',
+              border: '1px solid rgba(42,42,42,0.1)',
+              boxShadow: '0 8px 32px rgba(0,0,0,0.12)',
             }}
           >
             {SORT_OPTIONS.map((option) => (
               <button
                 key={option.value}
                 onClick={() => { onChange(option.value); setOpen(false); }}
-                className="w-full text-left px-4 py-3 text-sm transition-colors duration-150 hover:bg-brand-gold/10"
+                className="w-full text-left px-4 py-3 text-sm transition-colors duration-150"
                 style={{
                   color: option.value === value ? '#D4A574' : '#2A2A2A',
                   fontWeight: option.value === value ? 600 : 400,
-                  borderBottom: '1px solid rgba(212,165,116,0.08)',
+                  borderBottom: '1px solid rgba(42,42,42,0.06)',
+                  background: option.value === value ? 'rgba(212,165,116,0.06)' : 'transparent',
                 }}
+                onMouseEnter={e => { if (option.value !== value) (e.currentTarget as HTMLButtonElement).style.background = 'rgba(42,42,42,0.03)'; }}
+                onMouseLeave={e => { if (option.value !== value) (e.currentTarget as HTMLButtonElement).style.background = 'transparent'; }}
               >
                 {option.label}
               </button>

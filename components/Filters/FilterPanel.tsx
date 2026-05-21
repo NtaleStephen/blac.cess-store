@@ -36,21 +36,18 @@ interface FilterPanelProps {
 function FilterSection({ title, children }: { title: string; children: React.ReactNode }) {
   const [open, setOpen] = useState(true);
   return (
-    <div className="border-b pb-4 mb-4" style={{ borderColor: 'rgba(212,165,116,0.15)' }}>
+    <div className="border-b pb-4 mb-4" style={{ borderColor: 'rgba(42,42,42,0.08)' }}>
       <button
         className="flex items-center justify-between w-full mb-3"
         onClick={() => setOpen(!open)}
         aria-expanded={open}
       >
-        <span
-          className="text-brand-charcoal font-semibold uppercase"
-          style={{ letterSpacing: '1.5px', fontSize: '11px' }}
-        >
+        <span className="font-semibold uppercase" style={{ letterSpacing: '1.5px', fontSize: '11px', color: '#2A2A2A' }}>
           {title}
         </span>
         {open
-          ? <ChevronUp size={14} className="text-brand-gold" />
-          : <ChevronDown size={14} className="text-brand-gold" />
+          ? <ChevronUp size={14} style={{ color: '#D4A574' }} />
+          : <ChevronDown size={14} style={{ color: '#D4A574' }} />
         }
       </button>
       <AnimatePresence initial={false}>
@@ -90,16 +87,14 @@ export default function FilterPanel({ filters, onChange, isMobileOpen = true, on
       {/* Header */}
       <div className="flex items-center justify-between mb-5">
         <div>
-          <h3
-            className="font-semibold text-brand-charcoal"
-            style={{ fontFamily: 'Playfair Display, serif', fontSize: '16px' }}
-          >
+          <h3 className="font-serif font-semibold" style={{ fontSize: '16px', color: '#2A2A2A' }}>
             Filter
           </h3>
           {activeCount > 0 && (
             <button
               onClick={clearAll}
-              className="text-brand-gold text-xs mt-0.5 hover:underline"
+              className="text-xs mt-0.5 hover:underline"
+              style={{ color: '#D4A574' }}
             >
               Clear all ({activeCount})
             </button>
@@ -107,7 +102,7 @@ export default function FilterPanel({ filters, onChange, isMobileOpen = true, on
         </div>
         {onMobileClose && (
           <button
-            className="glass-btn-icon lg:hidden"
+            className="btn-icon lg:hidden"
             onClick={onMobileClose}
             aria-label="Close filters"
           >
@@ -116,16 +111,13 @@ export default function FilterPanel({ filters, onChange, isMobileOpen = true, on
         )}
       </div>
 
-      {/* Category — fixed: single onChange per click via hidden checkbox */}
+      {/* Category */}
       <FilterSection title="Category">
         <div className="space-y-2.5">
           {CATEGORIES.map((cat) => {
             const checked = filters.categories.includes(cat.value);
             return (
-              <label
-                key={cat.value}
-                className="flex items-center gap-3 cursor-pointer group"
-              >
+              <label key={cat.value} className="flex items-center gap-3 cursor-pointer group">
                 <input
                   type="checkbox"
                   checked={checked}
@@ -135,8 +127,8 @@ export default function FilterPanel({ filters, onChange, isMobileOpen = true, on
                 <div
                   className="w-4 h-4 rounded flex items-center justify-center transition-all duration-200 flex-shrink-0"
                   style={{
-                    background: checked ? '#D4A574' : 'rgba(255,255,255,0.5)',
-                    border: `1.5px solid ${checked ? '#D4A574' : 'rgba(212,165,116,0.35)'}`,
+                    background: checked ? '#D4A574' : '#FFFFFF',
+                    border: `1.5px solid ${checked ? '#D4A574' : 'rgba(42,42,42,0.2)'}`,
                   }}
                   aria-hidden="true"
                 >
@@ -169,9 +161,9 @@ export default function FilterPanel({ filters, onChange, isMobileOpen = true, on
                 onClick={() => toggle('sizes', size)}
                 className="px-3 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200"
                 style={{
-                  background: active ? 'rgba(212,165,116,0.2)' : 'rgba(255,255,255,0.5)',
-                  border: `1px solid ${active ? 'rgba(212,165,116,0.6)' : 'rgba(212,165,116,0.2)'}`,
-                  color: active ? '#D4A574' : '#2A2A2A',
+                  background: active ? '#2A2A2A' : '#FFFFFF',
+                  border: `1.5px solid ${active ? '#2A2A2A' : 'rgba(42,42,42,0.15)'}`,
+                  color: active ? '#FFFFFF' : '#2A2A2A',
                 }}
               >
                 {size}
@@ -197,8 +189,8 @@ export default function FilterPanel({ filters, onChange, isMobileOpen = true, on
                   height: '26px',
                   borderRadius: '50%',
                   background: color.hex,
-                  border: active ? '2px solid #D4A574' : '1.5px solid rgba(42,42,42,0.2)',
-                  boxShadow: active ? '0 0 0 3px rgba(212,165,116,0.2)' : 'none',
+                  border: active ? '2px solid #D4A574' : '2px solid rgba(42,42,42,0.15)',
+                  boxShadow: active ? '0 0 0 3px rgba(212,165,116,0.25)' : 'none',
                   transform: active ? 'scale(1.15)' : 'scale(1)',
                   transition: 'all 0.2s ease',
                   cursor: 'pointer',
@@ -212,7 +204,7 @@ export default function FilterPanel({ filters, onChange, isMobileOpen = true, on
       {/* Price */}
       <FilterSection title="Price Range">
         <div className="space-y-2">
-          <div className="flex items-center justify-between text-xs text-brand-charcoal/60">
+          <div className="flex items-center justify-between text-xs" style={{ color: 'rgba(42,42,42,0.6)' }}>
             <span>${filters.priceMin}</span>
             <span>${filters.priceMax}</span>
           </div>
@@ -235,10 +227,11 @@ export default function FilterPanel({ filters, onChange, isMobileOpen = true, on
     <>
       {/* Desktop sidebar */}
       <div
-        className="hidden lg:block rounded-2xl sticky top-24 overflow-y-auto"
+        className="hidden lg:block rounded-xl sticky top-24 overflow-y-auto"
         style={{
-          background: 'rgba(255,255,255,0.55)',
-          border: '1px solid rgba(212,165,116,0.14)',
+          background: '#FFFFFF',
+          border: '1px solid rgba(42,42,42,0.08)',
+          boxShadow: '0 1px 4px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.04)',
           maxHeight: 'calc(100vh - 120px)',
         }}
       >
@@ -259,14 +252,14 @@ export default function FilterPanel({ filters, onChange, isMobileOpen = true, on
         )}
       </AnimatePresence>
 
-      {/* Mobile drawer — capped at 90vw so it never overflows on 320px phones */}
+      {/* Mobile drawer */}
       <div
         className={`fixed top-0 left-0 h-full z-50 lg:hidden overflow-y-auto transition-transform duration-300 ${isMobileOpen ? 'translate-x-0' : '-translate-x-full'}`}
         style={{
           width: 'min(320px, 90vw)',
-          background: 'rgba(245,241,235,0.97)',
-          backdropFilter: 'blur(20px)',
-          borderRight: '1px solid rgba(212,165,116,0.2)',
+          background: '#FFFFFF',
+          borderRight: '1px solid rgba(42,42,42,0.08)',
+          boxShadow: '4px 0 20px rgba(0,0,0,0.1)',
         }}
       >
         {content}

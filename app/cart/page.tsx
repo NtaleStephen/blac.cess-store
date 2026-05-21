@@ -27,10 +27,8 @@ export default function CartPage() {
         <div className="container py-10">
           <Link
             href="/shop"
-            className="inline-flex items-center gap-2 text-sm mb-4 transition-colors duration-200"
+            className="inline-flex items-center gap-2 text-sm mb-4 hover:text-brand-gold transition-colors duration-200"
             style={{ color: 'rgba(42,42,42,0.5)' }}
-            onMouseEnter={e => (e.currentTarget.style.color = '#D4A574')}
-            onMouseLeave={e => (e.currentTarget.style.color = 'rgba(42,42,42,0.5)')}
           >
             <ArrowLeft size={14} />
             Continue Shopping
@@ -47,11 +45,10 @@ export default function CartPage() {
       {/* Content */}
       <div className="container py-12">
         {items.length === 0 ? (
-          /* Empty state */
           <div className="text-center py-28">
             <div
               className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6"
-              style={{ background: 'rgba(212,165,116,0.1)', border: '1px solid rgba(212,165,116,0.2)' }}
+              style={{ background: 'rgba(212,165,116,0.1)', border: '1px solid rgba(212,165,116,0.25)' }}
             >
               <ShoppingBag size={32} style={{ color: '#D4A574' }} strokeWidth={1.5} />
             </div>
@@ -61,7 +58,7 @@ export default function CartPage() {
             <p className="text-sm mb-8" style={{ color: 'rgba(42,42,42,0.5)' }}>
               Start shopping to add items to your cart
             </p>
-            <Link href="/shop" className="glass-btn glass-btn-primary inline-flex items-center gap-2">
+            <Link href="/shop" className="btn btn-gold inline-flex items-center gap-2">
               <ShoppingBag size={14} />
               Explore Collection
             </Link>
@@ -83,7 +80,8 @@ export default function CartPage() {
                       key={item.id}
                       variants={fadeInUp}
                       exit={{ opacity: 0, x: -20, transition: { duration: 0.22 } }}
-                      className="card rounded-2xl p-5 flex gap-5"
+                      className="rounded-xl p-5 flex gap-5"
+                      style={{ background: '#FFFFFF', boxShadow: '0 1px 4px rgba(0,0,0,0.07), 0 4px 12px rgba(0,0,0,0.05)' }}
                     >
                       {/* Thumbnail */}
                       <Link href={`/shop/product/${item.productId}`} className="flex-shrink-0">
@@ -103,18 +101,16 @@ export default function CartPage() {
                         <div className="flex items-start justify-between gap-2">
                           <Link href={`/shop/product/${item.productId}`}>
                             <h3
-                              className="font-serif font-semibold leading-tight transition-colors duration-200"
+                              className="font-serif font-semibold leading-tight hover:text-brand-gold transition-colors duration-200"
                               style={{ fontSize: 15, color: '#2A2A2A' }}
-                              onMouseEnter={e => (e.currentTarget.style.color = '#D4A574')}
-                              onMouseLeave={e => (e.currentTarget.style.color = '#2A2A2A')}
                             >
                               {item.name}
                             </h3>
                           </Link>
                           <button
                             onClick={() => removeItem(item.id)}
-                            className="glass-btn-icon flex-shrink-0"
-                            style={{ minWidth: 34, minHeight: 34, width: 34, height: 34, padding: 6 }}
+                            className="btn-icon flex-shrink-0"
+                            style={{ minWidth: 34, minHeight: 34, width: 34, height: 34 }}
                             aria-label="Remove item"
                           >
                             <X size={14} style={{ color: 'rgba(42,42,42,0.55)' }} />
@@ -136,31 +132,27 @@ export default function CartPage() {
                         <div className="flex items-center justify-between flex-wrap gap-2">
                           {/* Quantity control */}
                           <div
-                            className="flex items-center rounded-xl overflow-hidden"
-                            style={{ border: '1px solid rgba(212,165,116,0.28)' }}
+                            className="flex items-center rounded-lg overflow-hidden"
+                            style={{ border: '1.5px solid rgba(42,42,42,0.15)' }}
                           >
                             <button
                               onClick={() => updateQuantity(item.id, -1)}
-                              className="px-3 py-2 transition-colors duration-200"
+                              className="px-3 py-2 transition-colors duration-200 hover:bg-gray-50"
                               style={{ color: '#2A2A2A' }}
-                              onMouseEnter={e => (e.currentTarget.style.background = 'rgba(212,165,116,0.1)')}
-                              onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}
                               aria-label="Decrease quantity"
                             >
                               <Minus size={12} />
                             </button>
                             <span
                               className="px-4 py-2 text-sm font-semibold text-center"
-                              style={{ color: '#2A2A2A', borderLeft: '1px solid rgba(212,165,116,0.28)', borderRight: '1px solid rgba(212,165,116,0.28)', minWidth: 44 }}
+                              style={{ color: '#2A2A2A', borderLeft: '1.5px solid rgba(42,42,42,0.1)', borderRight: '1.5px solid rgba(42,42,42,0.1)', minWidth: 44 }}
                             >
                               {item.quantity}
                             </span>
                             <button
                               onClick={() => updateQuantity(item.id, 1)}
-                              className="px-3 py-2 transition-colors duration-200"
+                              className="px-3 py-2 transition-colors duration-200 hover:bg-gray-50"
                               style={{ color: '#2A2A2A' }}
-                              onMouseEnter={e => (e.currentTarget.style.background = 'rgba(212,165,116,0.1)')}
-                              onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}
                               aria-label="Increase quantity"
                             >
                               <Plus size={12} />
@@ -168,7 +160,7 @@ export default function CartPage() {
                           </div>
 
                           {/* Line price */}
-                          <span className="font-bold" style={{ color: '#D4A574', fontSize: 15 }}>
+                          <span className="font-bold" style={{ color: '#2A2A2A', fontSize: 15 }}>
                             {formatPrice(item.price * item.quantity)}
                           </span>
                         </div>

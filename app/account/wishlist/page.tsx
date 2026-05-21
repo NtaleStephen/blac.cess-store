@@ -20,27 +20,30 @@ export default function WishlistPage() {
   return (
     <motion.div initial="hidden" animate="visible" variants={fadeInUp}>
       <div className="mb-8">
-        <p className="text-brand-gold text-xs font-semibold uppercase tracking-widest mb-1" style={{ letterSpacing: '3px' }}>
-          My Account
-        </p>
-        <h1 className="text-brand-charcoal" style={{ fontFamily: 'Playfair Display, serif', fontSize: 'clamp(24px, 3vw, 36px)', fontWeight: 600 }}>
+        <span className="section-eyebrow">My Account</span>
+        <h1 className="font-serif" style={{ fontSize: 'clamp(24px, 3vw, 36px)', fontWeight: 600, color: '#2A2A2A' }}>
           Wishlist
         </h1>
         {items.length > 0 && (
-          <p className="text-brand-charcoal/50 text-sm mt-1">{items.length} saved {items.length === 1 ? 'item' : 'items'}</p>
+          <p className="text-sm mt-1" style={{ color: 'rgba(42,42,42,0.5)' }}>
+            {items.length} saved {items.length === 1 ? 'item' : 'items'}
+          </p>
         )}
       </div>
 
       {items.length === 0 ? (
         <div className="text-center py-20">
-          <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4" style={{ background: 'rgba(212,165,116,0.1)', border: '1px solid rgba(212,165,116,0.2)' }}>
-            <Heart size={28} className="text-brand-gold" strokeWidth={1.5} />
+          <div
+            className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
+            style={{ background: 'rgba(212,165,116,0.1)', border: '1px solid rgba(212,165,116,0.2)' }}
+          >
+            <Heart size={28} style={{ color: '#D4A574' }} strokeWidth={1.5} />
           </div>
-          <h3 className="text-brand-charcoal mb-2" style={{ fontFamily: 'Playfair Display, serif', fontSize: '20px' }}>
+          <h3 className="font-serif mb-2" style={{ fontSize: '20px', color: '#2A2A2A' }}>
             Your wishlist is empty
           </h3>
-          <p className="text-brand-charcoal/50 text-sm mb-6">Save items you love to find them again easily.</p>
-          <Link href="/shop" className="glass-btn glass-btn-primary inline-flex items-center gap-2">
+          <p className="text-sm mb-6" style={{ color: 'rgba(42,42,42,0.5)' }}>Save items you love to find them again easily.</p>
+          <Link href="/shop" className="btn btn-gold inline-flex items-center gap-2">
             Explore Collection
           </Link>
         </div>
@@ -57,7 +60,8 @@ export default function WishlistPage() {
                 key={product.id}
                 variants={fadeInUp}
                 exit={{ opacity: 0, scale: 0.92, transition: { duration: 0.2 } }}
-                className="card rounded-2xl overflow-hidden group"
+                className="rounded-xl overflow-hidden group"
+                style={{ background: '#FFFFFF', boxShadow: '0 1px 4px rgba(0,0,0,0.07), 0 4px 12px rgba(0,0,0,0.05)' }}
               >
                 {/* Image */}
                 <div className="relative overflow-hidden" style={{ aspectRatio: '4/5' }}>
@@ -71,11 +75,11 @@ export default function WishlistPage() {
                   {/* Remove button */}
                   <button
                     onClick={() => remove(product.id)}
-                    className="glass-btn-icon absolute top-3 right-3"
-                    style={{ background: 'rgba(255,255,255,0.15)', backdropFilter: 'blur(10px)' }}
+                    className="absolute top-3 right-3 w-8 h-8 rounded-full flex items-center justify-center transition-opacity opacity-0 group-hover:opacity-100"
+                    style={{ background: 'rgba(255,255,255,0.95)', boxShadow: '0 2px 8px rgba(0,0,0,0.12)' }}
                     aria-label="Remove from wishlist"
                   >
-                    <X size={14} className="text-white" />
+                    <X size={13} style={{ color: '#2A2A2A' }} />
                   </button>
                 </div>
 
@@ -83,30 +87,29 @@ export default function WishlistPage() {
                 <div className="p-4">
                   <Link href={`/shop/product/${product.id}`}>
                     <h3
-                      className="text-brand-charcoal font-semibold mb-1 hover:text-brand-gold transition-colors duration-200 truncate"
-                      style={{ fontFamily: 'Playfair Display, serif', fontSize: '15px' }}
+                      className="font-serif font-semibold mb-1 hover:text-brand-gold transition-colors duration-200 truncate"
+                      style={{ fontSize: '15px', color: '#2A2A2A' }}
                     >
                       {product.name}
                     </h3>
                   </Link>
-                  <p className="font-bold mb-3" style={{ color: '#D4A574', fontSize: '15px' }}>
+                  <p className="font-bold mb-3" style={{ color: '#2A2A2A', fontSize: '15px' }}>
                     {formatPrice(product.price)}
                   </p>
                   <div className="flex gap-2">
                     <Link
                       href={`/shop/product/${product.id}`}
-                      className="glass-btn glass-btn-primary flex-1 flex items-center justify-center gap-1.5"
-                      style={{ fontSize: '11px', letterSpacing: '1px', padding: '9px 12px' }}
+                      className="btn btn-gold btn-sm flex-1 flex items-center justify-center gap-1.5"
                     >
                       <ShoppingBag size={12} />
                       Add to Cart
                     </Link>
                     <button
                       onClick={() => remove(product.id)}
-                      className="glass-btn-icon"
+                      className="btn-icon"
                       aria-label="Remove from wishlist"
                     >
-                      <Heart size={14} className="fill-red-400 text-red-400" />
+                      <Heart size={14} style={{ color: '#ef4444', fill: '#ef4444' }} />
                     </button>
                   </div>
                 </div>

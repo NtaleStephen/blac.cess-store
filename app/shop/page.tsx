@@ -37,10 +37,10 @@ function applyFilters(products: typeof mockProducts, filters: FilterState, query
 }
 
 function ShopPage() {
-  const searchParams    = useSearchParams();
-  const query           = searchParams.get('q') ?? '';
-  const [filters, setFilters]           = useState<FilterState>(DEFAULT_FILTERS);
-  const [sort, setSort]                 = useState('newest');
+  const searchParams = useSearchParams();
+  const query        = searchParams.get('q') ?? '';
+  const [filters, setFilters]                   = useState<FilterState>(DEFAULT_FILTERS);
+  const [sort, setSort]                         = useState('newest');
   const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
 
   const products = useMemo(
@@ -69,8 +69,8 @@ function ShopPage() {
         <div className="flex items-center justify-between mb-7 flex-wrap gap-3">
           <div className="flex items-center gap-3">
             <button
-              className="glass-btn lg:hidden"
-              style={{ fontSize: 13, padding: '10px 16px', gap: 7 }}
+              className="btn btn-sm btn-outline lg:hidden"
+              style={{ gap: 7 }}
               onClick={() => setMobileFilterOpen(true)}
             >
               <SlidersHorizontal size={14} />
@@ -95,7 +95,7 @@ function ShopPage() {
             />
           </div>
 
-          {/* Mobile filter (uses same panel component with overlay) */}
+          {/* Mobile filter panel (handled internally by FilterPanel with overlay) */}
           <div className="lg:hidden">
             <FilterPanel
               filters={filters}
