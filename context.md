@@ -70,9 +70,9 @@ transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 | 4 | Layout & header components | ✅ Done |
 | 5 | Hero section with parallax | ✅ Done |
 | 6 | Product card & grid | ✅ Done |
-| 7 | Product detail page | ⬜ Pending |
-| 8 | Shopping cart | ⬜ Pending |
-| 9 | Checkout flow | ⬜ Pending |
+| 7 | Product detail page | ✅ Done |
+| 8 | Shopping cart | ✅ Done |
+| 9 | Checkout flow | ✅ Done |
 | 10 | Authentication | ⬜ Pending |
 | 11 | User account pages | ⬜ Pending |
 | 12 | API endpoints | ⬜ Pending |
@@ -158,21 +158,32 @@ transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 ---
 
 ### Phase 5 — Shop & Collection Pages
+**Status:** ✅ Complete — 2026-05-21
+**Delivered:**
+- `app/shop/page.tsx` — full shop with sidebar FilterPanel, SortDropdown, product count, responsive layout
+- `app/shop/[category]/page.tsx` — breadcrumb, category description (crop-tops/sweatpants/hoodies), filtered ProductGrid
+- `components/Filters/FilterPanel.tsx` — desktop sticky sidebar + mobile slide-in drawer; category/size/color/price filters, active count badge, clear-all
+- `components/Filters/SortDropdown.tsx` — glass dropdown with 5 sort options
+- `app/shop/product/[id]/page.tsx` — full PDP: ImageGallery, color/size/quantity selectors, trust badges, description tabs (Description/Details/Shipping), customer reviews section, related products grid
+- `components/Gallery/ImageGallery.tsx` — main image + thumbnail strip + keyboard-controlled lightbox (ESC/arrow keys)
+
+---
+
+### Phase 6 — Cart & Checkout UI
+**Status:** ✅ Complete — 2026-05-21
+**Delivered:**
+- `app/cart/page.tsx` — animated item list (AnimatePresence), quantity +/-, remove with slide-out animation, empty state, CartSummary sidebar
+- `components/Cart/CartSummary.tsx` — sticky order summary, promo code input, free shipping logic, tax calculation
+- `app/checkout/page.tsx` — 4-step flow (Shipping → Billing → Payment → Review), animated step transitions, PaymentMethod selector (card/Apple Pay/bank), order review, order confirmation screen
+
+---
+
+### Phase 7 — Authentication Pages
 **Status:** ⬜ Not started
 
 ---
 
-### Phase 6 — Product Detail Page
-**Status:** ⬜ Not started
-
----
-
-### Phase 7 — Shopping Cart
-**Status:** ⬜ Not started
-
----
-
-### Phase 8 — Checkout Flow
+### Phase 8 — User Account Pages
 **Status:** ⬜ Not started
 
 ---
