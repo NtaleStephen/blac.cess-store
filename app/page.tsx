@@ -12,35 +12,39 @@ import Link from 'next/link';
 import { ArrowRight, Crown } from 'lucide-react';
 
 export default function HomePage() {
-  const { ref: gridRef, inView: gridInView } = useInView();
-  const { ref: newRef, inView: newInView } = useInView();
+  const { ref: featRef, inView: featInView } = useInView();
+  const { ref: newRef,  inView: newInView  } = useInView();
+
   const featuredProducts = useMemo(() => mockProducts.filter((p) => p.featured), []);
-  const newProducts = useMemo(() => mockProducts.filter((p) => p.isNew).slice(0, 4), []);
+  const newProducts      = useMemo(() => mockProducts.filter((p) => p.isNew).slice(0, 4), []);
 
   return (
     <div>
       <Hero />
 
-      {/* Section divider */}
-      <div className="section-divider mx-auto max-w-4xl" />
+      {/* Divider */}
+      <div className="section-divider" />
 
-      {/* Featured Section */}
+      {/* Featured band */}
       <FeaturedSection />
 
-      {/* Featured Products Grid */}
+      {/* Divider */}
+      <div className="section-divider" />
+
+      {/* Featured Products */}
       <section className="py-24 px-4">
         <div className="container">
           <div className="text-center mb-14">
-            <span className="section-label" style={{ display: 'block', textAlign: 'center' }}>Curated Selection</span>
-            <h2 className="page-title mt-2">Featured Pieces</h2>
+            <span className="section-label" style={{ textAlign: 'center' }}>Curated Selection</span>
+            <h2 className="page-title">Featured Pieces</h2>
           </div>
 
           <motion.div
-            ref={gridRef}
+            ref={featRef}
             initial="hidden"
-            animate={gridInView ? 'visible' : 'hidden'}
+            animate={featInView ? 'visible' : 'hidden'}
             variants={staggerContainer}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-7"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-7"
           >
             {featuredProducts.map((product) => (
               <ProductCard key={product.id} product={product} />
@@ -56,15 +60,15 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Section divider */}
-      <div className="section-divider mx-auto max-w-4xl" />
+      {/* Divider */}
+      <div className="section-divider" />
 
       {/* New Arrivals */}
       <section className="py-24 px-4">
         <div className="container">
           <div className="text-center mb-14">
-            <span className="section-label" style={{ display: 'block', textAlign: 'center' }}>Just Dropped</span>
-            <h2 className="page-title mt-2">New Arrivals</h2>
+            <span className="section-label" style={{ textAlign: 'center' }}>Just Dropped</span>
+            <h2 className="page-title">New Arrivals</h2>
           </div>
 
           <motion.div
@@ -72,7 +76,7 @@ export default function HomePage() {
             initial="hidden"
             animate={newInView ? 'visible' : 'hidden'}
             variants={staggerContainer}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-7"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-7"
           >
             {newProducts.map((product) => (
               <ProductCard key={product.id} product={product} />
@@ -88,32 +92,35 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Story section */}
+      {/* Brand story */}
       <section
         className="py-28 px-4"
-        style={{ background: 'linear-gradient(160deg, #0A0A0A 0%, #000000 50%, #111111 100%)' }}
+        style={{ background: 'linear-gradient(160deg, #111111 0%, #000000 55%, #0A0A0A 100%)' }}
       >
-        <div className="container max-w-4xl text-center">
-          <Crown size={40} className="text-brand-gold mx-auto mb-6 opacity-80" strokeWidth={1} />
+        <div className="container text-center" style={{ maxWidth: 760, margin: '0 auto' }}>
+          <Crown
+            size={42}
+            style={{ color: '#D4A574', margin: '0 auto 28px', opacity: 0.8 }}
+            strokeWidth={1}
+          />
           <h2
-            className="text-white mb-6"
-            style={{
-              fontFamily: 'Playfair Display, serif',
-              fontSize: 'clamp(28px, 5vw, 48px)',
-              fontWeight: 600,
-            }}
+            className="font-serif text-white mb-6"
+            style={{ fontSize: 'clamp(28px, 5vw, 48px)', fontWeight: 600 }}
           >
             Worn by Those Who Know
           </h2>
-          <p className="text-white/60 text-sm leading-relaxed mb-8 max-w-xl mx-auto">
+          <p
+            className="leading-relaxed mb-10 mx-auto"
+            style={{ fontSize: 14, color: 'rgba(255,255,255,0.55)', maxWidth: 500 }}
+          >
             BLAC.CESS was born from a belief that luxury and cultural pride are inseparable. Every
             stitch carries intention. Every motif tells a story. Every garment is an act of
             self-assertion.
           </p>
           <Link
             href="/shop"
-            className="inline-flex items-center gap-2 text-brand-gold text-sm font-semibold uppercase tracking-widest hover:gap-4 transition-all duration-300"
-            style={{ letterSpacing: '2px' }}
+            className="inline-flex items-center gap-2 font-semibold uppercase transition-all duration-300 hover:gap-4"
+            style={{ color: '#D4A574', fontSize: 13, letterSpacing: '2px', fontFamily: 'Inter, sans-serif' }}
           >
             Start Shopping
             <ArrowRight size={16} />

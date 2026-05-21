@@ -8,58 +8,36 @@ interface CartSummaryProps {
   tax: number;
   total: number;
   itemCount: number;
-  onCheckout?: () => void;
   showButton?: boolean;
 }
 
-export default function CartSummary({
-  subtotal,
-  shipping,
-  tax,
-  total,
-  itemCount,
-  showButton = true,
-}: CartSummaryProps) {
+export default function CartSummary({ subtotal, shipping, tax, total, itemCount, showButton = true }: CartSummaryProps) {
   return (
-    <div className="card rounded-2xl p-6 sticky top-24">
-      <h2
-        className="font-semibold mb-5 text-brand-charcoal"
-        style={{ fontFamily: 'Playfair Display, serif', fontSize: '18px' }}
-      >
+    <div className="card rounded-2xl p-7 sticky top-24">
+      <h2 className="font-serif font-semibold mb-6" style={{ fontSize: 18, color: '#2A2A2A' }}>
         Order Summary
       </h2>
 
-      <div className="space-y-3 mb-4">
-        <div className="flex justify-between text-sm">
-          <span className="text-brand-charcoal/60">Subtotal ({itemCount} {itemCount === 1 ? 'item' : 'items'})</span>
-          <span className="font-medium">{formatPrice(subtotal)}</span>
-        </div>
-
-        <div className="flex justify-between text-sm">
-          <span className="text-brand-charcoal/60">Shipping</span>
-          <span className="font-medium" style={{ color: shipping === 0 ? '#388E3C' : undefined }}>
-            {shipping === 0 ? 'FREE' : formatPrice(shipping)}
-          </span>
-        </div>
-
+      <div className="flex flex-col gap-3.5 mb-5">
+        <SummaryRow label={`Subtotal (${itemCount} ${itemCount === 1 ? 'item' : 'items'})`} value={formatPrice(subtotal)} />
+        <SummaryRow
+          label="Shipping"
+          value={shipping === 0 ? 'FREE' : formatPrice(shipping)}
+          valueColor={shipping === 0 ? '#2E7D32' : undefined}
+        />
         {shipping === 0 && (
-          <p className="text-xs" style={{ color: '#388E3C' }}>You qualify for free shipping!</p>
+          <p style={{ fontSize: 12, color: '#2E7D32', marginTop: -8 }}>You qualify for free shipping!</p>
         )}
-
-        <div className="flex justify-between text-sm">
-          <span className="text-brand-charcoal/60">Estimated Tax</span>
-          <span className="font-medium">{formatPrice(tax)}</span>
-        </div>
+        <SummaryRow label="Estimated Tax" value={formatPrice(tax)} />
       </div>
 
+      {/* Total */}
       <div
-        className="flex justify-between items-center pt-4 mb-5"
+        className="flex justify-between items-center pt-4 mb-6"
         style={{ borderTop: '1px solid rgba(212,165,116,0.15)' }}
       >
-        <span className="font-bold text-brand-charcoal" style={{ fontFamily: 'Playfair Display, serif', fontSize: '16px' }}>
-          Total
-        </span>
-        <span className="font-bold text-xl" style={{ color: '#D4A574', fontFamily: 'Playfair Display, serif' }}>
+        <span className="font-serif font-bold" style={{ fontSize: 16, color: '#2A2A2A' }}>Total</span>
+        <span className="font-serif font-bold" style={{ fontSize: 20, color: '#D4A574' }}>
           {formatPrice(total)}
         </span>
       </div>
@@ -70,12 +48,9 @@ export default function CartSummary({
           type="text"
           placeholder="Promo code"
           className="glass-input flex-1"
-          style={{ fontSize: '13px', padding: '10px 14px' }}
+          style={{ fontSize: 13, padding: '10px 14px' }}
         />
-        <button
-          className="glass-btn flex items-center gap-1"
-          style={{ fontSize: '12px', padding: '10px 14px', whiteSpace: 'nowrap' }}
-        >
+        <button className="glass-btn" style={{ fontSize: 12, padding: '10px 14px', gap: 6 }}>
           <Tag size={13} />
           Apply
         </button>
@@ -84,21 +59,26 @@ export default function CartSummary({
       {showButton && (
         <Link
           href="/checkout"
-          className="glass-btn glass-btn-primary w-full flex items-center justify-center gap-2"
-          style={{ fontSize: '12px', letterSpacing: '1.5px', padding: '14px' }}
+          className="glass-btn glass-btn-primary w-full"
+          style={{ padding: '14px', letterSpacing: '1.5px' }}
         >
           Proceed to Checkout
           <ArrowRight size={14} />
         </Link>
       )}
 
-      <Link
-        href="/shop"
-        className="block text-center mt-3 text-sm text-brand-charcoal/50 hover:text-brand-gold transition-colors duration-200"
-        style={{ fontSize: '12px' }}
-      >
+      <Link href="/shop" className="cart-text-link block text-center mt-3">
         Continue Shopping
       </Link>
+    </div>
+  );
+}
+
+function SummaryRow({ label, value, valueColor }: { label: string; value: string; valueColor?: string }) {
+  return (
+    <div className="flex justify-between items-center text-sm">
+      <span style={{ color: 'rgba(42,42,42,0.58)' }}>{label}</span>
+      <span className="font-medium" style={{ color: valueColor ?? '#2A2A2A' }}>{value}</span>
     </div>
   );
 }
