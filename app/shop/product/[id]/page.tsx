@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { use, useState } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ChevronRight, ShoppingBag, Heart, Share2, Star, Truck, RefreshCw, Shield } from 'lucide-react';
@@ -12,8 +12,9 @@ import { fadeInUp } from '@/lib/animations';
 
 const TABS = ['Description', 'Details', 'Shipping'];
 
-export default function ProductDetailPage({ params }: { params: { id: string } }) {
-  const product = getProductById(params.id);
+export default function ProductDetailPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = use(params);
+  const product = getProductById(id);
 
   const [selectedColor, setSelectedColor] = useState(product?.colors[0]?.name ?? '');
   const [selectedSize, setSelectedSize] = useState('');

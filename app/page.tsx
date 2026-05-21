@@ -27,11 +27,11 @@ export default function HomePage() {
       <FeaturedSection />
 
       {/* Featured Products Grid */}
-      <section className="py-16 px-4">
+      <section className="py-24 px-4">
         <div className="container">
-          <div className="text-center mb-12">
+          <div className="text-center mb-14">
             <span className="section-label" style={{ display: 'block', textAlign: 'center' }}>Curated Selection</span>
-            <h2 className="page-title">Featured Pieces</h2>
+            <h2 className="page-title mt-2">Featured Pieces</h2>
           </div>
 
           <motion.div
@@ -59,11 +59,11 @@ export default function HomePage() {
       <div className="section-divider mx-auto max-w-4xl" />
 
       {/* New Arrivals */}
-      <section className="py-16 px-4">
+      <section className="py-24 px-4">
         <div className="container">
-          <div className="text-center mb-12">
+          <div className="text-center mb-14">
             <span className="section-label" style={{ display: 'block', textAlign: 'center' }}>Just Dropped</span>
-            <h2 className="page-title">New Arrivals</h2>
+            <h2 className="page-title mt-2">New Arrivals</h2>
           </div>
 
           <motion.div

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { use, useState, useMemo } from 'react';
 import { SlidersHorizontal } from 'lucide-react';
 import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
@@ -28,15 +28,16 @@ const CATEGORY_META: Record<string, { title: string; description: string }> = {
 
 const DEFAULT_FILTERS: FilterState = { categories: [], sizes: [], colors: [], priceMin: 0, priceMax: 500 };
 
-export default function CategoryPage({ params }: { params: { category: string } }) {
+export default function CategoryPage({ params }: { params: Promise<{ category: string }> }) {
+  const { category } = use(params);
   const [filters, setFilters] = useState<FilterState>(DEFAULT_FILTERS);
   const [sort, setSort] = useState('newest');
   const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
 
-  const meta = CATEGORY_META[params.category] ?? { title: params.category.replace(/-/g, ' '), description: '' };
+  const meta = CATEGORY_META[category] ?? { title: category.replace(/-/g, ' '), description: '' };
 
   const products = useMemo(() => {
-    let result = mockProducts.filter((p) => p.category === params.category);
+    let result = mockProducts.filter((p) => p.category === category);
 
     if (filters.colors.length > 0) {
       result = result.filter((p) => p.colors.some((c) => filters.colors.includes(c.name)));
@@ -47,7 +48,7 @@ export default function CategoryPage({ params }: { params: { category: string } 
     result = result.filter((p) => p.price >= filters.priceMin && p.price <= filters.priceMax);
 
     return applySort(result, sort);
-  }, [params.category, filters, sort]);
+  }, [category, filters, sort]);
 
   return (
     <div className="bg-brand-cream min-h-screen" style={{ paddingTop: '72px' }}>
