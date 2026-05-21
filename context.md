@@ -64,12 +64,12 @@ transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
 | Step | Task | Status |
 |------|------|--------|
-| 1 | Project setup & configuration | ⬜ Pending |
-| 2 | Tailwind config & global styles | ⬜ Pending |
-| 3 | Glass effect utilities | ⬜ Pending |
-| 4 | Layout & header components | ⬜ Pending |
-| 5 | Hero section with parallax | ⬜ Pending |
-| 6 | Product card & grid | ⬜ Pending |
+| 1 | Project setup & configuration | ✅ Done |
+| 2 | Tailwind config & global styles | ✅ Done |
+| 3 | Glass effect utilities | ✅ Done |
+| 4 | Layout & header components | ✅ Done |
+| 5 | Hero section with parallax | ✅ Done |
+| 6 | Product card & grid | ✅ Done |
 | 7 | Product detail page | ⬜ Pending |
 | 8 | Shopping cart | ⬜ Pending |
 | 9 | Checkout flow | ⬜ Pending |
@@ -100,7 +100,7 @@ transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 ---
 
 ### Phase 1 — Project Setup & Configuration
-**Status:** ⬜ Not started
+**Status:** ✅ Complete — 2026-05-21
 **Scope:**
 - `npx create-next-app@latest` with TypeScript, Tailwind, App Router
 - Install all dependencies (Prisma, Supabase, Framer Motion, bcryptjs, etc.)
@@ -116,24 +116,36 @@ transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 ---
 
 ### Phase 2 — Glass Utilities & Global Styles
-**Status:** ⬜ Not started
-**Scope:**
-- `styles/glass.css` — all glass variants
-- `styles/animations.css` — parallax, fade-in, hover effects
-- `styles/responsive.css` — breakpoint helpers
-- Tailwind custom classes for glass components
+**Status:** ✅ Complete — 2026-05-21
+**Delivered:**
+- `styles/glass.css` — `.glass`, `.glass-sm`, `.glass-dark`, `.glass-nav`, `.glass-input`, `.glass-btn`, `.glass-btn-primary`, `.glass-btn-icon`, `.section-divider`, `.skeleton`
+- `styles/animations.css` — fadeIn, slideUp, slideDown, scaleIn, shimmer keyframes + prefers-reduced-motion
+- `styles/variables.css` — all CSS custom properties
 
 ---
 
 ### Phase 3 — Layout & Navigation Header
-**Status:** ⬜ Not started
-**Scope:**
-- `app/layout.tsx` — root layout with font loading (Playfair Display + Inter)
-- `components/Header/Navigation.tsx` — sticky glass nav, logo, links, icons, hamburger
+**Status:** ✅ Complete — 2026-05-21
+**Delivered:**
+- `app/layout.tsx` — Google Fonts, metadata, nav + footer wrappers
+- `components/Header/Navigation.tsx` — sticky glass nav, scroll detection, mobile drawer, search toggle, cart badge
+- `components/Footer/Footer.tsx` — dark navy footer, newsletter signup, social links, legal
 
 ---
 
 ### Phase 4 — Homepage (Hero + Featured + Product Grid)
+**Status:** ✅ Complete — 2026-05-21 (done as part of Phase 3 batch)
+**Delivered:**
+- `hooks/useParallax.ts`, `hooks/useInView.ts`
+- `lib/animations.ts` — Framer Motion variant objects
+- `components/Hero/Hero.tsx` — 100vh dark hero with parallax, crown accents, Framer Motion entrance
+- `components/Featured/FeaturedSection.tsx` — gold-border glass card with cultural copy
+- `app/page.tsx` — full homepage: Hero → Featured → Featured Products grid → New Arrivals → Brand story
+- 12+ placeholder pages scaffolded across all routes
+
+---
+
+### Phase 5 — Shop & Collection Pages
 **Status:** ⬜ Not started
 **Scope:**
 - `app/page.tsx` — homepage assembly
