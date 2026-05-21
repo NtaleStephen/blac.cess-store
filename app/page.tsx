@@ -1,146 +1,14 @@
 'use client';
 
-import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import Hero from '@/components/Hero/Hero';
 import FeaturedSection from '@/components/Featured/FeaturedSection';
+import ProductCard from '@/components/ProductCard/ProductCard';
 import { mockProducts } from '@/lib/mock-data';
 import { useInView } from '@/hooks/useInView';
-import { staggerContainer, fadeInUp } from '@/lib/animations';
+import { staggerContainer } from '@/lib/animations';
 import Link from 'next/link';
-import Image from 'next/image';
-import { ShoppingBag, Star, ArrowRight, Crown } from 'lucide-react';
-import { formatPrice } from '@/lib/utils';
-import { Product } from '@/types';
-
-function ProductCard({ product }: { product: Product }) {
-  const { ref, inView } = useInView();
-  const [selectedColor, setSelectedColor] = useState(product.colors[0]?.name);
-
-  return (
-    <motion.div
-      ref={ref}
-      initial="hidden"
-      animate={inView ? 'visible' : 'hidden'}
-      variants={fadeInUp}
-      className="group cursor-pointer"
-    >
-      <div
-        className="glass rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-2"
-        style={{
-          background: 'rgba(255,255,255,0.06)',
-          border: '1px solid rgba(212,165,116,0.15)',
-        }}
-      >
-        {/* Image container */}
-        <div className="relative overflow-hidden" style={{ aspectRatio: '4/5' }}>
-          <Image
-            src={product.image}
-            alt={product.name}
-            fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
-          />
-          {product.isNew && (
-            <span
-              className="absolute top-3 right-3 text-white text-xs font-bold uppercase px-3 py-1 rounded-md"
-              style={{
-                background: 'rgba(212,165,116,0.9)',
-                backdropFilter: 'blur(10px)',
-                letterSpacing: '1px',
-                fontSize: '10px',
-              }}
-            >
-              New
-            </span>
-          )}
-          {product.stock <= 10 && product.stock > 0 && (
-            <span
-              className="absolute top-3 left-3 text-xs font-semibold px-2 py-1 rounded-md"
-              style={{
-                background: 'rgba(0,0,0,0.6)',
-                backdropFilter: 'blur(8px)',
-                color: 'rgba(255,255,255,0.8)',
-                fontSize: '10px',
-              }}
-            >
-              Only {product.stock} left
-            </span>
-          )}
-        </div>
-
-        {/* Info */}
-        <div className="p-4">
-          <h3
-            className="text-brand-charcoal font-semibold mb-1 truncate"
-            style={{ fontFamily: 'Playfair Display, serif', fontSize: '16px' }}
-          >
-            {product.name}
-          </h3>
-
-          {/* Rating */}
-          <div className="flex items-center gap-1 mb-3">
-            <Star size={12} className="text-brand-gold fill-brand-gold" />
-            <span className="text-xs text-brand-charcoal/60">
-              {product.rating} ({product.reviewCount})
-            </span>
-          </div>
-
-          {/* Color swatches */}
-          {product.colors.length > 0 && (
-            <div className="flex items-center gap-2 mb-3">
-              {product.colors.map((color) => (
-                <button
-                  key={color.name}
-                  onClick={() => setSelectedColor(color.name)}
-                  title={color.name}
-                  className="rounded-full transition-all duration-200"
-                  style={{
-                    width: '20px',
-                    height: '20px',
-                    background: color.hex,
-                    border: selectedColor === color.name
-                      ? '2px solid #D4A574'
-                      : '1px solid rgba(42,42,42,0.2)',
-                    boxShadow: selectedColor === color.name
-                      ? '0 0 0 2px rgba(212,165,116,0.2)'
-                      : 'none',
-                    transform: selectedColor === color.name ? 'scale(1.15)' : 'scale(1)',
-                  }}
-                />
-              ))}
-            </div>
-          )}
-
-          <div className="flex items-center justify-between">
-            <div>
-              <span
-                className="font-bold"
-                style={{ fontSize: '16px', color: '#D4A574' }}
-              >
-                {formatPrice(product.price)}
-              </span>
-              {product.originalPrice && (
-                <span className="text-brand-charcoal/40 text-sm line-through ml-2">
-                  {formatPrice(product.originalPrice)}
-                </span>
-              )}
-            </div>
-          </div>
-
-          <Link
-            href={`/shop/product/${product.id}`}
-            className="glass-btn glass-btn-primary w-full mt-3 text-center"
-            style={{ fontSize: '12px', letterSpacing: '1.5px', padding: '10px 16px' }}
-          >
-            <ShoppingBag size={14} />
-            Add to Cart
-          </Link>
-        </div>
-      </div>
-    </motion.div>
-  );
-}
+import { ArrowRight, Crown } from 'lucide-react';
 
 export default function HomePage() {
   const { ref: gridRef, inView: gridInView } = useInView();
