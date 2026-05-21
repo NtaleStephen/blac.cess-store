@@ -1,5 +1,6 @@
 'use client';
 
+import { useMemo } from 'react';
 import { motion } from 'framer-motion';
 import Hero from '@/components/Hero/Hero';
 import FeaturedSection from '@/components/Featured/FeaturedSection';
@@ -13,8 +14,8 @@ import { ArrowRight, Crown } from 'lucide-react';
 export default function HomePage() {
   const { ref: gridRef, inView: gridInView } = useInView();
   const { ref: newRef, inView: newInView } = useInView();
-  const featuredProducts = mockProducts.filter((p) => p.featured);
-  const newProducts = mockProducts.filter((p) => p.isNew).slice(0, 4);
+  const featuredProducts = useMemo(() => mockProducts.filter((p) => p.featured), []);
+  const newProducts = useMemo(() => mockProducts.filter((p) => p.isNew).slice(0, 4), []);
 
   return (
     <div>
@@ -39,7 +40,7 @@ export default function HomePage() {
             initial="hidden"
             animate={gridInView ? 'visible' : 'hidden'}
             variants={staggerContainer}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-7"
           >
             {featuredProducts.map((product) => (
               <ProductCard key={product.id} product={product} />
@@ -71,7 +72,7 @@ export default function HomePage() {
             initial="hidden"
             animate={newInView ? 'visible' : 'hidden'}
             variants={staggerContainer}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-7"
           >
             {newProducts.map((product) => (
               <ProductCard key={product.id} product={product} />
@@ -88,7 +89,10 @@ export default function HomePage() {
       </section>
 
       {/* Story section */}
-      <section className="py-24 px-4 bg-brand-navy">
+      <section
+        className="py-28 px-4"
+        style={{ background: 'linear-gradient(160deg, #0A0A0A 0%, #000000 50%, #111111 100%)' }}
+      >
         <div className="container max-w-4xl text-center">
           <Crown size={40} className="text-brand-gold mx-auto mb-6 opacity-80" strokeWidth={1} />
           <h2

@@ -23,7 +23,7 @@ export default function CartPage() {
     <div className="bg-brand-cream min-h-screen" style={{ paddingTop: '72px' }}>
       {/* Header */}
       <div className="page-header">
-        <div className="container py-8">
+        <div className="container py-10">
           <Link
             href="/shop"
             className="flex items-center gap-2 text-brand-charcoal/50 hover:text-brand-gold transition-colors duration-200 mb-4 text-sm"
@@ -79,7 +79,7 @@ export default function CartPage() {
                       key={item.id}
                       variants={fadeInUp}
                       exit={{ opacity: 0, x: -20, transition: { duration: 0.25 } }}
-                      className="card rounded-2xl p-4 flex gap-4"
+                      className="card rounded-2xl p-5 flex gap-5"
                     >
                       {/* Image */}
                       <Link href={`/shop/product/${item.productId}`} className="flex-shrink-0">

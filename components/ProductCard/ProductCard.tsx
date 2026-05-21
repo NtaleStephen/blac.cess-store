@@ -118,16 +118,16 @@ export default function ProductCard({ product, animate = true }: ProductCardProp
         </div>
 
         {/* Info */}
-        <div className="p-4 flex flex-col flex-1">
-          <Link href={`/shop/product/${product.id}`} className="block mb-auto">
+        <div className="p-5 flex flex-col flex-1 gap-3">
+          <Link href={`/shop/product/${product.id}`} className="block">
             <h3
-              className="text-brand-charcoal font-semibold mb-1 leading-tight hover:text-brand-gold transition-colors duration-200"
+              className="text-brand-charcoal font-semibold leading-tight hover:text-brand-gold transition-colors duration-200 mb-1.5"
               style={{ fontFamily: 'Playfair Display, serif', fontSize: '15px' }}
             >
               {product.name}
             </h3>
             <p
-              className="text-brand-charcoal/50 mb-2 leading-snug line-clamp-2"
+              className="text-brand-charcoal/50 leading-snug line-clamp-2"
               style={{ fontSize: '12px', fontStyle: 'italic' }}
             >
               {product.description}
@@ -135,7 +135,7 @@ export default function ProductCard({ product, animate = true }: ProductCardProp
           </Link>
 
           {/* Rating */}
-          <div className="flex items-center gap-1 mb-3">
+          <div className="flex items-center gap-1">
             {[1,2,3,4,5].map((star) => (
               <Star
                 key={star}
@@ -150,7 +150,7 @@ export default function ProductCard({ product, animate = true }: ProductCardProp
 
           {/* Color swatches */}
           {product.colors.length > 0 && (
-            <div className="flex items-center gap-2 mb-3">
+            <div className="flex items-center gap-2">
               {product.colors.map((color) => (
                 <button
                   key={color.name}
@@ -175,7 +175,7 @@ export default function ProductCard({ product, animate = true }: ProductCardProp
           )}
 
           {/* Price */}
-          <div className="flex items-center gap-2 mb-3">
+          <div className="flex items-center gap-2 mt-auto">
             <span style={{ fontSize: '16px', fontWeight: 700, color: '#D4A574' }}>
               {formatPrice(product.price)}
             </span>

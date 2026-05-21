@@ -32,9 +32,15 @@ const LEGAL_LINKS = [
 
 export default function Footer() {
   return (
-    <footer className="bg-brand-navy text-white/80 mt-24">
-      <div className="container py-14 lg:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-y-10 gap-x-12 lg:gap-12 mb-12">
+    <footer
+      className="text-white/80"
+      style={{
+        background: '#1A1A2E',
+        borderTop: '1px solid rgba(212,165,116,0.18)',
+      }}
+    >
+      <div className="container py-16 lg:py-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-y-12 gap-x-8 lg:gap-16 mb-14">
           {/* Brand */}
           <div className="lg:col-span-2">
             <div className="flex items-center gap-2 mb-4">
@@ -68,12 +74,12 @@ export default function Footer() {
           {/* Shop */}
           <div>
             <h4
-              className="text-white font-semibold mb-5 text-xs uppercase"
-              style={{ letterSpacing: '2.5px' }}
+              className="text-white font-bold mb-6 text-xs uppercase"
+              style={{ letterSpacing: '3px' }}
             >
               Shop
             </h4>
-            <ul className="space-y-3">
+            <ul className="space-y-4">
               {SHOP_LINKS.map(({ label, href }) => (
                 <li key={label}>
                   <Link
@@ -90,12 +96,12 @@ export default function Footer() {
           {/* Help */}
           <div>
             <h4
-              className="text-white font-semibold mb-5 text-xs uppercase"
-              style={{ letterSpacing: '2.5px' }}
+              className="text-white font-bold mb-6 text-xs uppercase"
+              style={{ letterSpacing: '3px' }}
             >
               Help
             </h4>
-            <ul className="space-y-3">
+            <ul className="space-y-4">
               {HELP_LINKS.map(({ label, href }) => (
                 <li key={label}>
                   <Link
@@ -112,7 +118,7 @@ export default function Footer() {
 
         {/* Newsletter */}
         <div
-          className="rounded-2xl p-6 md:p-8 mb-10 md:mb-12"
+          className="rounded-2xl p-8 md:p-10 mb-12 md:mb-14"
           style={{
             background: 'rgba(255,255,255,0.04)',
             border: '1px solid rgba(212,165,116,0.12)',
@@ -151,7 +157,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom */}
-        <div className="flex flex-col items-center gap-4 pt-6 border-t border-white/10 md:flex-row md:justify-between">
+        <div className="flex flex-col items-center gap-5 pt-8 border-t border-white/10 md:flex-row md:justify-between">
           <p className="text-white/35 text-xs text-center md:text-left">
             &copy; 2026 BLAC.CESS. All rights reserved.
           </p>
