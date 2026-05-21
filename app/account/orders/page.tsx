@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { Package, ChevronRight } from 'lucide-react';
+import { Package } from 'lucide-react';
 import { mockOrders } from '@/lib/mock-data';
 import { formatPrice, formatDate } from '@/lib/utils';
 import { OrderStatus } from '@/types';
@@ -73,11 +73,26 @@ export default function OrdersPage() {
           <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4" style={{ background: 'rgba(212,165,116,0.1)', border: '1px solid rgba(212,165,116,0.2)' }}>
             <Package size={28} className="text-brand-gold" strokeWidth={1.5} />
           </div>
-          <h3 className="text-brand-charcoal mb-2" style={{ fontFamily: 'Playfair Display, serif', fontSize: '20px' }}>No orders yet</h3>
-          <p className="text-brand-charcoal/50 text-sm mb-6">When you place orders, they&apos;ll appear here.</p>
-          <Link href="/shop" className="glass-btn glass-btn-primary inline-flex items-center gap-2">
-            Start Shopping
-          </Link>
+          {activeFilter === 'All' ? (
+            <>
+              <h3 className="text-brand-charcoal mb-2" style={{ fontFamily: 'Playfair Display, serif', fontSize: '20px' }}>No orders yet</h3>
+              <p className="text-brand-charcoal/50 text-sm mb-6">When you place orders, they&apos;ll appear here.</p>
+              <Link href="/shop" className="glass-btn glass-btn-primary inline-flex items-center gap-2">
+                Start Shopping
+              </Link>
+            </>
+          ) : (
+            <>
+              <h3 className="text-brand-charcoal mb-2" style={{ fontFamily: 'Playfair Display, serif', fontSize: '20px' }}>No {activeFilter.toLowerCase()} orders</h3>
+              <p className="text-brand-charcoal/50 text-sm mb-6">Try a different filter to see your orders.</p>
+              <button
+                onClick={() => setActiveFilter('All')}
+                className="glass-btn glass-btn-primary inline-flex items-center gap-2"
+              >
+                View All Orders
+              </button>
+            </>
+          )}
         </div>
       ) : (
         <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="space-y-4">
@@ -85,8 +100,7 @@ export default function OrdersPage() {
             <motion.div
               key={order.id}
               variants={fadeInUp}
-              className="rounded-2xl p-5"
-              style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(212,165,116,0.15)', backdropFilter: 'blur(10px)' }}
+              className="card rounded-2xl p-5"
             >
               {/* Order header */}
               <div className="flex items-start justify-between gap-3 mb-4 flex-wrap">
@@ -123,13 +137,9 @@ export default function OrdersPage() {
                       Tracking: {order.trackingNumber}
                     </span>
                   )}
-                  <Link
-                    href={`/account/orders`}
-                    className="flex items-center gap-1 text-brand-gold text-xs font-semibold hover:underline"
-                  >
-                    View Details
-                    <ChevronRight size={12} />
-                  </Link>
+                  <span className="flex items-center gap-1 text-brand-charcoal/40 text-xs font-semibold">
+                    {order.items.length} {order.items.length === 1 ? 'item' : 'items'}
+                  </span>
                 </div>
               </div>
             </motion.div>

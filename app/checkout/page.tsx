@@ -36,7 +36,7 @@ function StepIndicator({ steps, current }: { steps: string[]; current: number })
               {i < current ? <Check size={14} /> : i + 1}
             </div>
             <span
-              className="text-xs mt-1.5 font-medium hidden sm:block"
+              className="text-xs mt-1.5 font-medium"
               style={{
                 color: i === current ? '#D4A574' : i < current ? '#2A2A2A' : 'rgba(42,42,42,0.4)',
                 fontSize: '11px',
@@ -134,9 +134,8 @@ function PaymentStep() {
             onClick={() => setSelected(method.id)}
             className="w-full flex items-center gap-4 p-4 rounded-xl transition-all duration-200 text-left"
             style={{
-              background: selected === method.id ? 'rgba(212,165,116,0.1)' : 'rgba(255,255,255,0.05)',
+              background: selected === method.id ? 'rgba(212,165,116,0.1)' : 'rgba(255,255,255,0.6)',
               border: `2px solid ${selected === method.id ? 'rgba(212,165,116,0.6)' : 'rgba(212,165,116,0.15)'}`,
-              backdropFilter: 'blur(10px)',
             }}
           >
             <div
@@ -308,14 +307,7 @@ export default function CheckoutPage() {
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-10">
           {/* Form */}
           <div className="lg:col-span-3">
-            <div
-              className="rounded-2xl p-6 md:p-8"
-              style={{
-                background: 'rgba(255,255,255,0.06)',
-                border: '1px solid rgba(212,165,116,0.15)',
-                backdropFilter: 'blur(10px)',
-              }}
-            >
+            <div className="card rounded-2xl p-6 md:p-8">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={step}
@@ -365,14 +357,7 @@ export default function CheckoutPage() {
 
           {/* Order summary sidebar */}
           <div className="lg:col-span-2">
-            <div
-              className="rounded-2xl p-6 sticky top-24"
-              style={{
-                background: 'rgba(255,255,255,0.06)',
-                border: '1px solid rgba(212,165,116,0.15)',
-                backdropFilter: 'blur(10px)',
-              }}
-            >
+            <div className="card rounded-2xl p-6 sticky top-24">
               <h3
                 className="text-brand-charcoal font-semibold mb-4"
                 style={{ fontFamily: 'Playfair Display, serif', fontSize: '16px' }}

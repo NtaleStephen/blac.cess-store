@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { ShoppingBag, Search, User, Menu, X, Crown } from 'lucide-react';
 import { mockCartItems } from '@/lib/mock-data';
 
@@ -18,6 +18,7 @@ export default function Navigation() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const pathname = usePathname();
+  const router = useRouter();
   const cartCount = mockCartItems.reduce((acc, item) => acc + item.quantity, 0);
   const isHomepage = pathname === '/';
 
@@ -166,6 +167,15 @@ export default function Navigation() {
                 className="glass-input"
                 aria-label="Search products"
                 autoFocus
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    const q = (e.currentTarget as HTMLInputElement).value.trim();
+                    if (q) {
+                      router.push(`/shop?q=${encodeURIComponent(q)}`);
+                      setSearchOpen(false);
+                    }
+                  }
+                }}
               />
             </div>
           </div>

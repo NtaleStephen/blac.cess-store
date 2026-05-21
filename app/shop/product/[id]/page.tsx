@@ -240,15 +240,23 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
                 </span>
                 <button
                   onClick={() => setQuantity(Math.min(product.stock, quantity + 1))}
-                  className="px-4 py-3 text-brand-charcoal transition-colors duration-200 hover:bg-brand-gold/10"
+                  disabled={quantity >= product.stock}
+                  className="px-4 py-3 text-brand-charcoal transition-colors duration-200 hover:bg-brand-gold/10 disabled:opacity-30 disabled:cursor-not-allowed"
                   style={{ fontSize: '18px', lineHeight: 1, minWidth: '44px' }}
+                  aria-label="Increase quantity"
                 >
                   +
                 </button>
               </div>
-              <p className="text-brand-charcoal/45 text-xs mt-2">
-                {product.stock} in stock
-              </p>
+              {quantity >= product.stock ? (
+                <p className="text-xs mt-2 font-semibold" style={{ color: '#D4A574' }}>
+                  Maximum quantity reached ({product.stock} in stock)
+                </p>
+              ) : (
+                <p className="text-brand-charcoal/45 text-xs mt-2">
+                  {product.stock} in stock
+                </p>
+              )}
             </div>
 
             {/* CTA buttons */}
@@ -334,12 +342,7 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
               {reviews.map((review) => (
                 <div
                   key={review.id}
-                  className="rounded-2xl p-5"
-                  style={{
-                    background: 'rgba(255,255,255,0.06)',
-                    border: '1px solid rgba(212,165,116,0.12)',
-                    backdropFilter: 'blur(10px)',
-                  }}
+                  className="card rounded-2xl p-5"
                 >
                   <div className="flex items-start justify-between mb-3">
                     <div className="flex items-center gap-3">

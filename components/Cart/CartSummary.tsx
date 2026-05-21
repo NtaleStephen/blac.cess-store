@@ -21,14 +21,7 @@ export default function CartSummary({
   showButton = true,
 }: CartSummaryProps) {
   return (
-    <div
-      className="rounded-2xl p-6 sticky top-24"
-      style={{
-        background: 'rgba(255,255,255,0.08)',
-        border: '1px solid rgba(212,165,116,0.2)',
-        backdropFilter: 'blur(15px)',
-      }}
-    >
+    <div className="card rounded-2xl p-6 sticky top-24">
       <h2
         className="font-semibold mb-5 text-brand-charcoal"
         style={{ fontFamily: 'Playfair Display, serif', fontSize: '18px' }}
