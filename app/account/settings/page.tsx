@@ -61,8 +61,7 @@ export default function SettingsPage() {
       <div className="space-y-6">
         {/* Change password */}
         <div
-          className="rounded-2xl p-6"
-          style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(212,165,116,0.15)', backdropFilter: 'blur(10px)' }}
+          className="card rounded-2xl p-6"
         >
           <h2 className="text-brand-charcoal font-semibold mb-5" style={{ fontFamily: 'Playfair Display, serif', fontSize: '18px' }}>
             Security
@@ -71,7 +70,7 @@ export default function SettingsPage() {
             <div className="sm:col-span-2">
               <label className="block text-brand-charcoal font-medium mb-1.5" style={{ fontSize: '12px', letterSpacing: '0.5px' }}>Current Password</label>
               <div className="relative">
-                <input type={showCurrent ? 'text' : 'password'} placeholder="Enter current password" className="glass-input pr-12" />
+                <input type={showCurrent ? 'text' : 'password'} placeholder="Enter current password" className="glass-input pr-12" autoComplete="current-password" />
                 <button type="button" onClick={() => setShowCurrent(!showCurrent)} className="absolute right-3 top-1/2 -translate-y-1/2 text-brand-charcoal/40 hover:text-brand-gold transition-colors" aria-label="Toggle password visibility">
                   {showCurrent ? <EyeOff size={16} /> : <Eye size={16} />}
                 </button>
@@ -80,7 +79,7 @@ export default function SettingsPage() {
             <div>
               <label className="block text-brand-charcoal font-medium mb-1.5" style={{ fontSize: '12px', letterSpacing: '0.5px' }}>New Password</label>
               <div className="relative">
-                <input type={showNew ? 'text' : 'password'} placeholder="New password" className="glass-input pr-12" />
+                <input type={showNew ? 'text' : 'password'} placeholder="New password" className="glass-input pr-12" autoComplete="new-password" />
                 <button type="button" onClick={() => setShowNew(!showNew)} className="absolute right-3 top-1/2 -translate-y-1/2 text-brand-charcoal/40 hover:text-brand-gold transition-colors" aria-label="Toggle password visibility">
                   {showNew ? <EyeOff size={16} /> : <Eye size={16} />}
                 </button>
@@ -88,7 +87,7 @@ export default function SettingsPage() {
             </div>
             <div>
               <label className="block text-brand-charcoal font-medium mb-1.5" style={{ fontSize: '12px', letterSpacing: '0.5px' }}>Confirm New Password</label>
-              <input type="password" placeholder="Confirm new password" className="glass-input" />
+              <input type="password" placeholder="Confirm new password" className="glass-input" autoComplete="new-password" />
             </div>
           </div>
 
@@ -107,8 +106,7 @@ export default function SettingsPage() {
 
         {/* Notifications */}
         <div
-          className="rounded-2xl p-6"
-          style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(212,165,116,0.15)', backdropFilter: 'blur(10px)' }}
+          className="card rounded-2xl p-6"
         >
           <h2 className="text-brand-charcoal font-semibold mb-5" style={{ fontFamily: 'Playfair Display, serif', fontSize: '18px' }}>
             Notifications
@@ -132,8 +130,7 @@ export default function SettingsPage() {
 
         {/* Saved Addresses */}
         <div
-          className="rounded-2xl p-6"
-          style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(212,165,116,0.15)', backdropFilter: 'blur(10px)' }}
+          className="card rounded-2xl p-6"
         >
           <div className="flex items-center justify-between mb-5">
             <h2 className="text-brand-charcoal font-semibold" style={{ fontFamily: 'Playfair Display, serif', fontSize: '18px' }}>

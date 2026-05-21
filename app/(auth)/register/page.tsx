@@ -232,9 +232,9 @@ export default function RegisterPage() {
                 <input type="checkbox" className="w-4 h-4 mt-0.5 flex-shrink-0" style={{ accentColor: '#D4A574' }} required />
                 <span className="text-sm text-brand-charcoal/60 leading-relaxed">
                   I agree to the{' '}
-                  <Link href="#" className="text-brand-gold hover:underline">Terms of Service</Link>
+                  <button type="button" className="text-brand-gold hover:underline">Terms of Service</button>
                   {' '}and{' '}
-                  <Link href="#" className="text-brand-gold hover:underline">Privacy Policy</Link>
+                  <button type="button" className="text-brand-gold hover:underline">Privacy Policy</button>
                 </span>
               </label>
 

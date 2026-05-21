@@ -89,14 +89,7 @@ export default function AccountLayout({ children }: { children: React.ReactNode 
       <div className="container py-8">
         <div className="flex gap-8">
           {/* Desktop sidebar */}
-          <div
-            className="hidden lg:block w-64 flex-shrink-0 rounded-2xl self-start sticky top-24"
-            style={{
-              background: 'rgba(255,255,255,0.06)',
-              border: '1px solid rgba(212,165,116,0.15)',
-              backdropFilter: 'blur(10px)',
-            }}
-          >
+          <div className="hidden lg:block w-64 flex-shrink-0 card rounded-2xl self-start sticky top-24">
             <AccountSidebar />
           </div>
 

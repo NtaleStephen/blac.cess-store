@@ -6,8 +6,12 @@ import { motion } from 'framer-motion';
 import { Eye, EyeOff, Crown, ArrowRight } from 'lucide-react';
 import { fadeInUp } from '@/lib/animations';
 
+const MAX_ATTEMPTS = 5;
+
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
+  const [attempts, setAttempts] = useState(0);
+  const [locked, setLocked] = useState(false);
 
   return (
     <div className="min-h-screen flex" style={{ paddingTop: '72px' }}>
@@ -102,7 +106,16 @@ export default function LoginPage() {
               Sign in to your account to continue
             </p>
 
-            <form onSubmit={(e) => e.preventDefault()} className="space-y-4">
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                if (locked) return;
+                const next = attempts + 1;
+                setAttempts(next);
+                if (next >= MAX_ATTEMPTS) setLocked(true);
+              }}
+              className="space-y-4"
+            >
               <div>
                 <label className="block text-brand-charcoal font-medium mb-1.5" style={{ fontSize: '12px', letterSpacing: '0.5px' }}>
                   Email Address <span className="text-brand-gold">*</span>
@@ -153,9 +166,24 @@ export default function LoginPage() {
                 </Link>
               </div>
 
+              {attempts > 0 && !locked && (
+                <p className="text-xs text-center" style={{ color: '#F57C00' }}>
+                  Incorrect credentials. {MAX_ATTEMPTS - attempts} attempt{MAX_ATTEMPTS - attempts !== 1 ? 's' : ''} remaining.
+                </p>
+              )}
+
+              {locked && (
+                <p className="text-xs text-center" style={{ color: '#C62828' }}>
+                  Too many failed attempts. Please{' '}
+                  <Link href="/forgot-password" className="underline">reset your password</Link>
+                  {' '}or try again later.
+                </p>
+              )}
+
               <button
                 type="submit"
-                className="glass-btn glass-btn-primary w-full flex items-center justify-center gap-2 mt-2"
+                disabled={locked}
+                className="glass-btn glass-btn-primary w-full flex items-center justify-center gap-2 mt-2 disabled:opacity-50 disabled:cursor-not-allowed"
                 style={{ fontSize: '12px', letterSpacing: '1.5px', padding: '14px' }}
               >
                 Sign In

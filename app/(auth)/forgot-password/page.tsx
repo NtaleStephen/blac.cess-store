@@ -97,6 +97,7 @@ export default function ForgotPasswordPage() {
               type={showPassword ? 'text' : 'password'}
               placeholder="Min. 8 characters"
               className="glass-input pr-12"
+              autoComplete="new-password"
               required
             />
             <button
@@ -113,7 +114,7 @@ export default function ForgotPasswordPage() {
           <label className="block text-brand-charcoal font-medium mb-1.5" style={{ fontSize: '12px', letterSpacing: '0.5px' }}>
             Confirm New Password <span className="text-brand-gold">*</span>
           </label>
-          <input type="password" placeholder="Repeat new password" className="glass-input" required />
+          <input type="password" placeholder="Repeat new password" className="glass-input" autoComplete="new-password" required />
         </div>
         <button
           type="submit"
