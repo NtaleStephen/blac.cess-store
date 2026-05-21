@@ -33,8 +33,8 @@ const LEGAL_LINKS = [
 export default function Footer() {
   return (
     <footer className="bg-brand-navy text-white/80 mt-24">
-      <div className="container py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+      <div className="container py-14 lg:py-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-y-10 gap-x-12 lg:gap-12 mb-12">
           {/* Brand */}
           <div className="lg:col-span-2">
             <div className="flex items-center gap-2 mb-4">
@@ -112,31 +112,31 @@ export default function Footer() {
 
         {/* Newsletter */}
         <div
-          className="rounded-2xl p-8 mb-12"
+          className="rounded-2xl p-6 md:p-8 mb-10 md:mb-12"
           style={{
             background: 'rgba(255,255,255,0.04)',
             border: '1px solid rgba(212,165,116,0.12)',
           }}
         >
-          <div className="flex flex-col md:flex-row items-center gap-6">
+          <div className="flex flex-col md:flex-row md:items-center gap-6">
             <div className="flex-1">
               <h3
-                className="text-white font-semibold text-xl mb-1"
+                className="text-white font-semibold text-xl mb-2"
                 style={{ fontFamily: 'Playfair Display, serif' }}
               >
                 Join the Heritage
               </h3>
-              <p className="text-white/45 text-sm">
+              <p className="text-white/45 text-sm leading-relaxed">
                 Be the first to know about new drops, cultural stories, and exclusive offers.
               </p>
             </div>
-            <div className="flex gap-3 w-full md:w-auto">
+            <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
               <label htmlFor="footer-email" className="sr-only">Email address</label>
               <input
                 id="footer-email"
                 type="email"
                 placeholder="Your email address"
-                className="glass-input flex-1 md:w-64"
+                className="glass-input w-full sm:w-64"
                 style={{ background: 'rgba(255,255,255,0.06)', color: 'white', borderColor: 'rgba(212,165,116,0.18)' }}
                 autoComplete="email"
               />
@@ -152,11 +152,11 @@ export default function Footer() {
         </div>
 
         {/* Bottom */}
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4 pt-6 border-t border-white/10">
-          <p className="text-white/35 text-xs">
+        <div className="flex flex-col items-center gap-4 pt-6 border-t border-white/10 md:flex-row md:justify-between">
+          <p className="text-white/35 text-xs text-center md:text-left">
             &copy; 2026 BLAC.CESS. All rights reserved.
           </p>
-          <div className="flex items-center gap-6 flex-wrap justify-center">
+          <div className="flex items-center gap-5 flex-wrap justify-center">
             {LEGAL_LINKS.map(({ label, href }) => (
               <Link
                 key={label}

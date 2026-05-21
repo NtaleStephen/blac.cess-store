@@ -290,73 +290,77 @@ export default function Navigation() {
         </div>
 
         {/* User info */}
-        <div className="px-5 py-4 border-b border-brand-gold/10">
-          <div className="flex items-center gap-3">
+        <div className="px-5 py-5 border-b border-brand-gold/10">
+          <div className="flex items-center gap-4">
             <div
-              className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0"
-              style={{ background: 'linear-gradient(135deg, #D4A574, #E8B88A)', fontSize: '16px' }}
+              className="w-11 h-11 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0"
+              style={{ background: 'linear-gradient(135deg, #D4A574, #E8B88A)', fontSize: '17px' }}
             >
               {mockUser.name[0]}
             </div>
             <div className="min-w-0">
               <p className="font-semibold text-brand-charcoal text-sm truncate">{mockUser.name}</p>
-              <p className="text-brand-charcoal/50 text-xs truncate">{mockUser.email}</p>
+              <p className="text-brand-charcoal/50 text-xs mt-0.5 truncate">{mockUser.email}</p>
             </div>
           </div>
         </div>
 
         {/* Shop nav */}
-        <nav className="px-4 pt-4 pb-2">
-          <p className="text-brand-charcoal/40 text-xs font-semibold uppercase mb-2 px-2" style={{ letterSpacing: '1.5px' }}>Shop</p>
-          {navLinks.map((link) => {
-            const isActive = pathname === link.href || pathname.startsWith(link.href + '/');
-            return (
-              <Link
-                key={link.label}
-                href={link.href}
-                onClick={() => setMobileOpen(false)}
-                className="flex items-center py-3 px-3 text-sm font-medium rounded-lg transition-colors duration-200"
-                style={{
-                  color: isActive ? '#D4A574' : '#2A2A2A',
-                  background: isActive ? 'rgba(212,165,116,0.1)' : 'transparent',
-                }}
-              >
-                {link.label}
-              </Link>
-            );
-          })}
+        <nav className="px-4 pt-6 pb-4">
+          <p className="text-brand-charcoal/40 text-xs font-semibold uppercase mb-3 px-2" style={{ letterSpacing: '1.5px' }}>Shop</p>
+          <div className="flex flex-col gap-1">
+            {navLinks.map((link) => {
+              const isActive = pathname === link.href || pathname.startsWith(link.href + '/');
+              return (
+                <Link
+                  key={link.label}
+                  href={link.href}
+                  onClick={() => setMobileOpen(false)}
+                  className="flex items-center py-3.5 px-3 text-sm font-medium rounded-lg transition-colors duration-200"
+                  style={{
+                    color: isActive ? '#D4A574' : '#2A2A2A',
+                    background: isActive ? 'rgba(212,165,116,0.1)' : 'transparent',
+                  }}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
+          </div>
         </nav>
 
         {/* Account nav */}
-        <nav className="px-4 py-2 border-t border-brand-gold/10">
-          <p className="text-brand-charcoal/40 text-xs font-semibold uppercase mb-2 px-2 mt-2" style={{ letterSpacing: '1.5px' }}>Account</p>
-          {accountMenuLinks.map(({ label, href, icon: Icon }) => (
+        <nav className="px-4 pt-5 pb-4 border-t border-brand-gold/10">
+          <p className="text-brand-charcoal/40 text-xs font-semibold uppercase mb-3 px-2" style={{ letterSpacing: '1.5px' }}>Account</p>
+          <div className="flex flex-col gap-1">
+            {accountMenuLinks.map(({ label, href, icon: Icon }) => (
+              <Link
+                key={label}
+                href={href}
+                onClick={() => setMobileOpen(false)}
+                className="flex items-center gap-3 py-3.5 px-3 text-sm font-medium text-brand-charcoal rounded-lg hover:bg-brand-gold/10 transition-colors duration-200"
+              >
+                <Icon size={15} className="text-brand-charcoal/50" />
+                {label}
+              </Link>
+            ))}
             <Link
-              key={label}
-              href={href}
+              href="/cart"
               onClick={() => setMobileOpen(false)}
-              className="flex items-center gap-3 py-3 px-3 text-sm font-medium text-brand-charcoal rounded-lg hover:bg-brand-gold/10 transition-colors duration-200"
+              className="flex items-center gap-3 py-3.5 px-3 text-sm font-medium text-brand-charcoal rounded-lg hover:bg-brand-gold/10 transition-colors duration-200"
             >
-              <Icon size={15} className="text-brand-charcoal/50" />
-              {label}
+              <ShoppingBag size={15} className="text-brand-charcoal/50" />
+              Cart {cartCount > 0 && <span className="ml-auto text-xs font-bold text-brand-gold">{cartCount}</span>}
             </Link>
-          ))}
-          <Link
-            href="/cart"
-            onClick={() => setMobileOpen(false)}
-            className="flex items-center gap-3 py-3 px-3 text-sm font-medium text-brand-charcoal rounded-lg hover:bg-brand-gold/10 transition-colors duration-200"
-          >
-            <ShoppingBag size={15} className="text-brand-charcoal/50" />
-            Cart {cartCount > 0 && <span className="ml-auto text-xs font-bold text-brand-gold">{cartCount}</span>}
-          </Link>
+          </div>
         </nav>
 
         {/* Sign out */}
-        <div className="px-4 py-4 border-t border-brand-gold/10">
+        <div className="px-4 py-5 border-t border-brand-gold/10">
           <Link
             href="/login"
             onClick={() => setMobileOpen(false)}
-            className="flex items-center gap-3 py-2.5 px-3 text-sm font-medium text-red-500/70 rounded-lg hover:bg-red-50 transition-colors duration-200"
+            className="flex items-center gap-3 py-3 px-3 text-sm font-medium text-red-500/70 rounded-lg hover:bg-red-50 transition-colors duration-200"
           >
             <LogOut size={15} />
             Sign Out
