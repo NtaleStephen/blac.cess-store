@@ -209,7 +209,18 @@ transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 ---
 
 ### Phase 10 — Polish & Optimization
-**Status:** ⬜ Not started
+**Status:** ✅ Complete — 2026-05-21
+**Delivered:**
+- `components/Loading/ProductCardSkeleton.tsx` — shimmer skeleton matching ProductCard layout
+- `components/Loading/ProductGridSkeleton.tsx` — responsive grid of skeletons with `role="status"` aria label
+- `components/Loading/CartItemSkeleton.tsx` — shimmer skeleton for cart item rows
+- `components/Loading/OrderSkeleton.tsx` — shimmer skeleton for order cards
+- `app/shop/loading.tsx` — Next.js App Router loading UI (Suspense) for shop page
+- `app/template.tsx` — Page transitions: Framer Motion fade+slide-up on every route change (re-mounts per App Router template convention)
+- `app/not-found.tsx` — Custom 404 page with brand design (crown, 404 outline text, glass CTAs)
+- `app/error.tsx` — Global error boundary (Client Component, `unstable_retry`), dev-only error details panel
+- `components/Header/Navigation.tsx` — `aria-expanded`, `aria-controls`, `role="dialog"` + `aria-modal` on mobile drawer, `type="search"` + `aria-label` on search input
+- `app/layout.tsx` — Added `Viewport` export (`themeColor`, `initialScale`), title template (`%s | BLAC.CESS`), twitter card + robots metadata
 
 ---
 

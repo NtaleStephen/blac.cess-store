@@ -1,16 +1,35 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import Navigation from '@/components/Header/Navigation';
 import Footer from '@/components/Footer/Footer';
 
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  themeColor: '#D4A574',
+};
+
 export const metadata: Metadata = {
-  title: 'BLAC.CESS | Cultural Luxury in Every Thread',
+  title: {
+    default: 'BLAC.CESS | Cultural Luxury in Every Thread',
+    template: '%s | BLAC.CESS',
+  },
   description: 'Premium luxury clothing celebrating African heritage. Shop crop tops, sweatpants, and hoodies crafted with cultural artistry.',
-  keywords: 'luxury fashion, African heritage, crop tops, sweatpants, hoodies, cultural clothing',
+  keywords: ['luxury fashion', 'African heritage', 'crop tops', 'sweatpants', 'hoodies', 'cultural clothing'],
   openGraph: {
     title: 'BLAC.CESS | Cultural Luxury in Every Thread',
     description: 'Premium luxury clothing celebrating African heritage.',
     type: 'website',
+    siteName: 'BLAC.CESS',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'BLAC.CESS | Cultural Luxury in Every Thread',
+    description: 'Premium luxury clothing celebrating African heritage.',
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
 };
 

@@ -132,7 +132,9 @@ export default function Navigation() {
                 borderColor: isScrolled ? 'rgba(212,165,116,0.2)' : 'rgba(255,255,255,0.2)',
               }}
               onClick={() => setMobileOpen(!mobileOpen)}
-              aria-label="Menu"
+              aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
+              aria-expanded={mobileOpen}
+              aria-controls="mobile-nav"
             >
               {mobileOpen ? (
                 <X size={18} style={{ color: isScrolled ? '#2A2A2A' : 'rgba(255,255,255,0.85)' }} />
@@ -148,9 +150,10 @@ export default function Navigation() {
           <div className="border-t border-brand-gold/10 px-4 py-3 bg-brand-cream/90 backdrop-blur-lg">
             <div className="container max-w-2xl mx-auto">
               <input
-                type="text"
+                type="search"
                 placeholder="Search products..."
                 className="glass-input"
+                aria-label="Search products"
                 autoFocus
               />
             </div>
@@ -168,6 +171,10 @@ export default function Navigation() {
 
       {/* Mobile Drawer */}
       <div
+        id="mobile-nav"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Navigation menu"
         className={`fixed top-0 left-0 h-full w-72 z-50 md:hidden transition-transform duration-300 ease-in-out ${
           mobileOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
