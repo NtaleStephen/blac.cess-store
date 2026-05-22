@@ -1,4 +1,4 @@
-export type Category = 'crop-tops' | 'sweatpants' | 'hoodies';
+export type Category = 'crop-tops' | 'sweatpants' | 'hoodies' | 'shirts';
 
 export interface FilterState {
   categories: string[];

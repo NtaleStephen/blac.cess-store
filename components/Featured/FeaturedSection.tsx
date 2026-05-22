@@ -10,7 +10,7 @@ const STATS = [
   { number: '500+', label: 'Pieces crafted' },
   { number: '3',    label: 'Collections' },
   { number: '98%',  label: 'Happy customers' },
-  { number: '2+',   label: 'Years of luxury' },
+  { number: '2+',   label: 'Years of craft' },
 ];
 
 export default function FeaturedSection() {

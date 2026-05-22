@@ -15,9 +15,13 @@ const CATEGORY_META: Record<string, { title: string; description: string }> = {
     title: 'Crop Tops',
     description: 'Cultural artistry meets contemporary silhouettes. Premium crop tops with African-inspired embroidery and motifs.',
   },
+  shirts: {
+    title: 'Shirts',
+    description: 'Heritage-rooted essentials with refined cuts. From relaxed tees to embroidered button-ups — designed to wear well, every day.',
+  },
   sweatpants: {
     title: 'Sweatpants',
-    description: 'Luxury comfort redefined. Heavyweight French terry lounge pants with crown and cultural emblems.',
+    description: 'Premium comfort redefined. Heavyweight French terry lounge pants with crown and cultural emblems.',
   },
   hoodies: {
     title: 'Hoodies',

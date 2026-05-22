@@ -10,6 +10,7 @@ import { useCart } from '@/context/CartContext';
 
 const NAV_LINKS = [
   { label: 'Crop Tops',  href: '/shop/crop-tops' },
+  { label: 'Shirts',     href: '/shop/shirts' },
   { label: 'Sweatpants', href: '/shop/sweatpants' },
   { label: 'Hoodies',    href: '/shop/hoodies' },
   { label: 'New',        href: '/shop/new-arrivals' },

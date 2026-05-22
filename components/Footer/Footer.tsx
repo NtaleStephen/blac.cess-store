@@ -3,6 +3,7 @@ import { BrandCrown } from '@/components/BrandLogo';
 
 const SHOP_LINKS = [
   { label: 'Crop Tops',    href: '/shop/crop-tops' },
+  { label: 'Shirts',       href: '/shop/shirts' },
   { label: 'Sweatpants',   href: '/shop/sweatpants' },
   { label: 'Hoodies',      href: '/shop/hoodies' },
   { label: 'New Arrivals', href: '/shop/new-arrivals' },
@@ -39,7 +40,7 @@ export default function Footer() {
               </span>
             </div>
             <p className="text-[13px] leading-relaxed text-white/45 max-w-[240px]">
-              Cultural luxury in every thread. Celebrating African heritage through modern design.
+              Cultural design in every thread. Celebrating African heritage through modern artistry.
             </p>
           </div>
 

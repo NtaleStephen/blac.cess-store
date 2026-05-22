@@ -28,7 +28,7 @@ export default function LoginPage() {
           <h2 className="heading-xl text-white mb-5">Welcome to the Heritage</h2>
           <p className="text-[15px] leading-relaxed text-white/55 max-w-sm">
             Sign in to access your orders, wishlist, and exclusive member benefits.
-            Your cultural luxury journey continues here.
+            Your cultural design journey continues here.
           </p>
         </div>
 
