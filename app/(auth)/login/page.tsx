@@ -3,7 +3,8 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { Eye, EyeOff, Crown, ArrowRight } from 'lucide-react';
+import { Eye, EyeOff, ArrowRight } from 'lucide-react';
+import { BrandCrown } from '@/components/BrandLogo';
 import { fadeInUp } from '@/lib/animations';
 
 const MAX_ATTEMPTS = 5;
@@ -18,8 +19,8 @@ export default function LoginPage() {
       {/* Left branding panel — desktop only */}
       <div className="hidden lg:flex flex-col justify-between p-14 flex-1 bg-[var(--color-night)]" style={{ maxWidth: '46%' }}>
         <div className="flex items-center gap-2">
-          <Crown size={22} className="text-[var(--color-accent)]" />
-          <span className="text-white font-serif font-bold text-[18px] tracking-[3px]">BLAC.CESS</span>
+          <BrandCrown size={22} />
+          <span className="text-white font-serif font-bold text-[18px] tracking-[3px]">blac.cess</span>
         </div>
 
         <div>
@@ -33,7 +34,7 @@ export default function LoginPage() {
 
         <div className="pt-6 border-t border-white/10">
           <p className="text-[11px] text-white/30 tracking-[0.5px]">
-            &copy; 2026 BLAC.CESS. All rights reserved.
+            &copy; 2026 blac.cess. All rights reserved.
           </p>
         </div>
       </div>
@@ -44,9 +45,9 @@ export default function LoginPage() {
 
           {/* Mobile logo */}
           <div className="flex items-center gap-2 mb-10 lg:hidden">
-            <Crown size={20} className="text-[var(--color-accent)]" />
+            <BrandCrown size={20} />
             <span className="font-serif font-bold text-[16px] tracking-[3px] text-[var(--color-ink)]">
-              BLAC.CESS
+              blac.cess
             </span>
           </div>
 

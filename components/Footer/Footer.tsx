@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Crown } from 'lucide-react';
+import { BrandCrown } from '@/components/BrandLogo';
 
 const SHOP_LINKS = [
   { label: 'Crop Tops',    href: '/shop/crop-tops' },
@@ -33,9 +33,9 @@ export default function Footer() {
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
             <div className="flex items-center gap-2 mb-4">
-              <Crown size={20} className="text-[var(--color-accent)]" />
-              <span className="font-serif font-bold text-white text-[17px] uppercase tracking-[3px]">
-                BLAC.CESS
+              <BrandCrown size={20} />
+              <span className="font-serif font-bold text-white text-[17px] tracking-[3px]">
+                blac.cess
               </span>
             </div>
             <p className="text-[13px] leading-relaxed text-white/45 max-w-[240px]">
@@ -93,7 +93,7 @@ export default function Footer() {
         <div className="flex flex-col md:flex-row items-center justify-between gap-4 pt-8 border-t border-white/8"
              style={{ borderTopColor: 'rgba(255,255,255,0.08)' }}>
           <p className="text-[11px] text-white/30 tracking-[0.5px]">
-            &copy; 2026 BLAC.CESS. All rights reserved.
+            &copy; 2026 blac.cess. All rights reserved.
           </p>
           <div className="flex items-center gap-6">
             {LEGAL.map(({ label, href }) => (

@@ -91,7 +91,7 @@ export default function HomePage() {
             Worn by Those<br />Who Know
           </h2>
           <p className="body-lg text-white/55 mb-10 max-w-md mx-auto">
-            BLAC.CESS was born from a belief that luxury and cultural pride are
+            blac.cess was born from a belief that luxury and cultural pride are
             inseparable. Every stitch carries intention. Every motif tells a
             story. Every garment is an act of self-assertion.
           </p>

@@ -44,7 +44,7 @@ export default function NewArrivalsPage() {
           <span className="eyebrow">Just Dropped</span>
           <h1 className="heading-xl mb-4">New Arrivals</h1>
           <p className="body max-w-xl">
-            The latest additions to the BLAC.CESS collection. Fresh drops rooted in cultural
+            The latest additions to the blac.cess collection. Fresh drops rooted in cultural
             heritage and modern minimalist design — be the first to wear them.
           </p>
         </div>

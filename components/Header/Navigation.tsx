@@ -3,7 +3,8 @@
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { ShoppingBag, Search, User, Menu, X, Crown, LogOut, Package, Heart, Settings } from 'lucide-react';
+import { ShoppingBag, Search, User, Menu, X, LogOut, Package, Heart, Settings } from 'lucide-react';
+import { BrandCrown } from '@/components/BrandLogo';
 import { mockUser } from '@/lib/mock-data';
 import { useCart } from '@/context/CartContext';
 
@@ -73,9 +74,9 @@ export default function Navigation() {
 
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 flex-shrink-0 group">
-            <Crown size={20} className="text-[var(--color-accent)] transition-transform group-hover:scale-110" />
-            <span className="font-serif font-bold text-[16px] uppercase tracking-[3px]">
-              BLAC.CESS
+            <BrandCrown size={20} className="transition-transform group-hover:scale-110" />
+            <span className="font-serif font-bold text-[16px] tracking-[3px]">
+              blac.cess
             </span>
           </Link>
 
@@ -229,9 +230,9 @@ export default function Navigation() {
         {/* Header */}
         <div className="flex items-center justify-between px-5 py-4 border-b border-[var(--color-divider)]">
           <div className="flex items-center gap-2">
-            <Crown size={18} className="text-[var(--color-accent)]" />
-            <span className="font-serif font-bold text-[14px] tracking-[3px] uppercase">
-              BLAC.CESS
+            <BrandCrown size={18} />
+            <span className="font-serif font-bold text-[14px] tracking-[3px]">
+              blac.cess
             </span>
           </div>
           <button

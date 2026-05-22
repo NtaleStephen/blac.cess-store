@@ -12,20 +12,20 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: {
-    default: 'BLAC.CESS | Cultural Luxury in Every Thread',
-    template: '%s | BLAC.CESS',
+    default: 'blac.cess | Cultural Luxury in Every Thread',
+    template: '%s | blac.cess',
   },
   description: 'Premium luxury clothing celebrating African heritage. Shop crop tops, sweatpants, and hoodies crafted with cultural artistry.',
   keywords: ['luxury fashion', 'African heritage', 'crop tops', 'sweatpants', 'hoodies', 'cultural clothing'],
   openGraph: {
-    title: 'BLAC.CESS | Cultural Luxury in Every Thread',
+    title: 'blac.cess | Cultural Luxury in Every Thread',
     description: 'Premium luxury clothing celebrating African heritage.',
     type: 'website',
-    siteName: 'BLAC.CESS',
+    siteName: 'blac.cess',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'BLAC.CESS | Cultural Luxury in Every Thread',
+    title: 'blac.cess | Cultural Luxury in Every Thread',
     description: 'Premium luxury clothing celebrating African heritage.',
   },
   robots: {

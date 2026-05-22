@@ -1,10 +1,11 @@
 import Link from 'next/link';
-import { Crown, ArrowLeft, Search } from 'lucide-react';
+import { ArrowLeft, Search } from 'lucide-react';
+import { BrandCrown } from '@/components/BrandLogo';
 
 export default function NotFound() {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center text-center px-6 bg-[var(--color-paper)]">
-      <Crown size={48} className="text-[var(--color-accent)] opacity-70 mb-6" strokeWidth={1} />
+      <BrandCrown size={48} className="opacity-70 mb-6" />
 
       <div
         className="font-serif font-bold mb-4 leading-none"
@@ -39,7 +40,7 @@ export default function NotFound() {
         style={{ background: 'linear-gradient(to right, transparent, var(--color-accent), transparent)' }}
       />
       <p className="mt-4 text-[11px] font-semibold tracking-[3px] uppercase text-[var(--color-accent)]/70">
-        BLAC.CESS
+        blac.cess
       </p>
     </div>
   );

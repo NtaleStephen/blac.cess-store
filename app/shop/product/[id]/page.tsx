@@ -63,7 +63,7 @@ export default function ProductDetailPage({ params }: { params: Promise<{ id: st
       <div className="space-y-4 body">
         <p>{product.description}</p>
         <p>
-          Each BLAC.CESS piece is crafted with intention — honoring the rich heritage of African
+          Each blac.cess piece is crafted with intention — honoring the rich heritage of African
           artistry while embracing modern minimalist design. Premium materials, exceptional fit,
           and cultural significance in every stitch.
         </p>

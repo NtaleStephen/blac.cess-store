@@ -62,7 +62,7 @@ export default function Hero() {
           className="display text-white mb-6"
           style={{ fontSize: 'clamp(64px, 12vw, 124px)' }}
         >
-          BLAC.CESS
+          blac.cess
         </motion.h1>
 
         {/* Tagline */}

@@ -3,7 +3,8 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { Eye, EyeOff, Crown, ArrowRight, Check } from 'lucide-react';
+import { Eye, EyeOff, ArrowRight, Check } from 'lucide-react';
+import { BrandCrown } from '@/components/BrandLogo';
 import { fadeInUp } from '@/lib/animations';
 
 function getPasswordStrength(password: string): { level: number; label: string; color: string } {
@@ -41,15 +42,15 @@ export default function RegisterPage() {
       {/* Left panel */}
       <div className="hidden lg:flex flex-col justify-between p-14 flex-1 bg-[var(--color-night)]" style={{ maxWidth: '46%' }}>
         <div className="flex items-center gap-2">
-          <Crown size={22} className="text-[var(--color-accent)]" />
-          <span className="text-white font-serif font-bold text-[18px] tracking-[3px]">BLAC.CESS</span>
+          <BrandCrown size={22} />
+          <span className="text-white font-serif font-bold text-[18px] tracking-[3px]">blac.cess</span>
         </div>
 
         <div>
           <span className="eyebrow text-[var(--color-accent)] mb-6">Join the Heritage</span>
           <h2 className="heading-xl text-white mb-5">Become Part of<br />Something Greater</h2>
           <p className="text-[15px] leading-relaxed text-white/55 max-w-sm mb-10">
-            Create your BLAC.CESS account to unlock early access to new drops, order
+            Create your blac.cess account to unlock early access to new drops, order
             tracking, and a curated wishlist of pieces that speak to your heritage.
           </p>
 
@@ -67,7 +68,7 @@ export default function RegisterPage() {
 
         <div className="pt-6 border-t border-white/10">
           <p className="text-[11px] text-white/30 tracking-[0.5px]">
-            &copy; 2026 BLAC.CESS. All rights reserved.
+            &copy; 2026 blac.cess. All rights reserved.
           </p>
         </div>
       </div>
@@ -78,15 +79,15 @@ export default function RegisterPage() {
 
           {/* Mobile logo */}
           <div className="flex items-center gap-2 mb-10 lg:hidden">
-            <Crown size={20} className="text-[var(--color-accent)]" />
+            <BrandCrown size={20} />
             <span className="font-serif font-bold text-[16px] tracking-[3px] text-[var(--color-ink)]">
-              BLAC.CESS
+              blac.cess
             </span>
           </div>
 
           <div className="card-static p-10">
             <h1 className="heading-lg mb-2">Create Account</h1>
-            <p className="body-sm mb-8">Join BLAC.CESS and celebrate your heritage.</p>
+            <p className="body-sm mb-8">Join blac.cess and celebrate your heritage.</p>
 
             <form onSubmit={(e) => e.preventDefault()} className="space-y-5">
               <div>

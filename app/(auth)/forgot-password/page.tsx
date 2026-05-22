@@ -3,7 +3,8 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Crown, ArrowRight, ArrowLeft, Mail, Check, Eye, EyeOff } from 'lucide-react';
+import { ArrowRight, ArrowLeft, Mail, Check, Eye, EyeOff } from 'lucide-react';
+import { BrandCrown } from '@/components/BrandLogo';
 import { fadeInUp } from '@/lib/animations';
 
 export default function ForgotPasswordPage() {
@@ -103,9 +104,9 @@ export default function ForgotPasswordPage() {
 
         {/* Logo */}
         <div className="flex items-center gap-2 mb-8 justify-center">
-          <Crown size={20} className="text-[var(--color-accent)]" />
+          <BrandCrown size={20} />
           <span className="font-serif font-bold text-[16px] tracking-[3px] text-[var(--color-ink)]">
-            BLAC.CESS
+            blac.cess
           </span>
         </div>
 
