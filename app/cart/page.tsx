@@ -20,139 +20,121 @@ export default function CartPage() {
   const { items, itemCount, subtotal, shipping, tax, total, removeItem, updateQuantity } = useCart();
 
   return (
-    <div className="min-h-screen" style={{ background: '#F5F1EB', paddingTop: 72 }}>
+    <div className="min-h-screen pt-[72px]">
 
-      {/* Page header */}
+      {/* Page header — sits on body ground, no white slab */}
       <div className="page-header">
-        <div className="container py-10">
+        <div className="container">
           <Link
             href="/shop"
-            className="inline-flex items-center gap-2 text-sm mb-4 hover:text-brand-gold transition-colors duration-200"
-            style={{ color: 'rgba(42,42,42,0.5)' }}
+            className="inline-flex items-center gap-2 text-[12px] uppercase tracking-[1.5px] mb-5 text-[var(--color-ink-muted)] hover:text-[var(--color-accent)] transition-colors"
           >
             <ArrowLeft size={14} />
             Continue Shopping
           </Link>
-          <h1 className="page-title">Shopping Cart</h1>
+          <h1 className="heading-xl">Shopping Cart</h1>
           {items.length > 0 && (
-            <p className="text-sm mt-1.5" style={{ color: 'rgba(42,42,42,0.5)' }}>
-              {itemCount} {itemCount === 1 ? 'item' : 'items'} in your cart
+            <p className="body-sm mt-3">
+              {itemCount} {itemCount === 1 ? 'item' : 'items'} in your bag
             </p>
           )}
         </div>
       </div>
 
       {/* Content */}
-      <div className="container py-12">
+      <div className="container py-14">
         {items.length === 0 ? (
           <div className="text-center py-28">
-            <div
-              className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6"
-              style={{ background: 'rgba(212,165,116,0.1)', border: '1px solid rgba(212,165,116,0.25)' }}
-            >
-              <ShoppingBag size={32} style={{ color: '#D4A574' }} strokeWidth={1.5} />
+            <div className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 border border-[var(--color-divider-strong)]">
+              <ShoppingBag size={28} className="text-[var(--color-accent)]" strokeWidth={1.4} />
             </div>
-            <h2 className="font-serif mb-3" style={{ fontSize: 24, color: '#2A2A2A' }}>
-              Your cart is empty
-            </h2>
-            <p className="text-sm mb-8" style={{ color: 'rgba(42,42,42,0.5)' }}>
-              Start shopping to add items to your cart
+            <h2 className="heading-md mb-3">Your bag is empty</h2>
+            <p className="body-sm mb-8 max-w-sm mx-auto">
+              Discover pieces crafted with cultural intention.
             </p>
-            <Link href="/shop" className="btn btn-gold inline-flex items-center gap-2">
+            <Link href="/shop" className="btn btn-gold">
               <ShoppingBag size={14} />
               Explore Collection
             </Link>
           </div>
         ) : (
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_400px] gap-10 lg:gap-14 items-start">
 
             {/* Cart items */}
-            <div className="lg:col-span-2">
-              <motion.div
+            <div>
+              <motion.ul
                 initial="hidden"
                 animate="visible"
                 variants={staggerContainer}
-                className="flex flex-col gap-4"
+                className="flex flex-col divide-y divide-[var(--color-divider)] border-y border-[var(--color-divider)]"
               >
                 <AnimatePresence>
                   {items.map((item: CartItem) => (
-                    <motion.div
+                    <motion.li
                       key={item.id}
                       variants={fadeInUp}
                       exit={{ opacity: 0, x: -20, transition: { duration: 0.22 } }}
-                      className="rounded-xl p-5 flex gap-5"
-                      style={{ background: '#FFFFFF', boxShadow: '0 1px 4px rgba(0,0,0,0.07), 0 4px 12px rgba(0,0,0,0.05)' }}
+                      className="py-6 flex gap-5"
                     >
                       {/* Thumbnail */}
                       <Link href={`/shop/product/${item.productId}`} className="flex-shrink-0">
-                        <div className="relative rounded-xl overflow-hidden" style={{ width: 90, height: 112 }}>
+                        <div className="relative overflow-hidden w-[96px] h-[120px] bg-[var(--color-paper-soft)]">
                           <Image
                             src={item.image}
                             alt={item.name}
                             fill
-                            sizes="90px"
+                            sizes="96px"
                             className="object-cover"
                           />
                         </div>
                       </Link>
 
                       {/* Details */}
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-start justify-between gap-2">
+                      <div className="flex-1 min-w-0 flex flex-col">
+                        <div className="flex items-start justify-between gap-3">
                           <Link href={`/shop/product/${item.productId}`}>
-                            <h3
-                              className="font-serif font-semibold leading-tight hover:text-brand-gold transition-colors duration-200"
-                              style={{ fontSize: 15, color: '#2A2A2A' }}
-                            >
+                            <h3 className="font-serif font-semibold text-[16px] text-[var(--color-ink)] leading-tight hover:text-[var(--color-accent)] transition-colors">
                               {item.name}
                             </h3>
                           </Link>
                           <button
                             onClick={() => removeItem(item.id)}
-                            className="btn-icon flex-shrink-0"
-                            style={{ minWidth: 34, minHeight: 34, width: 34, height: 34 }}
+                            className="text-[var(--color-ink-faint)] hover:text-[var(--color-ink)] transition-colors p-1 -m-1"
                             aria-label="Remove item"
                           >
-                            <X size={14} style={{ color: 'rgba(42,42,42,0.55)' }} />
+                            <X size={16} />
                           </button>
                         </div>
 
-                        {/* Colour & size */}
-                        <div className="flex items-center gap-3 mt-1.5 mb-3">
-                          <div
-                            className="w-3.5 h-3.5 rounded-full flex-shrink-0"
-                            style={{ background: getColorHex(item.productId, item.color), border: '1px solid rgba(0,0,0,0.12)' }}
-                            title={item.color}
-                          />
-                          <span className="text-xs capitalize" style={{ color: 'rgba(42,42,42,0.6)' }}>{item.color}</span>
-                          <span className="text-xs" style={{ color: 'rgba(42,42,42,0.28)' }}>•</span>
-                          <span className="text-xs" style={{ color: 'rgba(42,42,42,0.6)' }}>Size {item.size}</span>
+                        <div className="flex items-center gap-3 mt-2 mb-auto">
+                          <div className="flex items-center gap-1.5">
+                            <span
+                              className="w-3 h-3 rounded-full border border-[var(--color-divider-strong)]"
+                              style={{ background: getColorHex(item.productId, item.color) }}
+                              title={item.color}
+                            />
+                            <span className="text-[12px] text-[var(--color-ink-muted)] capitalize">{item.color}</span>
+                          </div>
+                          <span className="w-px h-3 bg-[var(--color-divider-strong)]" />
+                          <span className="text-[12px] text-[var(--color-ink-muted)]">Size {item.size}</span>
                         </div>
 
-                        <div className="flex items-center justify-between flex-wrap gap-2">
+                        <div className="flex items-end justify-between flex-wrap gap-3 mt-4">
                           {/* Quantity control */}
-                          <div
-                            className="flex items-center rounded-lg overflow-hidden"
-                            style={{ border: '1.5px solid rgba(42,42,42,0.15)' }}
-                          >
+                          <div className="flex items-center border border-[var(--color-divider-strong)]">
                             <button
                               onClick={() => updateQuantity(item.id, -1)}
-                              className="px-3 py-2 transition-colors duration-200 hover:bg-gray-50"
-                              style={{ color: '#2A2A2A' }}
+                              className="px-3 h-9 text-[var(--color-ink)] hover:bg-[var(--color-paper-soft)] transition-colors"
                               aria-label="Decrease quantity"
                             >
                               <Minus size={12} />
                             </button>
-                            <span
-                              className="px-4 py-2 text-sm font-semibold text-center"
-                              style={{ color: '#2A2A2A', borderLeft: '1.5px solid rgba(42,42,42,0.1)', borderRight: '1.5px solid rgba(42,42,42,0.1)', minWidth: 44 }}
-                            >
+                            <span className="px-4 h-9 inline-flex items-center text-[13px] font-semibold text-[var(--color-ink)] border-x border-[var(--color-divider-strong)] min-w-[44px] justify-center">
                               {item.quantity}
                             </span>
                             <button
                               onClick={() => updateQuantity(item.id, 1)}
-                              className="px-3 py-2 transition-colors duration-200 hover:bg-gray-50"
-                              style={{ color: '#2A2A2A' }}
+                              className="px-3 h-9 text-[var(--color-ink)] hover:bg-[var(--color-paper-soft)] transition-colors"
                               aria-label="Increase quantity"
                             >
                               <Plus size={12} />
@@ -160,19 +142,19 @@ export default function CartPage() {
                           </div>
 
                           {/* Line price */}
-                          <span className="font-bold" style={{ color: '#2A2A2A', fontSize: 15 }}>
+                          <span className="font-serif font-semibold text-[18px] text-[var(--color-ink)]">
                             {formatPrice(item.price * item.quantity)}
                           </span>
                         </div>
                       </div>
-                    </motion.div>
+                    </motion.li>
                   ))}
                 </AnimatePresence>
-              </motion.div>
+              </motion.ul>
             </div>
 
             {/* Order summary */}
-            <div className="lg:col-span-1">
+            <div>
               <CartSummary
                 subtotal={subtotal}
                 shipping={shipping}

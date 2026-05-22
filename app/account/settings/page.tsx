@@ -9,22 +9,22 @@ function Toggle({ checked, onChange, label }: { checked: boolean; onChange: () =
   return (
     <button
       onClick={onChange}
-      className="relative w-11 h-6 rounded-full transition-colors duration-300 flex-shrink-0"
-      style={{ background: checked ? '#D4A574' : 'rgba(42,42,42,0.15)' }}
+      className="relative w-11 h-6 rounded-full transition-colors flex-shrink-0"
+      style={{ background: checked ? 'var(--color-ink)' : 'var(--color-divider-strong)' }}
       aria-label={label}
       role="switch"
       aria-checked={checked}
     >
       <span
-        className="absolute top-0.5 w-5 h-5 rounded-full bg-white shadow transition-transform duration-300"
-        style={{ transform: checked ? 'translateX(20px)' : 'translateX(2px)' }}
+        className="absolute top-0.5 w-5 h-5 rounded-full bg-white transition-transform"
+        style={{ transform: checked ? 'translateX(22px)' : 'translateX(2px)' }}
       />
     </button>
   );
 }
 
 const SAVED_ADDRESSES = [
-  { id: '1', label: 'Home', street: '123 Crown Street, Apt 4B', city: 'New York, NY 10001', country: 'United States', isDefault: true },
+  { id: '1', label: 'Home', street: '123 Crown Street, Apt 4B', city: 'New York, NY 10001', country: 'United States', isDefault: true  },
   { id: '2', label: 'Work', street: '456 Heritage Ave',          city: 'Brooklyn, NY 11201',  country: 'United States', isDefault: false },
 ];
 
@@ -47,44 +47,31 @@ export default function SettingsPage() {
     setTimeout(() => setSaved(false), 2500);
   };
 
-  const cardStyle = {
-    background: '#FFFFFF',
-    borderRadius: 12,
-    boxShadow: '0 1px 4px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.04)',
-    padding: 24,
-  };
-
   return (
     <motion.div initial="hidden" animate="visible" variants={fadeInUp}>
-      <div className="mb-8">
-        <span className="section-eyebrow">My Account</span>
-        <h1 className="font-serif" style={{ fontSize: 'clamp(24px, 3vw, 36px)', fontWeight: 600, color: '#2A2A2A' }}>
-          Settings
-        </h1>
-      </div>
+      <header className="mb-8">
+        <h2 className="heading-lg">Settings</h2>
+        <p className="body-sm mt-2">Manage security, notifications, and saved addresses.</p>
+      </header>
 
-      <div className="space-y-5">
+      <div className="space-y-6">
         {/* Security */}
-        <div style={cardStyle}>
-          <h2 className="font-serif font-semibold mb-5" style={{ fontSize: '18px', color: '#2A2A2A' }}>
-            Security
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+        <section className="card-static p-7">
+          <h3 className="heading-md mb-6">Security</h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-6">
             <div className="sm:col-span-2">
               <label className="input-label">Current Password</label>
               <div className="relative">
                 <input
                   type={showCurrent ? 'text' : 'password'}
                   placeholder="Enter current password"
-                  className="input"
-                  style={{ paddingRight: 48 }}
+                  className="input pr-12"
                   autoComplete="current-password"
                 />
                 <button
                   type="button"
                   onClick={() => setShowCurrent(!showCurrent)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 transition-colors hover:text-brand-gold"
-                  style={{ color: 'rgba(42,42,42,0.4)' }}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--color-ink-faint)] hover:text-[var(--color-ink)] transition-colors"
                   aria-label="Toggle password visibility"
                 >
                   {showCurrent ? <EyeOff size={16} /> : <Eye size={16} />}
@@ -97,15 +84,13 @@ export default function SettingsPage() {
                 <input
                   type={showNew ? 'text' : 'password'}
                   placeholder="New password"
-                  className="input"
-                  style={{ paddingRight: 48 }}
+                  className="input pr-12"
                   autoComplete="new-password"
                 />
                 <button
                   type="button"
                   onClick={() => setShowNew(!showNew)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 transition-colors hover:text-brand-gold"
-                  style={{ color: 'rgba(42,42,42,0.4)' }}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--color-ink-faint)] hover:text-[var(--color-ink)] transition-colors"
                   aria-label="Toggle password visibility"
                 >
                   {showNew ? <EyeOff size={16} /> : <Eye size={16} />}
@@ -118,48 +103,43 @@ export default function SettingsPage() {
             </div>
           </div>
 
-          {/* 2FA toggle */}
-          <div
-            className="flex items-center justify-between p-4 rounded-xl"
-            style={{ background: '#F5F1EB', border: '1px solid rgba(42,42,42,0.07)' }}
-          >
+          {/* 2FA */}
+          <div className="flex items-center justify-between p-5 bg-[var(--color-paper-soft)] border border-[var(--color-divider)]">
             <div>
-              <p className="font-medium text-sm" style={{ color: '#2A2A2A' }}>Two-Factor Authentication</p>
-              <p className="text-xs mt-0.5" style={{ color: 'rgba(42,42,42,0.5)' }}>Add an extra layer of security to your account</p>
+              <p className="font-medium text-[14px] text-[var(--color-ink)]">Two-Factor Authentication</p>
+              <p className="text-[12px] mt-1 text-[var(--color-ink-muted)]">
+                Add an extra layer of security to your account
+              </p>
             </div>
             <Toggle checked={toggles.twoFactor} onChange={() => toggle('twoFactor')} label="Two-factor authentication" />
           </div>
-        </div>
+        </section>
 
         {/* Notifications */}
-        <div style={cardStyle}>
-          <h2 className="font-serif font-semibold mb-5" style={{ fontSize: '18px', color: '#2A2A2A' }}>
-            Notifications
-          </h2>
-          <div className="space-y-4">
+        <section className="card-static p-7">
+          <h3 className="heading-md mb-6">Notifications</h3>
+          <div className="divide-y divide-[var(--color-divider)]">
             {[
-              { key: 'newsletter' as const, label: 'Newsletter',     desc: 'New collections, drops, cultural stories' },
-              { key: 'marketing'  as const, label: 'Marketing Emails', desc: 'Promotions, discounts, special offers' },
-              { key: 'orders'     as const, label: 'Order Updates',  desc: 'Shipping confirmations, delivery notifications' },
+              { key: 'newsletter' as const, label: 'Newsletter',      desc: 'New collections, drops, cultural stories' },
+              { key: 'marketing'  as const, label: 'Marketing Emails', desc: 'Promotions, discounts, special offers'    },
+              { key: 'orders'     as const, label: 'Order Updates',    desc: 'Shipping confirmations, delivery notifications' },
             ].map(({ key, label, desc }) => (
-              <div key={key} className="flex items-center justify-between">
+              <div key={key} className="flex items-center justify-between py-4 first:pt-0 last:pb-0">
                 <div>
-                  <p className="font-medium text-sm" style={{ color: '#2A2A2A' }}>{label}</p>
-                  <p className="text-xs mt-0.5" style={{ color: 'rgba(42,42,42,0.5)' }}>{desc}</p>
+                  <p className="font-medium text-[14px] text-[var(--color-ink)]">{label}</p>
+                  <p className="text-[12px] mt-1 text-[var(--color-ink-muted)]">{desc}</p>
                 </div>
                 <Toggle checked={toggles[key]} onChange={() => toggle(key)} label={label} />
               </div>
             ))}
           </div>
-        </div>
+        </section>
 
         {/* Saved Addresses */}
-        <div style={cardStyle}>
-          <div className="flex items-center justify-between mb-5">
-            <h2 className="font-serif font-semibold" style={{ fontSize: '18px', color: '#2A2A2A' }}>
-              Saved Addresses
-            </h2>
-            <button className="btn btn-sm btn-outline" style={{ gap: 6 }}>
+        <section className="card-static p-7">
+          <div className="flex items-center justify-between mb-6">
+            <h3 className="heading-md">Saved Addresses</h3>
+            <button className="btn btn-outline btn-sm">
               <Plus size={13} />
               Add New
             </button>
@@ -167,60 +147,52 @@ export default function SettingsPage() {
 
           <div className="space-y-3">
             {SAVED_ADDRESSES.map((addr) => (
-              <div
+              <article
                 key={addr.id}
-                className="flex items-start gap-3 p-4 rounded-xl"
+                className="flex items-start gap-4 p-5 border"
                 style={{
-                  background: addr.isDefault ? 'rgba(212,165,116,0.05)' : '#F5F1EB',
-                  border: `1px solid ${addr.isDefault ? 'rgba(212,165,116,0.25)' : 'rgba(42,42,42,0.07)'}`,
+                  background: addr.isDefault ? 'var(--color-accent-soft)' : 'var(--color-paper-soft)',
+                  borderColor: addr.isDefault ? 'var(--color-accent)' : 'var(--color-divider)',
                 }}
               >
-                <div
-                  className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0"
-                  style={{ background: 'rgba(212,165,116,0.12)' }}
-                >
-                  <MapPin size={14} style={{ color: '#D4A574' }} />
+                <div className="w-9 h-9 inline-flex items-center justify-center flex-shrink-0 border border-[var(--color-divider-strong)] bg-[var(--color-surface)]">
+                  <MapPin size={14} className="text-[var(--color-accent)]" />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2 mb-0.5">
-                    <p className="font-semibold text-sm" style={{ color: '#2A2A2A' }}>{addr.label}</p>
+                  <div className="flex items-center gap-2 mb-1">
+                    <p className="font-semibold text-[14px] text-[var(--color-ink)]">{addr.label}</p>
                     {addr.isDefault && (
-                      <span
-                        className="text-white font-semibold px-2 py-0.5 rounded-full"
-                        style={{ background: '#D4A574', fontSize: '9px', letterSpacing: '0.5px' }}
-                      >
+                      <span className="text-white font-semibold px-2 py-0.5 text-[9px] uppercase tracking-[1px] bg-[var(--color-accent)]">
                         Default
                       </span>
                     )}
                   </div>
-                  <p className="text-xs" style={{ color: 'rgba(42,42,42,0.6)' }}>{addr.street}</p>
-                  <p className="text-xs" style={{ color: 'rgba(42,42,42,0.6)' }}>{addr.city}, {addr.country}</p>
+                  <p className="text-[12px] text-[var(--color-ink-muted)]">{addr.street}</p>
+                  <p className="text-[12px] text-[var(--color-ink-muted)]">{addr.city}, {addr.country}</p>
                 </div>
-                <div className="flex items-center gap-2">
-                  <button className="text-xs hover:underline" style={{ color: '#D4A574', fontSize: '11px' }}>Edit</button>
+                <div className="flex items-center gap-3">
+                  <button className="text-[11px] uppercase tracking-[1px] hover:underline text-[var(--color-accent)]">
+                    Edit
+                  </button>
                   {!addr.isDefault && (
                     <button
-                      className="transition-colors hover:text-red-400"
-                      style={{ color: 'rgba(244,67,54,0.5)' }}
+                      className="text-[var(--color-ink-faint)] hover:text-[var(--color-danger)] transition-colors"
                       aria-label="Delete address"
                     >
-                      <Trash2 size={13} />
+                      <Trash2 size={14} />
                     </button>
                   )}
                 </div>
-              </div>
+              </article>
             ))}
           </div>
-        </div>
+        </section>
 
         {/* Save */}
         <div className="flex items-center gap-3">
-          <button
-            onClick={handleSave}
-            className={`btn ${saved ? 'btn-gold' : ''}`}
-          >
+          <button onClick={handleSave} className={`btn ${saved ? 'btn-gold' : ''}`}>
             {saved && <Check size={14} />}
-            {saved ? 'Saved!' : 'Save Changes'}
+            {saved ? 'Saved' : 'Save Changes'}
           </button>
           <button className="btn btn-outline">Cancel</button>
         </div>

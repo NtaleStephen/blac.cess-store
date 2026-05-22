@@ -6,16 +6,16 @@ import { X, ChevronDown, ChevronUp } from 'lucide-react';
 
 const SIZES = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
 const COLORS = [
-  { name: 'Black', hex: '#000000' },
-  { name: 'Cream', hex: '#F5F1EB' },
+  { name: 'Black',    hex: '#000000' },
+  { name: 'Cream',    hex: '#F6F2EC' },
   { name: 'Charcoal', hex: '#2A2A2A' },
-  { name: 'Gold', hex: '#D4A574' },
-  { name: 'Navy', hex: '#1A1A2E' },
+  { name: 'Gold',     hex: '#B8956A' },
+  { name: 'Navy',     hex: '#1A1A2E' },
 ];
 const CATEGORIES = [
-  { label: 'Crop Tops', value: 'crop-tops' },
+  { label: 'Crop Tops',  value: 'crop-tops' },
   { label: 'Sweatpants', value: 'sweatpants' },
-  { label: 'Hoodies', value: 'hoodies' },
+  { label: 'Hoodies',    value: 'hoodies' },
 ];
 
 interface FilterState {
@@ -36,19 +36,16 @@ interface FilterPanelProps {
 function FilterSection({ title, children }: { title: string; children: React.ReactNode }) {
   const [open, setOpen] = useState(true);
   return (
-    <div className="border-b pb-4 mb-4" style={{ borderColor: 'rgba(42,42,42,0.08)' }}>
+    <div className="border-b border-[var(--color-divider)] pb-5 mb-5 last:border-b-0">
       <button
-        className="flex items-center justify-between w-full mb-3"
+        className="flex items-center justify-between w-full mb-4"
         onClick={() => setOpen(!open)}
         aria-expanded={open}
       >
-        <span className="font-semibold uppercase" style={{ letterSpacing: '1.5px', fontSize: '11px', color: '#2A2A2A' }}>
+        <span className="font-semibold uppercase tracking-[1.5px] text-[11px] text-[var(--color-ink)]">
           {title}
         </span>
-        {open
-          ? <ChevronUp size={14} style={{ color: '#D4A574' }} />
-          : <ChevronDown size={14} style={{ color: '#D4A574' }} />
-        }
+        {open ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
       </button>
       <AnimatePresence initial={false}>
         {open && (
@@ -67,7 +64,12 @@ function FilterSection({ title, children }: { title: string; children: React.Rea
   );
 }
 
-export default function FilterPanel({ filters, onChange, isMobileOpen = true, onMobileClose }: FilterPanelProps) {
+export default function FilterPanel({
+  filters,
+  onChange,
+  isMobileOpen = true,
+  onMobileClose,
+}: FilterPanelProps) {
   const toggle = (key: 'categories' | 'sizes' | 'colors', value: string) => {
     const current = filters[key];
     const updated = current.includes(value)
@@ -83,26 +85,23 @@ export default function FilterPanel({ filters, onChange, isMobileOpen = true, on
   const activeCount = filters.categories.length + filters.sizes.length + filters.colors.length;
 
   const content = (
-    <div className="p-5">
+    <div className="p-6">
       {/* Header */}
-      <div className="flex items-center justify-between mb-5">
+      <div className="flex items-center justify-between mb-6">
         <div>
-          <h3 className="font-serif font-semibold" style={{ fontSize: '16px', color: '#2A2A2A' }}>
-            Filter
-          </h3>
+          <h3 className="heading-md">Filter</h3>
           {activeCount > 0 && (
             <button
               onClick={clearAll}
-              className="text-xs mt-0.5 hover:underline"
-              style={{ color: '#D4A574' }}
+              className="text-[12px] mt-1 hover:underline text-[var(--color-accent)] uppercase tracking-[1px]"
             >
-              Clear all ({activeCount})
+              Clear ({activeCount})
             </button>
           )}
         </div>
         {onMobileClose && (
           <button
-            className="btn-icon lg:hidden"
+            className="icon-btn lg:hidden"
             onClick={onMobileClose}
             aria-label="Close filters"
           >
@@ -113,7 +112,7 @@ export default function FilterPanel({ filters, onChange, isMobileOpen = true, on
 
       {/* Category */}
       <FilterSection title="Category">
-        <div className="space-y-2.5">
+        <div className="space-y-3">
           {CATEGORIES.map((cat) => {
             const checked = filters.categories.includes(cat.value);
             return (
@@ -125,10 +124,10 @@ export default function FilterPanel({ filters, onChange, isMobileOpen = true, on
                   className="sr-only"
                 />
                 <div
-                  className="w-4 h-4 rounded flex items-center justify-center transition-all duration-200 flex-shrink-0"
+                  className="w-4 h-4 flex items-center justify-center flex-shrink-0 transition-all"
                   style={{
-                    background: checked ? '#D4A574' : '#FFFFFF',
-                    border: `1.5px solid ${checked ? '#D4A574' : 'rgba(42,42,42,0.2)'}`,
+                    background: checked ? 'var(--color-ink)' : 'var(--color-surface)',
+                    border: `1px solid ${checked ? 'var(--color-ink)' : 'var(--color-divider-strong)'}`,
                   }}
                   aria-hidden="true"
                 >
@@ -139,8 +138,8 @@ export default function FilterPanel({ filters, onChange, isMobileOpen = true, on
                   )}
                 </div>
                 <span
-                  className="text-sm transition-colors duration-200 group-hover:text-brand-gold"
-                  style={{ color: checked ? '#D4A574' : '#2A2A2A' }}
+                  className="text-[13px] transition-colors group-hover:text-[var(--color-accent)]"
+                  style={{ color: checked ? 'var(--color-ink)' : 'var(--color-ink-soft)', fontWeight: checked ? 600 : 400 }}
                 >
                   {cat.label}
                 </span>
@@ -159,11 +158,11 @@ export default function FilterPanel({ filters, onChange, isMobileOpen = true, on
               <button
                 key={size}
                 onClick={() => toggle('sizes', size)}
-                className="px-3 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200"
+                className="w-10 h-10 text-[11px] font-semibold transition-all"
                 style={{
-                  background: active ? '#2A2A2A' : '#FFFFFF',
-                  border: `1.5px solid ${active ? '#2A2A2A' : 'rgba(42,42,42,0.15)'}`,
-                  color: active ? '#FFFFFF' : '#2A2A2A',
+                  background: active ? 'var(--color-ink)' : 'var(--color-surface)',
+                  border: `1px solid ${active ? 'var(--color-ink)' : 'var(--color-divider-strong)'}`,
+                  color: active ? '#FFFFFF' : 'var(--color-ink)',
                 }}
               >
                 {size}
@@ -184,16 +183,18 @@ export default function FilterPanel({ filters, onChange, isMobileOpen = true, on
                 onClick={() => toggle('colors', color.name)}
                 aria-label={color.name}
                 aria-pressed={active}
+                title={color.name}
+                className="rounded-full transition-transform"
                 style={{
-                  width: '26px',
-                  height: '26px',
-                  borderRadius: '50%',
+                  width: 24,
+                  height: 24,
                   background: color.hex,
-                  border: active ? '2px solid #D4A574' : '2px solid rgba(42,42,42,0.15)',
-                  boxShadow: active ? '0 0 0 3px rgba(212,165,116,0.25)' : 'none',
+                  border: active
+                    ? '1.5px solid var(--color-ink)'
+                    : '1px solid var(--color-divider-strong)',
+                  outline: active ? '2px solid var(--color-paper)' : 'none',
+                  outlineOffset: -4,
                   transform: active ? 'scale(1.15)' : 'scale(1)',
-                  transition: 'all 0.2s ease',
-                  cursor: 'pointer',
                 }}
               />
             );
@@ -202,9 +203,9 @@ export default function FilterPanel({ filters, onChange, isMobileOpen = true, on
       </FilterSection>
 
       {/* Price */}
-      <FilterSection title="Price Range">
-        <div className="space-y-2">
-          <div className="flex items-center justify-between text-xs" style={{ color: 'rgba(42,42,42,0.6)' }}>
+      <FilterSection title="Price">
+        <div className="space-y-3">
+          <div className="flex items-center justify-between text-[12px] text-[var(--color-ink-muted)]">
             <span>${filters.priceMin}</span>
             <span>${filters.priceMax}</span>
           </div>
@@ -215,7 +216,7 @@ export default function FilterPanel({ filters, onChange, isMobileOpen = true, on
             value={filters.priceMax}
             onChange={(e) => onChange({ ...filters, priceMax: Number(e.target.value) })}
             className="w-full"
-            style={{ accentColor: '#D4A574' }}
+            style={{ accentColor: 'var(--color-ink)' }}
             aria-label="Maximum price"
           />
         </div>
@@ -226,15 +227,7 @@ export default function FilterPanel({ filters, onChange, isMobileOpen = true, on
   return (
     <>
       {/* Desktop sidebar */}
-      <div
-        className="hidden lg:block rounded-xl sticky top-24 overflow-y-auto"
-        style={{
-          background: '#FFFFFF',
-          border: '1px solid rgba(42,42,42,0.08)',
-          boxShadow: '0 1px 4px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.04)',
-          maxHeight: 'calc(100vh - 120px)',
-        }}
-      >
+      <div className="hidden lg:block sticky top-24 max-h-[calc(100vh-120px)] overflow-y-auto border border-[var(--color-divider)] bg-[var(--color-surface)]">
         {content}
       </div>
 
@@ -246,7 +239,7 @@ export default function FilterPanel({ filters, onChange, isMobileOpen = true, on
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 bg-black/40 z-40 lg:hidden"
+            className="fixed inset-0 bg-black/50 z-40 lg:hidden"
             onClick={onMobileClose}
           />
         )}
@@ -254,13 +247,8 @@ export default function FilterPanel({ filters, onChange, isMobileOpen = true, on
 
       {/* Mobile drawer */}
       <div
-        className={`fixed top-0 left-0 h-full z-50 lg:hidden overflow-y-auto transition-transform duration-300 ${isMobileOpen ? 'translate-x-0' : '-translate-x-full'}`}
-        style={{
-          width: 'min(320px, 90vw)',
-          background: '#FFFFFF',
-          borderRight: '1px solid rgba(42,42,42,0.08)',
-          boxShadow: '4px 0 20px rgba(0,0,0,0.1)',
-        }}
+        className={`fixed top-0 left-0 h-full z-50 lg:hidden overflow-y-auto bg-[var(--color-surface)] border-r border-[var(--color-divider)] transition-transform duration-300 ${isMobileOpen ? 'translate-x-0' : '-translate-x-full'}`}
+        style={{ width: 'min(340px, 90vw)' }}
       >
         {content}
       </div>

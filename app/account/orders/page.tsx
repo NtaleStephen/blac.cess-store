@@ -9,24 +9,32 @@ import { formatPrice, formatDate } from '@/lib/utils';
 import { OrderStatus } from '@/types';
 import { staggerContainer, fadeInUp } from '@/lib/animations';
 
-const STATUS_STYLES: Record<OrderStatus, { label: string; bg: string; color: string; border: string }> = {
-  pending:    { label: 'Pending',    bg: 'rgba(255,193,7,0.1)',  color: '#B8680A', border: 'rgba(255,193,7,0.3)' },
-  processing: { label: 'Processing', bg: 'rgba(33,150,243,0.1)', color: '#1565C0', border: 'rgba(33,150,243,0.3)' },
-  shipped:    { label: 'Shipped',    bg: 'rgba(76,175,80,0.1)',  color: '#2E7D32', border: 'rgba(76,175,80,0.3)' },
-  delivered:  { label: 'Delivered',  bg: 'rgba(46,125,50,0.1)',  color: '#1B5E20', border: 'rgba(46,125,50,0.3)' },
-  cancelled:  { label: 'Cancelled',  bg: 'rgba(244,67,54,0.1)',  color: '#C62828', border: 'rgba(244,67,54,0.3)' },
+const STATUS_LABELS: Record<OrderStatus, string> = {
+  pending:    'Pending',
+  processing: 'Processing',
+  shipped:    'Shipped',
+  delivered:  'Delivered',
+  cancelled:  'Cancelled',
+};
+
+const STATUS_COLORS: Record<OrderStatus, { fg: string; bg: string }> = {
+  pending:    { fg: '#B8680A', bg: 'rgba(255,193,7,0.12)' },
+  processing: { fg: '#1565C0', bg: 'rgba(33,150,243,0.12)' },
+  shipped:    { fg: '#2E7D32', bg: 'rgba(76,175,80,0.12)' },
+  delivered:  { fg: '#1B5E20', bg: 'rgba(46,125,50,0.12)' },
+  cancelled:  { fg: '#C62828', bg: 'rgba(244,67,54,0.12)' },
 };
 
 const FILTERS = ['All', 'Pending', 'Processing', 'Shipped', 'Delivered', 'Cancelled'];
 
 function StatusBadge({ status }: { status: OrderStatus }) {
-  const s = STATUS_STYLES[status];
+  const c = STATUS_COLORS[status];
   return (
     <span
-      className="inline-block px-3 py-1 rounded-full font-semibold"
-      style={{ background: s.bg, color: s.color, border: `1px solid ${s.border}`, fontSize: '11px', letterSpacing: '0.5px' }}
+      className="inline-block px-3 py-1 text-[10px] uppercase tracking-[1.5px] font-semibold"
+      style={{ background: c.bg, color: c.fg }}
     >
-      {s.label}
+      {STATUS_LABELS[status]}
     </span>
   );
 }
@@ -40,108 +48,95 @@ export default function OrdersPage() {
 
   return (
     <motion.div initial="hidden" animate="visible" variants={fadeInUp}>
-      <div className="mb-8">
-        <span className="section-eyebrow">My Account</span>
-        <h1 className="font-serif" style={{ fontSize: 'clamp(24px, 3vw, 36px)', fontWeight: 600, color: '#2A2A2A' }}>
-          Orders
-        </h1>
-      </div>
+      <header className="mb-8">
+        <h2 className="heading-lg">Orders</h2>
+        <p className="body-sm mt-2">View your order history and track shipments.</p>
+      </header>
 
       {/* Filter tabs */}
-      <div className="flex gap-2 flex-wrap mb-6">
-        {FILTERS.map((f) => (
-          <button
-            key={f}
-            onClick={() => setActiveFilter(f)}
-            className="px-4 py-2 rounded-full text-sm font-medium transition-all duration-200"
-            style={{
-              background: activeFilter === f ? '#2A2A2A' : '#FFFFFF',
-              border: `1.5px solid ${activeFilter === f ? '#2A2A2A' : 'rgba(42,42,42,0.12)'}`,
-              color: activeFilter === f ? '#FFFFFF' : 'rgba(42,42,42,0.6)',
-              fontSize: '12px',
-            }}
-          >
-            {f}
-          </button>
-        ))}
+      <div className="flex gap-2 flex-wrap mb-8 border-b border-[var(--color-divider)] pb-4">
+        {FILTERS.map((f) => {
+          const active = activeFilter === f;
+          return (
+            <button
+              key={f}
+              onClick={() => setActiveFilter(f)}
+              className="px-4 h-9 text-[11px] uppercase tracking-[1.5px] font-semibold transition-all"
+              style={{
+                background: active ? 'var(--color-ink)' : 'transparent',
+                border: `1px solid ${active ? 'var(--color-ink)' : 'var(--color-divider-strong)'}`,
+                color: active ? '#FFFFFF' : 'var(--color-ink-soft)',
+              }}
+            >
+              {f}
+            </button>
+          );
+        })}
       </div>
 
       {filtered.length === 0 ? (
-        <div className="text-center py-20">
-          <div
-            className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
-            style={{ background: 'rgba(212,165,116,0.1)', border: '1px solid rgba(212,165,116,0.2)' }}
-          >
-            <Package size={28} style={{ color: '#D4A574' }} strokeWidth={1.5} />
+        <div className="text-center py-24">
+          <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-5 border border-[var(--color-divider-strong)]">
+            <Package size={26} className="text-[var(--color-accent)]" strokeWidth={1.4} />
           </div>
           {activeFilter === 'All' ? (
             <>
-              <h3 className="font-serif mb-2" style={{ fontSize: '20px', color: '#2A2A2A' }}>No orders yet</h3>
-              <p className="text-sm mb-6" style={{ color: 'rgba(42,42,42,0.5)' }}>When you place orders, they&apos;ll appear here.</p>
-              <Link href="/shop" className="btn btn-gold inline-flex items-center gap-2">
-                Start Shopping
-              </Link>
+              <h3 className="heading-md mb-2">No orders yet</h3>
+              <p className="body-sm mb-8">When you place orders, they&apos;ll appear here.</p>
+              <Link href="/shop" className="btn btn-gold">Start Shopping</Link>
             </>
           ) : (
             <>
-              <h3 className="font-serif mb-2" style={{ fontSize: '20px', color: '#2A2A2A' }}>No {activeFilter.toLowerCase()} orders</h3>
-              <p className="text-sm mb-6" style={{ color: 'rgba(42,42,42,0.5)' }}>Try a different filter to see your orders.</p>
-              <button onClick={() => setActiveFilter('All')} className="btn btn-gold">
-                View All Orders
-              </button>
+              <h3 className="heading-md mb-2">No {activeFilter.toLowerCase()} orders</h3>
+              <p className="body-sm mb-8">Try a different filter to see your orders.</p>
+              <button onClick={() => setActiveFilter('All')} className="btn">View All Orders</button>
             </>
           )}
         </div>
       ) : (
         <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="space-y-4">
           {filtered.map((order) => (
-            <motion.div
-              key={order.id}
-              variants={fadeInUp}
-              className="rounded-xl p-5"
-              style={{ background: '#FFFFFF', boxShadow: '0 1px 4px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.04)' }}
-            >
-              {/* Order header */}
+            <motion.article key={order.id} variants={fadeInUp} className="card-static p-6">
               <div className="flex items-start justify-between gap-3 mb-4 flex-wrap">
                 <div>
-                  <p className="font-serif font-semibold" style={{ fontSize: '16px', color: '#2A2A2A' }}>
+                  <p className="font-serif font-semibold text-[17px] text-[var(--color-ink)]">
                     {order.orderNumber}
                   </p>
-                  <p className="text-xs mt-0.5" style={{ color: 'rgba(42,42,42,0.5)' }}>{formatDate(order.createdAt)}</p>
+                  <p className="text-[11px] uppercase tracking-[1.5px] mt-1 text-[var(--color-ink-muted)]">
+                    {formatDate(order.createdAt)}
+                  </p>
                 </div>
                 <StatusBadge status={order.status} />
               </div>
 
-              {/* Items preview */}
-              <div className="text-sm mb-4" style={{ color: 'rgba(42,42,42,0.6)' }}>
+              <p className="text-[13px] mb-5 text-[var(--color-ink-soft)]">
                 {order.items.map((item, i) => (
                   <span key={item.id}>
-                    {item.name} &times;{item.quantity}
+                    {item.name} ×{item.quantity}
                     {i < order.items.length - 1 ? ', ' : ''}
                   </span>
                 ))}
-              </div>
+              </p>
 
-              {/* Footer */}
-              <div className="flex items-center justify-between flex-wrap gap-3 pt-3" style={{ borderTop: '1px solid rgba(42,42,42,0.07)' }}>
+              <div className="flex items-center justify-between flex-wrap gap-3 pt-4 border-t border-[var(--color-divider)]">
                 <div>
-                  <span className="text-xs" style={{ color: 'rgba(42,42,42,0.5)' }}>Total: </span>
-                  <span className="font-bold" style={{ color: '#2A2A2A', fontSize: '15px' }}>
+                  <span className="text-[11px] uppercase tracking-[1.5px] text-[var(--color-ink-muted)]">Total </span>
+                  <span className="font-serif font-bold text-[18px] text-[var(--color-ink)]">
                     {formatPrice(order.total)}
                   </span>
                 </div>
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-4">
                   {order.trackingNumber && (
-                    <span className="text-xs" style={{ color: 'rgba(42,42,42,0.45)' }}>
-                      Tracking: {order.trackingNumber}
+                    <span className="text-[11px] text-[var(--color-ink-muted)]">
+                      Tracking: <span className="text-[var(--color-ink)]">{order.trackingNumber}</span>
                     </span>
                   )}
-                  <span className="text-xs font-semibold" style={{ color: 'rgba(42,42,42,0.4)' }}>
+                  <span className="text-[11px] uppercase tracking-[1.5px] text-[var(--color-ink-muted)]">
                     {order.items.length} {order.items.length === 1 ? 'item' : 'items'}
                   </span>
                 </div>
               </div>
-            </motion.div>
+            </motion.article>
           ))}
         </motion.div>
       )}

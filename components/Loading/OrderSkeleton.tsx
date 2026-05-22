@@ -1,36 +1,17 @@
 export default function OrderSkeleton() {
   return (
-    <div
-      className="glass"
-      style={{ padding: '24px', marginBottom: '16px' }}
-      aria-hidden="true"
-    >
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
-        <div>
-          <div className="skeleton" style={{ height: '18px', width: '120px', marginBottom: '8px' }} />
-          <div className="skeleton" style={{ height: '13px', width: '88px' }} />
+    <div className="card-static p-6 mb-4" aria-hidden="true">
+      <div className="flex justify-between items-start mb-5">
+        <div className="space-y-2">
+          <div className="skeleton h-5 w-32" />
+          <div className="skeleton h-3 w-24" />
         </div>
-        <div className="skeleton" style={{ height: '28px', width: '80px', borderRadius: '20px' }} />
+        <div className="skeleton h-6 w-20" />
       </div>
-      <div style={{ display: 'flex', gap: '10px', marginBottom: '16px' }}>
-        {[0, 1].map((i) => (
-          <div
-            key={i}
-            className="skeleton"
-            style={{ width: '60px', height: '76px', borderRadius: '8px' }}
-          />
-        ))}
-      </div>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          paddingTop: '16px',
-          borderTop: '1px solid rgba(212,165,116,0.1)',
-        }}
-      >
-        <div className="skeleton" style={{ height: '13px', width: '100px' }} />
-        <div className="skeleton" style={{ height: '18px', width: '64px' }} />
+      <div className="skeleton h-3 w-2/3 mb-5" />
+      <div className="flex justify-between pt-4 border-t border-[var(--color-divider)]">
+        <div className="skeleton h-4 w-24" />
+        <div className="skeleton h-5 w-16" />
       </div>
     </div>
   );

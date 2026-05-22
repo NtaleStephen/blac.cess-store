@@ -3,101 +3,42 @@ import { Crown, ArrowLeft, Search } from 'lucide-react';
 
 export default function NotFound() {
   return (
-    <div
-      style={{
-        minHeight: '100vh',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: '24px',
-        background: 'linear-gradient(160deg, #F5F1EB 0%, #EDE9E3 100%)',
-        textAlign: 'center',
-      }}
-    >
-      {/* Crown accent */}
-      <Crown
-        size={48}
-        style={{ color: '#D4A574', marginBottom: '24px', opacity: 0.7 }}
-        strokeWidth={1}
-      />
+    <div className="min-h-screen flex flex-col items-center justify-center text-center px-6 bg-[var(--color-paper)]">
+      <Crown size={48} className="text-[var(--color-accent)] opacity-70 mb-6" strokeWidth={1} />
 
-      {/* 404 number */}
       <div
+        className="font-serif font-bold mb-4 leading-none"
         style={{
-          fontFamily: 'Playfair Display, serif',
-          fontSize: 'clamp(80px, 15vw, 140px)',
-          fontWeight: 700,
-          lineHeight: 1,
+          fontSize: 'clamp(80px, 15vw, 160px)',
           color: 'transparent',
-          WebkitTextStroke: '2px rgba(212, 165, 116, 0.4)',
-          marginBottom: '16px',
+          WebkitTextStroke: '1.5px var(--color-accent)',
           letterSpacing: '-4px',
         }}
       >
         404
       </div>
 
-      {/* Heading */}
-      <h1
-        style={{
-          fontFamily: 'Playfair Display, serif',
-          fontSize: 'clamp(22px, 4vw, 32px)',
-          fontWeight: 600,
-          color: '#2A2A2A',
-          marginBottom: '12px',
-        }}
-      >
-        Page Not Found
-      </h1>
-
-      <p
-        style={{
-          color: 'rgba(42, 42, 42, 0.6)',
-          fontSize: '15px',
-          maxWidth: '360px',
-          lineHeight: 1.6,
-          marginBottom: '40px',
-        }}
-      >
-        The page you're looking for has moved, been removed, or doesn't exist.
+      <h1 className="heading-lg mb-3">Page Not Found</h1>
+      <p className="body max-w-sm mb-10">
+        The page you&apos;re looking for has moved, been removed, or doesn&apos;t exist.
       </p>
 
-      {/* Actions */}
-      <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', justifyContent: 'center' }}>
-        <Link
-          href="/"
-          className="glass-btn glass-btn-primary"
-          style={{ gap: '8px' }}
-        >
-          <ArrowLeft size={16} />
+      <div className="flex flex-col sm:flex-row gap-3">
+        <Link href="/" className="btn">
+          <ArrowLeft size={14} />
           Back to Home
         </Link>
-        <Link href="/shop" className="glass-btn" style={{ gap: '8px' }}>
-          <Search size={16} />
+        <Link href="/shop" className="btn btn-outline">
+          <Search size={14} />
           Browse Shop
         </Link>
       </div>
 
-      {/* Decorative divider */}
       <div
-        style={{
-          marginTop: '64px',
-          width: '160px',
-          height: '1px',
-          background: 'linear-gradient(to right, transparent, rgba(212,165,116,0.4), transparent)',
-        }}
+        className="mt-20 w-40 h-px"
+        style={{ background: 'linear-gradient(to right, transparent, var(--color-accent), transparent)' }}
       />
-      <p
-        style={{
-          marginTop: '16px',
-          fontSize: '12px',
-          fontWeight: 600,
-          letterSpacing: '3px',
-          color: 'rgba(212, 165, 116, 0.6)',
-          textTransform: 'uppercase',
-        }}
-      >
+      <p className="mt-4 text-[11px] font-semibold tracking-[3px] uppercase text-[var(--color-accent)]/70">
         BLAC.CESS
       </p>
     </div>

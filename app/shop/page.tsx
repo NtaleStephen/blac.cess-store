@@ -49,66 +49,51 @@ function ShopPage() {
   );
 
   return (
-    <div className="min-h-screen" style={{ background: '#F5F1EB', paddingTop: 72 }}>
+    <div className="min-h-screen pt-[72px]">
 
       {/* Page header */}
       <div className="page-header">
-        <div className="container py-10">
-          <span className="section-label">{query ? 'Search Results' : 'All Products'}</span>
-          <h1 className="page-title">{query ? `"${query}"` : 'Shop'}</h1>
+        <div className="container">
+          <span className="eyebrow">{query ? 'Search Results' : 'All Products'}</span>
+          <h1 className="heading-xl">{query ? `"${query}"` : 'Shop'}</h1>
           {query && (
-            <p className="text-sm mt-1" style={{ color: 'rgba(42,42,42,0.5)' }}>
+            <p className="body-sm mt-3">
               {products.length} result{products.length !== 1 ? 's' : ''} found
             </p>
           )}
         </div>
       </div>
 
-      <div className="container py-8">
+      <div className="container py-10">
         {/* Toolbar */}
-        <div className="flex items-center justify-between mb-7 flex-wrap gap-3">
-          <div className="flex items-center gap-3">
+        <div className="flex items-center justify-between mb-8 flex-wrap gap-3">
+          <div className="flex items-center gap-4">
             <button
-              className="btn btn-sm btn-outline lg:hidden"
-              style={{ gap: 7 }}
+              className="lg:hidden inline-flex items-center gap-2 px-4 h-10 border border-[var(--color-divider-strong)] text-[11px] uppercase tracking-[1.5px] font-semibold hover:bg-[var(--color-paper-soft)] transition-colors"
               onClick={() => setMobileFilterOpen(true)}
             >
               <SlidersHorizontal size={14} />
               Filters
             </button>
-            <p className="text-sm" style={{ color: 'rgba(42,42,42,0.5)' }}>
-              <span className="font-semibold" style={{ color: '#2A2A2A' }}>{products.length}</span> products
+            <p className="text-[12px] uppercase tracking-[1.5px] text-[var(--color-ink-muted)]">
+              <span className="font-semibold text-[var(--color-ink)]">{products.length}</span> products
             </p>
           </div>
           <SortDropdown value={sort} onChange={setSort} />
         </div>
 
         {/* Content layout */}
-        <div className="flex gap-8 items-start">
-          {/* Filter sidebar (desktop) */}
-          <div className="hidden lg:block w-56 flex-shrink-0">
-            <FilterPanel
-              filters={filters}
-              onChange={setFilters}
-              isMobileOpen={mobileFilterOpen}
-              onMobileClose={() => setMobileFilterOpen(false)}
-            />
-          </div>
-
-          {/* Mobile filter panel (handled internally by FilterPanel with overlay) */}
-          <div className="lg:hidden">
-            <FilterPanel
-              filters={filters}
-              onChange={setFilters}
-              isMobileOpen={mobileFilterOpen}
-              onMobileClose={() => setMobileFilterOpen(false)}
-            />
-          </div>
+        <div className="grid grid-cols-1 lg:grid-cols-[260px_1fr] gap-10 items-start">
+          {/* Filter sidebar */}
+          <FilterPanel
+            filters={filters}
+            onChange={setFilters}
+            isMobileOpen={mobileFilterOpen}
+            onMobileClose={() => setMobileFilterOpen(false)}
+          />
 
           {/* Grid */}
-          <div className="flex-1 min-w-0">
-            <ProductGrid products={products} columns={3} />
-          </div>
+          <ProductGrid products={products} columns={3} />
         </div>
       </div>
     </div>

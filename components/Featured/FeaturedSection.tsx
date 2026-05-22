@@ -6,32 +6,40 @@ import Link from 'next/link';
 import { useInView } from '@/hooks/useInView';
 import { fadeInUp } from '@/lib/animations';
 
+const STATS = [
+  { number: '500+', label: 'Pieces crafted' },
+  { number: '3',    label: 'Collections' },
+  { number: '98%',  label: 'Happy customers' },
+  { number: '2+',   label: 'Years of luxury' },
+];
+
 export default function FeaturedSection() {
   const { ref, inView } = useInView();
 
   return (
-    <section ref={ref} className="py-20 px-4" style={{ background: '#FFFFFF' }}>
+    <section ref={ref} className="section section-paper">
       <div className="container">
         <motion.div
           initial="hidden"
           animate={inView ? 'visible' : 'hidden'}
           variants={fadeInUp}
-          className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center"
+          className="grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-24 items-center"
         >
           {/* Text */}
           <div>
-            <span className="section-eyebrow">This Season</span>
-            <h2 className="font-serif mb-5" style={{ fontSize: 'clamp(30px, 4vw, 46px)', fontWeight: 600, color: '#2A2A2A' }}>
+            <span className="eyebrow">This Season</span>
+            <h2 className="heading-xl mb-6">
               Heritage &amp; Modern<br />Design
             </h2>
-            <p className="leading-relaxed mb-8" style={{ fontSize: 15, color: 'rgba(42,42,42,0.65)', maxWidth: 440 }}>
-              Each piece celebrates African heritage through meticulous craftsmanship. Tribal motifs,
-              crown emblems, and cultural symbols — woven into garments that transcend fashion.
+            <p className="body-lg mb-10 max-w-md">
+              Each piece celebrates African heritage through meticulous craftsmanship.
+              Tribal motifs, crown emblems, and cultural symbols — woven into garments
+              that transcend fashion.
             </p>
             <div className="flex flex-wrap gap-3">
               <Link href="/shop/new-arrivals" className="btn btn-gold">
                 Shop New Arrivals
-                <ArrowRight size={15} />
+                <ArrowRight size={14} />
               </Link>
               <Link href="/shop" className="btn btn-outline">
                 View All
@@ -40,20 +48,16 @@ export default function FeaturedSection() {
           </div>
 
           {/* Decorative stat panel */}
-          <div className="grid grid-cols-2 gap-4">
-            {[
-              { number: '500+', label: 'Pieces crafted' },
-              { number: '3',    label: 'Collections' },
-              { number: '98%',  label: 'Happy customers' },
-              { number: '2+',   label: 'Years of luxury' },
-            ].map(({ number, label }) => (
-              <div
-                key={label}
-                className="rounded-xl p-6"
-                style={{ background: '#F5F1EB' }}
-              >
-                <p className="font-serif font-bold mb-1" style={{ fontSize: 32, color: '#D4A574' }}>{number}</p>
-                <p className="text-sm" style={{ color: 'rgba(42,42,42,0.6)', fontFamily: 'Inter, sans-serif' }}>{label}</p>
+          <div className="grid grid-cols-2 gap-px bg-[var(--color-divider)] border border-[var(--color-divider)]">
+            {STATS.map(({ number, label }) => (
+              <div key={label} className="p-8 bg-[var(--color-surface)]">
+                <p className="font-serif font-bold text-[var(--color-accent)] mb-2"
+                   style={{ fontSize: 'clamp(28px, 3vw, 40px)' }}>
+                  {number}
+                </p>
+                <p className="text-[12px] uppercase tracking-[1.5px] text-[var(--color-ink-muted)]">
+                  {label}
+                </p>
               </div>
             ))}
           </div>

@@ -12,13 +12,15 @@ interface ProductGridProps {
 
 export default function ProductGrid({ products, columns = 4 }: ProductGridProps) {
   const gridClass = columns === 3
-    ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-7'
-    : 'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-7';
+    ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-12'
+    : 'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-x-6 gap-y-12';
 
   if (products.length === 0) {
     return (
-      <div className="py-24 text-center">
-        <p className="text-sm" style={{ color: 'rgba(42,42,42,0.45)' }}>No products found.</p>
+      <div className="py-24 text-center border-y border-[var(--color-divider)]">
+        <p className="text-[13px] uppercase tracking-[2px] text-[var(--color-ink-muted)]">
+          No products found.
+        </p>
       </div>
     );
   }

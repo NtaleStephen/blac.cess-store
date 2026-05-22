@@ -7,28 +7,23 @@ import { Crown, ArrowRight, ArrowLeft, Mail, Check, Eye, EyeOff } from 'lucide-r
 import { fadeInUp } from '@/lib/animations';
 
 export default function ForgotPasswordPage() {
-  const [step, setStep]           = useState<0 | 1 | 2>(0);
-  const [email, setEmail]         = useState('');
+  const [step, setStep]                 = useState<0 | 1 | 2>(0);
+  const [email, setEmail]               = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
   const stepContent = [
     /* Step 0: Enter email */
     <div key="email">
-      <div
-        className="flex items-center justify-center w-16 h-16 rounded-full mx-auto mb-6"
-        style={{ background: 'rgba(212,165,116,0.1)', border: '1px solid rgba(212,165,116,0.3)' }}
-      >
-        <Mail size={28} style={{ color: '#D4A574' }} strokeWidth={1.5} />
+      <div className="flex items-center justify-center w-16 h-16 rounded-full mx-auto mb-7 border border-[var(--color-divider-strong)]">
+        <Mail size={26} className="text-[var(--color-accent)]" strokeWidth={1.4} />
       </div>
-      <h1 className="font-serif text-center mb-2" style={{ fontSize: '26px', fontWeight: 600, color: '#2A2A2A' }}>
-        Forgot Password?
-      </h1>
-      <p className="text-sm text-center mb-7 leading-relaxed" style={{ color: 'rgba(42,42,42,0.55)' }}>
+      <h1 className="heading-lg text-center mb-3">Forgot Password?</h1>
+      <p className="body-sm text-center mb-8">
         Enter the email address linked to your account and we&apos;ll send you a reset link.
       </p>
-      <form onSubmit={(e) => { e.preventDefault(); setStep(1); }} className="space-y-4">
+      <form onSubmit={(e) => { e.preventDefault(); setStep(1); }} className="space-y-5">
         <div>
-          <label className="input-label">Email Address <span style={{ color: '#D4A574' }}>*</span></label>
+          <label className="input-label">Email Address <span className="text-[var(--color-accent)]">*</span></label>
           <input
             type="email"
             placeholder="amara@example.com"
@@ -38,7 +33,7 @@ export default function ForgotPasswordPage() {
             required
           />
         </div>
-        <button type="submit" className="btn btn-gold w-full">
+        <button type="submit" className="btn btn-block">
           Send Reset Link
           <ArrowRight size={14} />
         </button>
@@ -47,26 +42,19 @@ export default function ForgotPasswordPage() {
 
     /* Step 1: Check email */
     <div key="check" className="text-center">
-      <div
-        className="flex items-center justify-center w-16 h-16 rounded-full mx-auto mb-6"
-        style={{ background: 'rgba(56,142,60,0.1)', border: '1px solid rgba(56,142,60,0.3)' }}
-      >
-        <Check size={28} style={{ color: '#388E3C' }} />
+      <div className="flex items-center justify-center w-16 h-16 rounded-full mx-auto mb-7 border border-[var(--color-success)]/40">
+        <Check size={26} className="text-[var(--color-success)]" />
       </div>
-      <h1 className="font-serif mb-2" style={{ fontSize: '26px', fontWeight: 600, color: '#2A2A2A' }}>
-        Check Your Email
-      </h1>
-      <p className="text-sm mb-2 leading-relaxed" style={{ color: 'rgba(42,42,42,0.55)' }}>
-        We&apos;ve sent a password reset link to
-      </p>
-      <p className="font-semibold text-sm mb-7" style={{ color: '#D4A574' }}>{email}</p>
-      <p className="text-xs mb-6 leading-relaxed" style={{ color: 'rgba(42,42,42,0.45)' }}>
+      <h1 className="heading-lg mb-3">Check Your Email</h1>
+      <p className="body-sm mb-1">We&apos;ve sent a password reset link to</p>
+      <p className="font-semibold text-[14px] mb-8 text-[var(--color-accent)]">{email}</p>
+      <p className="text-[12px] mb-8 leading-relaxed text-[var(--color-ink-muted)]">
         Didn&apos;t receive it? Check your spam folder, or{' '}
-        <button onClick={() => setStep(0)} className="hover:underline" style={{ color: '#D4A574' }}>
+        <button onClick={() => setStep(0)} className="hover:underline text-[var(--color-accent)]">
           try another email
         </button>
       </p>
-      <button onClick={() => setStep(2)} className="btn btn-gold w-full">
+      <button onClick={() => setStep(2)} className="btn btn-block">
         I&apos;ve received the link
         <ArrowRight size={14} />
       </button>
@@ -74,29 +62,23 @@ export default function ForgotPasswordPage() {
 
     /* Step 2: Set new password */
     <div key="reset">
-      <h1 className="font-serif mb-2" style={{ fontSize: '26px', fontWeight: 600, color: '#2A2A2A' }}>
-        Set New Password
-      </h1>
-      <p className="text-sm mb-7" style={{ color: 'rgba(42,42,42,0.55)' }}>
-        Choose a strong password for your account.
-      </p>
-      <form onSubmit={(e) => e.preventDefault()} className="space-y-4">
+      <h1 className="heading-lg mb-3">Set New Password</h1>
+      <p className="body-sm mb-8">Choose a strong password for your account.</p>
+      <form onSubmit={(e) => e.preventDefault()} className="space-y-5">
         <div>
-          <label className="input-label">New Password <span style={{ color: '#D4A574' }}>*</span></label>
+          <label className="input-label">New Password <span className="text-[var(--color-accent)]">*</span></label>
           <div className="relative">
             <input
               type={showPassword ? 'text' : 'password'}
               placeholder="Min. 8 characters"
-              className="input"
-              style={{ paddingRight: 48 }}
+              className="input pr-12"
               autoComplete="new-password"
               required
             />
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-3 top-1/2 -translate-y-1/2 transition-colors hover:text-brand-gold"
-              style={{ color: 'rgba(42,42,42,0.4)' }}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--color-ink-faint)] hover:text-[var(--color-ink)] transition-colors"
               aria-label="Toggle password visibility"
             >
               {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
@@ -104,10 +86,10 @@ export default function ForgotPasswordPage() {
           </div>
         </div>
         <div>
-          <label className="input-label">Confirm New Password <span style={{ color: '#D4A574' }}>*</span></label>
+          <label className="input-label">Confirm New Password <span className="text-[var(--color-accent)]">*</span></label>
           <input type="password" placeholder="Repeat new password" className="input" autoComplete="new-password" required />
         </div>
-        <button type="submit" className="btn btn-gold w-full">
+        <button type="submit" className="btn btn-block">
           <Check size={14} />
           Reset Password
         </button>
@@ -116,36 +98,33 @@ export default function ForgotPasswordPage() {
   ];
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-6" style={{ background: '#F5F1EB', paddingTop: 'calc(72px + 24px)' }}>
+    <div className="min-h-screen flex items-center justify-center p-6 pt-[96px] bg-[var(--color-paper)]">
       <motion.div initial="hidden" animate="visible" variants={fadeInUp} className="w-full max-w-md">
 
         {/* Logo */}
         <div className="flex items-center gap-2 mb-8 justify-center">
-          <Crown size={20} style={{ color: '#D4A574' }} />
-          <span className="font-serif font-bold" style={{ color: '#2A2A2A', letterSpacing: '3px' }}>
+          <Crown size={20} className="text-[var(--color-accent)]" />
+          <span className="font-serif font-bold text-[16px] tracking-[3px] text-[var(--color-ink)]">
             BLAC.CESS
           </span>
         </div>
 
-        {/* Step progress dots */}
+        {/* Step progress */}
         <div className="flex items-center justify-center gap-2 mb-8">
           {[0, 1, 2].map((i) => (
             <div
               key={i}
-              className="rounded-full transition-all duration-300"
+              className="transition-all"
               style={{
-                width: i === step ? '20px' : '8px',
-                height: '8px',
-                background: i <= step ? '#D4A574' : 'rgba(42,42,42,0.12)',
+                width: i === step ? '24px' : '8px',
+                height: '2px',
+                background: i <= step ? 'var(--color-accent)' : 'var(--color-divider-strong)',
               }}
             />
           ))}
         </div>
 
-        <div
-          className="rounded-xl p-8"
-          style={{ background: '#FFFFFF', boxShadow: '0 2px 8px rgba(0,0,0,0.07), 0 8px 24px rgba(0,0,0,0.06)' }}
-        >
+        <div className="card-static p-10">
           <AnimatePresence mode="wait">
             <motion.div
               key={step}
@@ -159,11 +138,10 @@ export default function ForgotPasswordPage() {
           </AnimatePresence>
         </div>
 
-        <div className="text-center mt-5">
+        <div className="text-center mt-6">
           <Link
             href="/login"
-            className="inline-flex items-center justify-center gap-2 text-sm transition-colors hover:text-brand-gold"
-            style={{ color: 'rgba(42,42,42,0.5)' }}
+            className="inline-flex items-center justify-center gap-2 text-[12px] uppercase tracking-[1.5px] transition-colors text-[var(--color-ink-muted)] hover:text-[var(--color-accent)]"
           >
             <ArrowLeft size={14} />
             Back to Sign In

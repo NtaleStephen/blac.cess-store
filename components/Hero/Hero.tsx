@@ -11,30 +11,33 @@ export default function Hero() {
 
   return (
     <section
-      className="relative flex items-center justify-center overflow-hidden"
-      style={{ minHeight: '100vh', background: '#000000' }}
+      className="relative flex items-center justify-center overflow-hidden bg-[var(--color-night)]"
+      style={{ minHeight: '100vh' }}
     >
-      {/* Subtle warm gradient overlay */}
+      {/* Subtle warm glow */}
       <div
         className="absolute inset-0 pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse at 50% 60%, rgba(212,165,116,0.12) 0%, transparent 60%)' }}
+        style={{
+          background:
+            'radial-gradient(ellipse at 50% 65%, rgba(184,149,106,0.15) 0%, transparent 55%)',
+        }}
       />
 
-      {/* Background text — decorative */}
+      {/* Ghost monogram backdrop */}
       <div
         className="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden"
-        style={{ opacity: mounted ? 0.04 : 0, transition: 'opacity 1s ease' }}
+        style={{ opacity: mounted ? 0.04 : 0, transition: 'opacity 1.2s ease' }}
       >
         <span
           className="font-serif font-bold text-white"
-          style={{ fontSize: 'clamp(180px, 30vw, 400px)', letterSpacing: '-8px', lineHeight: 1 }}
+          style={{ fontSize: 'clamp(180px, 30vw, 420px)', letterSpacing: '-8px', lineHeight: 1 }}
         >
           BC
         </span>
       </div>
 
       {/* Content */}
-      <div className="relative z-10 text-center px-6 w-full" style={{ maxWidth: 800, margin: '0 auto' }}>
+      <div className="container-narrow relative z-10 text-center">
 
         {/* Eyebrow */}
         <motion.div
@@ -44,13 +47,8 @@ export default function Hero() {
           className="mb-8"
         >
           <span
-            className="inline-block text-xs font-semibold uppercase tracking-[4px]"
-            style={{
-              color: '#D4A574',
-              fontFamily: 'Inter, sans-serif',
-              borderBottom: '1px solid rgba(212,165,116,0.4)',
-              paddingBottom: 8,
-            }}
+            className="inline-block text-[11px] font-semibold uppercase tracking-[4px] pb-2 text-[var(--color-accent)]"
+            style={{ borderBottom: '1px solid rgba(184,149,106,0.4)' }}
           >
             Cultural Luxury
           </span>
@@ -61,13 +59,8 @@ export default function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.25 }}
-          className="font-serif text-white mb-6"
-          style={{
-            fontSize: 'clamp(64px, 12vw, 120px)',
-            fontWeight: 700,
-            letterSpacing: '-2px',
-            lineHeight: 0.95,
-          }}
+          className="display text-white mb-6"
+          style={{ fontSize: 'clamp(64px, 12vw, 124px)' }}
         >
           BLAC.CESS
         </motion.h1>
@@ -77,15 +70,7 @@ export default function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.7, delay: 0.5 }}
-          className="mb-12 mx-auto"
-          style={{
-            color: 'rgba(255,255,255,0.5)',
-            fontSize: 12,
-            letterSpacing: '4px',
-            textTransform: 'uppercase',
-            fontFamily: 'Inter, sans-serif',
-            maxWidth: 340,
-          }}
+          className="mb-12 mx-auto text-white/55 text-[12px] uppercase tracking-[4px] max-w-xs"
         >
           Cultural Luxury in Every Thread
         </motion.p>
@@ -97,31 +82,28 @@ export default function Hero() {
           transition={{ duration: 0.6, delay: 0.7 }}
           className="flex flex-col sm:flex-row items-center justify-center gap-3"
         >
-          <Link href="/shop" className="btn btn-gold" style={{ paddingLeft: 36, paddingRight: 36 }}>
+          <Link href="/shop" className="btn btn-gold btn-lg">
             Shop Now
-            <ArrowRight size={15} />
+            <ArrowRight size={14} />
           </Link>
-          <Link href="/shop/new-arrivals" className="btn btn-white">
+          <Link href="/shop/new-arrivals" className="btn btn-ghost-light btn-lg">
             New Arrivals
           </Link>
         </motion.div>
       </div>
 
-      {/* Scroll indicator */}
+      {/* Scroll cue */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.5, duration: 0.6 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 pointer-events-none"
+        transition={{ delay: 1.4, duration: 0.6 }}
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 pointer-events-none"
       >
         <div
-          className="w-[1px] h-12"
-          style={{ background: 'linear-gradient(to bottom, #D4A574, transparent)' }}
+          className="w-px h-12"
+          style={{ background: 'linear-gradient(to bottom, #B8956A, transparent)' }}
         />
-        <span
-          className="text-[10px] uppercase tracking-[3px]"
-          style={{ color: 'rgba(255,255,255,0.3)', fontFamily: 'Inter, sans-serif' }}
-        >
+        <span className="text-[10px] uppercase tracking-[3px] text-white/35">
           Scroll
         </span>
       </motion.div>

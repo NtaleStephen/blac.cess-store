@@ -19,106 +19,88 @@ export default function HomePage() {
   const newProducts      = useMemo(() => mockProducts.filter((p) => p.isNew).slice(0, 4), []);
 
   return (
-    <div>
+    <>
       <Hero />
 
-      {/* Featured / brand story band */}
+      {/* Brand band — paper ground */}
       <FeaturedSection />
 
-      {/* Featured Products */}
-      <section className="py-24 px-4" style={{ background: '#F5F1EB' }}>
+      {/* Featured pieces — alternating soft ground */}
+      <section className="section section-soft">
         <div className="container">
-          <div className="text-center mb-14">
-            <span className="section-eyebrow">Curated Selection</span>
-            <h2 className="section-heading">Featured Pieces</h2>
-          </div>
+          <header className="text-center mb-14 max-w-xl mx-auto">
+            <span className="eyebrow">Curated Selection</span>
+            <h2 className="heading-lg">Featured Pieces</h2>
+          </header>
 
           <motion.div
             ref={featRef}
             initial="hidden"
             animate={featInView ? 'visible' : 'hidden'}
             variants={staggerContainer}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-12"
           >
             {featuredProducts.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
           </motion.div>
 
-          <div className="text-center mt-12">
+          <div className="text-center mt-16">
             <Link href="/shop" className="btn btn-outline">
               View All Products
-              <ArrowRight size={15} />
+              <ArrowRight size={14} />
             </Link>
           </div>
         </div>
       </section>
 
-      {/* New Arrivals */}
-      <section className="py-24 px-4" style={{ background: '#FFFFFF' }}>
+      {/* New arrivals — surface ground */}
+      <section className="section section-surface">
         <div className="container">
-          <div className="text-center mb-14">
-            <span className="section-eyebrow">Just Dropped</span>
-            <h2 className="section-heading">New Arrivals</h2>
-          </div>
+          <header className="text-center mb-14 max-w-xl mx-auto">
+            <span className="eyebrow">Just Dropped</span>
+            <h2 className="heading-lg">New Arrivals</h2>
+          </header>
 
           <motion.div
             ref={newRef}
             initial="hidden"
             animate={newInView ? 'visible' : 'hidden'}
             variants={staggerContainer}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-12"
           >
             {newProducts.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
           </motion.div>
 
-          <div className="text-center mt-12">
+          <div className="text-center mt-16">
             <Link href="/shop/new-arrivals" className="btn btn-outline">
               View All New Arrivals
-              <ArrowRight size={15} />
+              <ArrowRight size={14} />
             </Link>
           </div>
         </div>
       </section>
 
-      {/* Brand story — full dark band */}
-      <section
-        className="py-32 px-4 text-center"
-        style={{ background: '#0A0A0A' }}
-      >
-        <div className="container" style={{ maxWidth: 680 }}>
-          <span
-            className="inline-block text-[11px] font-semibold uppercase tracking-[4px] mb-8"
-            style={{ color: '#D4A574', fontFamily: 'Inter, sans-serif', borderBottom: '1px solid rgba(212,165,116,0.35)', paddingBottom: 8 }}
-          >
-            Our Story
-          </span>
-          <h2
-            className="font-serif text-white mb-6"
-            style={{ fontSize: 'clamp(28px, 5vw, 52px)', fontWeight: 600, lineHeight: 1.15 }}
-          >
+      {/* Brand story — dark editorial section */}
+      <section className="section section-night text-center">
+        <div className="container-narrow">
+          <span className="eyebrow">Our Story</span>
+          <h2 className="heading-xl text-white mb-6">
             Worn by Those<br />Who Know
           </h2>
-          <p
-            className="leading-relaxed mb-10 mx-auto"
-            style={{ fontSize: 15, color: 'rgba(255,255,255,0.5)', maxWidth: 480 }}
-          >
-            BLAC.CESS was born from a belief that luxury and cultural pride are inseparable. Every
-            stitch carries intention. Every motif tells a story. Every garment is an act of
-            self-assertion.
+          <p className="body-lg text-white/55 mb-10 max-w-md mx-auto">
+            BLAC.CESS was born from a belief that luxury and cultural pride are
+            inseparable. Every stitch carries intention. Every motif tells a
+            story. Every garment is an act of self-assertion.
           </p>
-          <Link
-            href="/shop"
-            className="btn btn-gold"
-            style={{ paddingLeft: 40, paddingRight: 40 }}
-          >
+          <Link href="/shop" className="btn btn-gold btn-lg">
             Start Shopping
-            <ArrowRight size={15} />
+            <ArrowRight size={14} />
           </Link>
         </div>
       </section>
-    </div>
+    </>
   );
 }

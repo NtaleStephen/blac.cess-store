@@ -16,120 +16,39 @@ export default function GlobalError({
   }, [error]);
 
   return (
-    <div
-      style={{
-        minHeight: '100vh',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: '24px',
-        background: 'linear-gradient(160deg, #F5F1EB 0%, #EDE9E3 100%)',
-        textAlign: 'center',
-      }}
-    >
-      {/* Error icon */}
-      <div
-        style={{
-          width: '80px',
-          height: '80px',
-          borderRadius: '50%',
-          background: 'rgba(244, 67, 54, 0.08)',
-          border: '1px solid rgba(244, 67, 54, 0.2)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          marginBottom: '24px',
-        }}
-      >
-        <AlertTriangle size={36} style={{ color: '#F44336' }} strokeWidth={1.5} />
+    <div className="min-h-screen flex flex-col items-center justify-center text-center px-6 bg-[var(--color-paper)]">
+      <div className="w-20 h-20 rounded-full flex items-center justify-center mb-7 border border-[var(--color-danger)]/30">
+        <AlertTriangle size={32} className="text-[var(--color-danger)]" strokeWidth={1.4} />
       </div>
 
-      <h1
-        style={{
-          fontFamily: 'Playfair Display, serif',
-          fontSize: 'clamp(22px, 4vw, 32px)',
-          fontWeight: 600,
-          color: '#2A2A2A',
-          marginBottom: '12px',
-        }}
-      >
-        Something Went Wrong
-      </h1>
-
-      <p
-        style={{
-          color: 'rgba(42, 42, 42, 0.6)',
-          fontSize: '15px',
-          maxWidth: '360px',
-          lineHeight: 1.6,
-          marginBottom: '8px',
-        }}
-      >
+      <h1 className="heading-lg mb-3">Something Went Wrong</h1>
+      <p className="body max-w-sm mb-2">
         An unexpected error occurred. Please try again or return to the homepage.
       </p>
 
       {error.digest && (
-        <p
-          style={{
-            fontSize: '12px',
-            color: 'rgba(42, 42, 42, 0.35)',
-            marginBottom: '8px',
-            fontFamily: 'monospace',
-          }}
-        >
+        <p className="text-[11px] mt-2 font-mono text-[var(--color-ink-faint)]">
           Error ID: {error.digest}
         </p>
       )}
 
-      <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', justifyContent: 'center', marginTop: '32px' }}>
-        <button
-          onClick={unstable_retry}
-          className="glass-btn glass-btn-primary"
-          style={{ gap: '8px' }}
-        >
-          <RefreshCw size={16} />
+      <div className="flex flex-col sm:flex-row gap-3 mt-10">
+        <button onClick={unstable_retry} className="btn">
+          <RefreshCw size={14} />
           Try Again
         </button>
-        <Link href="/" className="glass-btn" style={{ gap: '8px' }}>
-          <ArrowLeft size={16} />
+        <Link href="/" className="btn btn-outline">
+          <ArrowLeft size={14} />
           Back to Home
         </Link>
       </div>
 
-      {/* Error details (dev only) */}
       {process.env.NODE_ENV === 'development' && (
-        <details
-          style={{
-            marginTop: '40px',
-            maxWidth: '600px',
-            width: '100%',
-            textAlign: 'left',
-          }}
-        >
-          <summary
-            style={{
-              cursor: 'pointer',
-              fontSize: '13px',
-              color: 'rgba(42,42,42,0.5)',
-              marginBottom: '8px',
-            }}
-          >
+        <details className="mt-12 max-w-2xl w-full text-left">
+          <summary className="cursor-pointer text-[12px] uppercase tracking-[1.5px] text-[var(--color-ink-muted)] mb-3">
             Error details (dev only)
           </summary>
-          <pre
-            style={{
-              background: 'rgba(244, 67, 54, 0.05)',
-              border: '1px solid rgba(244, 67, 54, 0.15)',
-              borderRadius: '8px',
-              padding: '16px',
-              fontSize: '12px',
-              color: '#F44336',
-              overflowX: 'auto',
-              whiteSpace: 'pre-wrap',
-              wordBreak: 'break-word',
-            }}
-          >
+          <pre className="bg-[var(--color-danger)]/5 border border-[var(--color-danger)]/20 p-4 text-[12px] text-[var(--color-danger)] overflow-x-auto whitespace-pre-wrap break-words">
             {error.message}
             {error.stack && `\n\n${error.stack}`}
           </pre>

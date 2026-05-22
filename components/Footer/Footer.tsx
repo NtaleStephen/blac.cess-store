@@ -19,54 +19,60 @@ const HELP_LINKS = [
 ];
 
 const LEGAL = [
-  { label: 'Privacy',  href: '#' },
-  { label: 'Terms',    href: '#' },
-  { label: 'Cookies',  href: '#' },
+  { label: 'Privacy', href: '#' },
+  { label: 'Terms',   href: '#' },
+  { label: 'Cookies', href: '#' },
 ];
 
 export default function Footer() {
   return (
-    <footer style={{ background: '#0A0A0A', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
-      <div className="container py-16 lg:py-20">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-10 mb-14">
+    <footer className="bg-[var(--color-night)]">
+      <div className="container py-20">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-10 lg:gap-14 mb-16">
 
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
             <div className="flex items-center gap-2 mb-4">
-              <Crown size={20} style={{ color: '#D4A574' }} />
-              <span className="font-serif font-bold text-white text-xl uppercase" style={{ letterSpacing: '3px' }}>
+              <Crown size={20} className="text-[var(--color-accent)]" />
+              <span className="font-serif font-bold text-white text-[17px] uppercase tracking-[3px]">
                 BLAC.CESS
               </span>
             </div>
-            <p className="text-sm leading-relaxed" style={{ color: 'rgba(255,255,255,0.42)', maxWidth: 220 }}>
+            <p className="text-[13px] leading-relaxed text-white/45 max-w-[240px]">
               Cultural luxury in every thread. Celebrating African heritage through modern design.
             </p>
           </div>
 
           {/* Shop */}
           <div>
-            <h4 className="text-white font-semibold text-xs uppercase mb-5" style={{ letterSpacing: '2px' }}>Shop</h4>
+            <h4 className="text-white text-[11px] font-semibold uppercase tracking-[2px] mb-5">Shop</h4>
             <ul className="space-y-3.5">
               {SHOP_LINKS.map(({ label, href }) => (
-                <li key={label}><Link href={href} className="footer-link">{label}</Link></li>
+                <li key={label}>
+                  <Link href={href} className="footer-link">{label}</Link>
+                </li>
               ))}
             </ul>
           </div>
 
           {/* Help */}
           <div>
-            <h4 className="text-white font-semibold text-xs uppercase mb-5" style={{ letterSpacing: '2px' }}>Help</h4>
+            <h4 className="text-white text-[11px] font-semibold uppercase tracking-[2px] mb-5">Help</h4>
             <ul className="space-y-3.5">
               {HELP_LINKS.map(({ label, href }) => (
-                <li key={label}><Link href={href} className="footer-link">{label}</Link></li>
+                <li key={label}>
+                  <Link href={href} className="footer-link">{label}</Link>
+                </li>
               ))}
             </ul>
           </div>
 
           {/* Newsletter */}
-          <div>
-            <h4 className="text-white font-semibold text-xs uppercase mb-5" style={{ letterSpacing: '2px' }}>Stay Updated</h4>
-            <p className="text-sm mb-4" style={{ color: 'rgba(255,255,255,0.42)' }}>
+          <div className="col-span-2 md:col-span-1">
+            <h4 className="text-white text-[11px] font-semibold uppercase tracking-[2px] mb-5">
+              Stay Updated
+            </h4>
+            <p className="text-[13px] text-white/45 mb-4 max-w-xs">
               First to know — new drops, exclusive offers.
             </p>
             <label htmlFor="footer-email" className="sr-only">Email address</label>
@@ -75,43 +81,25 @@ export default function Footer() {
               type="email"
               placeholder="Your email"
               autoComplete="email"
-              className="w-full mb-2 rounded-lg px-4 text-sm outline-none transition-all duration-200"
-              style={{
-                height: 44,
-                background: 'rgba(255,255,255,0.07)',
-                border: '1px solid rgba(255,255,255,0.1)',
-                color: 'white',
-                fontFamily: 'Inter, sans-serif',
-              }}
+              className="input input-light mb-2"
             />
-            <button
-              type="button"
-              className="w-full rounded-lg text-xs font-semibold uppercase transition-all duration-200"
-              style={{
-                height: 44,
-                background: '#D4A574',
-                color: '#FFFFFF',
-                border: 'none',
-                letterSpacing: '1.5px',
-                cursor: 'pointer',
-              }}
-            >
+            <button type="button" className="btn btn-gold btn-block">
               Subscribe
             </button>
           </div>
         </div>
 
         {/* Bottom bar */}
-        <div
-          className="flex flex-col md:flex-row items-center justify-between gap-4 pt-8"
-          style={{ borderTop: '1px solid rgba(255,255,255,0.07)' }}
-        >
-          <p className="text-xs" style={{ color: 'rgba(255,255,255,0.28)' }}>
+        <div className="flex flex-col md:flex-row items-center justify-between gap-4 pt-8 border-t border-white/8"
+             style={{ borderTopColor: 'rgba(255,255,255,0.08)' }}>
+          <p className="text-[11px] text-white/30 tracking-[0.5px]">
             &copy; 2026 BLAC.CESS. All rights reserved.
           </p>
           <div className="flex items-center gap-6">
             {LEGAL.map(({ label, href }) => (
-              <Link key={label} href={href} className="footer-legal">{label}</Link>
+              <Link key={label} href={href} className="footer-legal uppercase">
+                {label}
+              </Link>
             ))}
           </div>
         </div>
