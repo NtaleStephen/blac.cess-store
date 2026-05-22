@@ -75,7 +75,7 @@ export default function Navigation() {
 
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 flex-shrink-0 group">
-            <BrandCrown size={20} className="transition-transform group-hover:scale-110" />
+            <BrandCrown size={22} priority className="transition-transform group-hover:scale-110" />
             <span className="font-serif font-bold text-[16px] tracking-[3px]">
               blac.cess
             </span>
